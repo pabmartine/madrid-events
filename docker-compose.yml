@@ -5,6 +5,7 @@ services:
     build:
       context: ./madrid-events-backend
       dockerfile: Dockerfile
+    image: madrid-events-backend
     ports:
       - "5000:5000"
   frontend:
@@ -13,5 +14,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    image: madrid-events-frontend
     environment:
       - NODE_ENV=development
