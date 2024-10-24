@@ -20,7 +20,7 @@ import FilterNav from './filter-nav'
 import Footer from './footer'
 
 
-const API_HOST = 'https://krahen.synology.me';
+const API_HOST = 'http://krahen.synology.me';
 const API_PORT = 5015;
 
 
