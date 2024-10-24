@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { Event } from '../types/types'
 
-interface AutoCarouselProps {
-  events: Event[]
-}
 
-const AutoCarousel = React.memo(({ events }: { events: Event[] }) => {
+const AutoCarousel = ({ events }: { events: Event[] }) => {
   const intl = useIntl();
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -55,6 +52,6 @@ const AutoCarousel = React.memo(({ events }: { events: Event[] }) => {
       })}
     </div>
   );
-});
+};
 
 export default React.memo(AutoCarousel)

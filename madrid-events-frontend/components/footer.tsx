@@ -2,8 +2,26 @@ import React from 'react'
 import { Linkedin, Github } from 'lucide-react'
 import { useIntl } from 'react-intl'
 
+interface ColorPalette {
+  primary: string;
+  secondary: string;
+  background: string;
+  text: string;
+  footerText: string;
+  cardBg: string;
+  cardBorder: string;
+  inputBg: string;
+  inputBorder: string;
+  buttonBg: string;
+  buttonText: string;
+  buttonBorder: string;
+  buttonHover: string;
+  titleGradient: string;
+  footerIcon: string;
+}
+
 interface FooterProps {
-  colorPalette: any
+  colorPalette: ColorPalette
 }
 
 const Footer: React.FC<FooterProps> = ({ colorPalette }) => {

@@ -1,17 +1,12 @@
 'use client'
 
-import React, { useState, useEffect, KeyboardEvent, useMemo, useCallback, useRef } from 'react'
-import { Search, Calendar, MapPin, X, Sun, Moon, Linkedin, Github, Clock, Euro, ExternalLink, AlertCircle, RailSymbol, ChevronDown, ChevronUp, ArrowUpDown, Train, Ruler, Image as ImageIcon, ImageOff, Map, List, Locate, LocateOff, LocateFixed, Settings, Save } from 'lucide-react'
-import Image from 'next/image'
+import React, { useState, useEffect, KeyboardEvent, useCallback } from 'react'
 import L from 'leaflet'
-import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useIntl } from 'react-intl';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 import { lightPalette, darkPalette } from '../styles/color-palettes'
-import { Event, ImageResponse, FilterState, SortState } from '../types/types'
+import { Event, FilterState, SortState } from '../types/types'
 
 import ErrorMessage from './error-message'
 import Toast from './toast'
@@ -20,22 +15,10 @@ import AutoCarousel from './auto-carousel'
 import EventModal from './event-modal'
 import EventCard from './event-card'
 import EventMap from './event-map'
-import MapController from './map-controller'
 import Header from './header'
 import FilterNav from './filter-nav'
 import Footer from './footer'
 
-
-
-
-let DefaultIcon = L.icon({
-    iconUrl: icon.src,
-    shadowUrl: iconShadow.src,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41]
-});
-
-L.Marker.prototype.options.icon = DefaultIcon;
 
 const API_HOST = 'http://localhost';
 const API_PORT = 5000;
@@ -43,48 +26,18 @@ const API_PORT = 5000;
 
 const ITEMS_PER_PAGE = 20;
 
-const limitConcurrentRequests = async <T>(
-  urls: string[],
-  limit: number,
-  fetchFunction: (url: string) => Promise<T>
-): Promise<T[]> => {
-  const results: T[] = [];
-  let index = 0;
-
-  const processBatch = async () => {
-    const batch = urls.slice(index, index + limit).map(async url => {
-      try {
-        const result = await fetchFunction(url);
-        return result;
-      } catch (error) {
-        console.error('Error al procesar la solicitud:', error);
-        return null as T;
-      }
-    });
-
-    const batchResults = await Promise.all(batch);
-    results.push(...batchResults.filter(result => result !== null));
-    index += limit;
-  };
-
-  while (index < urls.length) {
-    await processBatch();
-  }
-
-  return results;
-};
-
 
 
 const lazyLoadComponent = (factory: () => Promise<{ default: React.ComponentType<any> }>) => {
   return React.lazy(() => 
-    new Promise(resolve => {
+    new Promise<{ default: React.ComponentType<any> }>(resolve => {
       setTimeout(() => {
         resolve(factory());
       }, 100);
     })
   );
 };
+
 
 
 
@@ -95,7 +48,6 @@ const LazyEventModal = lazyLoadComponent(() =>
 export function Events() {
   const intl = useIntl();
   const [shouldResetMapView, setShouldResetMapView] = useState(false);
-  const [isRecalculating, setIsRecalculating] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
@@ -442,77 +394,7 @@ export function Events() {
 
   const [isLocating, setIsLocating] = useState(false);
 
-  const handleGeolocation = useCallback(() => {
-    if (!navigator.geolocation) {
-      alert(intl.formatMessage({ id: 'app.geolocation.not.supported' }));
-      return;
-    }
-
-    setIsLocating(true);
-
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const newLat = position.coords.latitude;
-        const newLon = position.coords.longitude;
-
-        // Immediately update the geolocation state and stop the locating indicator
-        setGeoLocation({ lat: newLat, lon: newLon });
-        localStorage.setItem('lastGeoLocation', JSON.stringify({ lat: newLat, lon: newLon }));
-
-        setIsLocating(false);
-
-        // Check if the location is new or different
-        if ((latitude == null && longitude == null) || 
-            ((newLat != null && newLon != null && latitude != null && longitude != null) && 
-            (parseFloat(newLat.toFixed(2)) !== parseFloat(latitude.toFixed(2)) || 
-            parseFloat(newLon.toFixed(2)) !== parseFloat(longitude.toFixed(2))))
-          ) {
-
-          setShowToast(true);
-          setIsRecalculating(true);
-
-          try {
-            const response = await fetch(`${API_HOST}:${API_PORT}/recalculate?lat=${newLat}&lon=${newLon}`);
-            if (!response.ok) {
-              if (response.status == 400) {
-                console.log("Coordinates have not changed");
-                return;
-              } else {
-                throw new Error(`HTTP error! status: ${response.status}`);
-              }
-            }
-            await response.json(); // Wait for the recalculation to finish
-            setLatitude(newLat);
-            setLongitude(newLon);
-
-            await fetchEvents(); // Fetch the updated events
-          } catch (error) {
-            console.error("Error recalculating distances:", error);
-            alert(intl.formatMessage({ id: 'app.recalculation.error' }));
-          } finally {
-            setIsRecalculating(false);
-          }
-        }
-      },
-      (error) => {
-        console.error("Error getting location", error);
-        setIsLocating(false);
-        alert(intl.formatMessage({ id: 'app.geolocation.error' }));
-      }
-    );
-  }, [latitude, longitude, intl, fetchEvents]);
-
-  const getLocationIcon = () => {
-    if (isLocating) return <Locate size={20} className="animate-pulse" />;
-    if (geoLocation) return <LocateFixed size={20} />;
-    return <LocateOff size={20} />;
-  };
-
-  const [settingsState, setSettingsState] = useState({
-    isDarkMode: false,
-    showCarousel: true,
-    geoLocation: null
-  });
+  
 
   useEffect(() => {
     // Cargar configuraciones guardadas al iniciar la aplicación
@@ -527,24 +409,39 @@ export function Events() {
     });
   }, []);
 
-  const handleSaveSettings = useCallback((newSettings) => {
-    setSettingsState(newSettings);
+interface SettingsState {
+  isDarkMode: boolean;
+  showCarousel: boolean;
+  geoLocation: { lat: number; lon: number } | null;
+}
 
-    // Aplicar y guardar los cambios
-    setIsDarkMode(newSettings.isDarkMode);
-    setShowCarousel(newSettings.showCarousel);
-    setGeoLocation(newSettings.geoLocation);
+// Estado inicial para settingsState
+const [settingsState, setSettingsState] = useState<SettingsState>({
+  isDarkMode: false,
+  showCarousel: true,
+  geoLocation: null, // Asegúrate de que null sea un valor válido
+});
 
-    localStorage.setItem('theme', newSettings.isDarkMode ? 'dark' : 'light');
-    localStorage.setItem('showCarousel', newSettings.showCarousel.toString());
-    localStorage.setItem('lastGeoLocation', JSON.stringify(newSettings.geoLocation));
+const handleSaveSettings = useCallback((newSettings: SettingsState) => {
+  setSettingsState(newSettings); // Aquí ahora será válido porque el tipo coincide
 
-    if (newSettings.geoLocation && (newSettings.geoLocation.lat !== latitude || newSettings.geoLocation.lon !== longitude)) {
-      setLatitude(newSettings.geoLocation.lat);
-      setLongitude(newSettings.geoLocation.lon);
-      fetchEvents();
-    }
-  }, [latitude, longitude, fetchEvents]);
+  // Aplicar y guardar los cambios
+  setIsDarkMode(newSettings.isDarkMode);
+  setShowCarousel(newSettings.showCarousel);
+  setGeoLocation(newSettings.geoLocation);
+
+  localStorage.setItem('theme', newSettings.isDarkMode ? 'dark' : 'light');
+  localStorage.setItem('showCarousel', newSettings.showCarousel.toString());
+  localStorage.setItem('lastGeoLocation', JSON.stringify(newSettings.geoLocation));
+
+  if (newSettings.geoLocation && (newSettings.geoLocation.lat !== latitude || newSettings.geoLocation.lon !== longitude)) {
+    setLatitude(newSettings.geoLocation.lat);
+    setLongitude(newSettings.geoLocation.lon);
+    fetchEvents();
+  }
+}, [latitude, longitude, fetchEvents]);
+
+
 
   return (
     <div className={`min-h-screen ${colorPalette.background}`}>

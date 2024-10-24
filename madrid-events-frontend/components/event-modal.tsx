@@ -2,15 +2,28 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { X, MapPin, Euro, Calendar, Clock, Ruler, Train, RailSymbol, ExternalLink } from 'lucide-react'
+import { X, MapPin, Euro, Calendar, Clock, Ruler, Train, RailSymbol } from 'lucide-react'
 import { useIntl } from 'react-intl'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { Event } from '../types/types'
 
+interface ColorPalette {
+  cardBg: string
+  titleText: string
+  subtitleText: string
+  text: string
+  priceBadgeBg: string
+  priceBadgeText: string
+  buttonBg: string
+  buttonText: string
+  buttonHover: string
+  buttonBorder: string
+}
+
 interface EventModalProps {
   event: Event
   onClose: () => void
-  colorPalette: any
+  colorPalette: ColorPalette
 }
 
 export default function EventModal({ event, onClose, colorPalette }: EventModalProps) {
@@ -146,11 +159,16 @@ export default function EventModal({ event, onClose, colorPalette }: EventModalP
             )}
             <button 
               className={`w-full py-2 px-4 rounded ${colorPalette.buttonBg} ${colorPalette.buttonText} ${colorPalette.buttonHover} transition-colors duration-300`}
-              onClick={() => window.open(event.link, '_blank')}
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  window.open(event.link, '_blank');
+                }
+              }}
               aria-label={intl.formatMessage({ id: 'app.event.more.info' }, { title: event.title })}
             >
               {intl.formatMessage({ id: 'app.event.more.info.button' })}
             </button>
+
           </div>
         </div>
       </div>

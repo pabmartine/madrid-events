@@ -2,6 +2,21 @@ import React from 'react'
 import { Search, Map, List, Settings } from 'lucide-react'
 import { useIntl } from 'react-intl'
 
+interface ColorPalette {
+  primary: string;
+  secondary: string;
+  background: string;
+  text: string;
+  cardBg: string;
+  cardBorder: string;
+  inputBg: string;
+  inputBorder: string;
+  buttonBg: string;
+  buttonText: string;
+  buttonBorder: string;
+  titleGradient: string;
+}
+
 interface HeaderProps {
   filter: string
   setFilter: (filter: string) => void
@@ -9,7 +24,7 @@ interface HeaderProps {
   toggleMapView: () => void
   isMapView: boolean
   openSettings: () => void
-  colorPalette: any
+  colorPalette: ColorPalette
 }
 
 const Header: React.FC<HeaderProps> = ({

@@ -1,10 +1,26 @@
-import React, { useRef, useState, useEffect } from 'react'
-import Image from 'next/image'
-import { Calendar, MapPin, Clock, Ruler } from 'lucide-react'
-import { useIntl } from 'react-intl'
+import React, { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
+import { Calendar, MapPin, Clock, Ruler } from 'lucide-react';
+import { useIntl } from 'react-intl';
+import { Event as EventType } from '../types/types'; // Cambia esto si la importación de Event es diferente
 
+interface EventCardProps {
+  event: EventType; // Cambia a tu tipo de evento
+  onSelect: (event: EventType) => void;
+  colorPalette: {
+    cardBg: string;
+    cardBorder: string;
+    priceBadgeBg: string;
+    priceBadgeText: string;
+    titleText: string;
+    text: string;
+    subtitleText: string;
+  };
+  isLast: boolean;
+  onLastElementVisible: () => void;
+}
 
-const EventCard = React.memo(({ event, onSelect, colorPalette, isLast, onLastElementVisible }) => {
+const EventCard: React.FC<EventCardProps> = ({ event, onSelect, colorPalette, isLast, onLastElementVisible }) => {
   const intl = useIntl();
 
   const truncatePrice = (price: string) => {
@@ -43,9 +59,7 @@ const EventCard = React.memo(({ event, onSelect, colorPalette, isLast, onLastEle
     <div
       ref={cardRef}
       className={`transition-all duration-300 ease-out ${
-        isVisible
-          ? 'opacity-100 transform translate-y-0'
-          : 'opacity-0 transform translate-y-4'
+        isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-4'
       } ${colorPalette.cardBg} ${colorPalette.cardBorder} rounded-xl shadow-lg overflow-hidden transition-all duration-200 ease-out transform hover:scale-105 hover:shadow-xl cursor-pointer h-full flex flex-col`}
       onClick={() => onSelect(event)}
       onKeyDown={(e) => {
@@ -129,8 +143,8 @@ const EventCard = React.memo(({ event, onSelect, colorPalette, isLast, onLastEle
               <Ruler size={16} className="mr-1" />
               <span className="text-sm font-semibold">
                 {event.distance 
-            ? intl.formatMessage({ id: 'app.map.distance.km' }, { distance: event.distance.toFixed(2) })
-            : intl.formatMessage({ id: 'app.map.distance.unavailable' })}
+                  ? intl.formatMessage({ id: 'app.map.distance.km' }, { distance: event.distance.toFixed(2) })
+                  : intl.formatMessage({ id: 'app.map.distance.unavailable' })}
               </span>
             </div>
           </div>
@@ -138,6 +152,6 @@ const EventCard = React.memo(({ event, onSelect, colorPalette, isLast, onLastEle
       </div>
     </div>
   );
-});
+};
 
-export default React.memo(EventCard)
+export default React.memo(EventCard);

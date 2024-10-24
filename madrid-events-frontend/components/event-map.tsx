@@ -1,6 +1,6 @@
 import React from 'react'
 import L from 'leaflet'
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useIntl } from 'react-intl'
 import icon from 'leaflet/dist/images/marker-icon.png'
@@ -8,7 +8,7 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png'
 import { Event } from '../types/types'
 import MapController from './map-controller'
 
-let DefaultIcon = L.icon({
+const DefaultIcon = L.icon({
   iconUrl: icon.src,
   shadowUrl: iconShadow.src,
   iconSize: [25, 41],
@@ -17,9 +17,17 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon
 
+interface ColorPalette {
+  cardBg: string
+  titleText: string
+  text: string
+  priceBadgeBg: string
+  priceBadgeText: string
+}
+
 interface EventMapProps {
   events: Event[]
-  colorPalette: any
+  colorPalette: ColorPalette
   onEventSelect: (event: Event) => void
   shouldResetView: boolean
   onResetViewComplete: () => void

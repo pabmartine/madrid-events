@@ -5982,3 +5982,1225 @@
 {"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T13:43:35.118Z"}
 {"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T13:43:35.193Z"}
 {"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T13:43:35.347Z"}
+{"level":"error","message":"Attempt 1 failed: ","timestamp":"2024-10-21T14:42:06.520Z"}
+{"level":"error","message":"Attempt 1 failed: ","timestamp":"2024-10-21T14:42:06.582Z"}
+{"level":"error","message":"Attempt 1 failed: ","timestamp":"2024-10-21T14:42:06.628Z"}
+{"level":"error","message":"Attempt 1 failed: ","timestamp":"2024-10-21T14:42:06.629Z"}
+{"level":"error","message":"Attempt 1 failed: ","timestamp":"2024-10-21T14:42:06.699Z"}
+{"level":"error","message":"Attempt 1 failed: ","timestamp":"2024-10-21T14:42:06.719Z"}
+{"level":"error","message":"Attempt 2 failed: ","timestamp":"2024-10-21T14:42:07.586Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-21T14:42:08.651Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-21T14:42:08.651Z"}
+{"level":"error","message":"Attempt 2 failed: ","timestamp":"2024-10-21T14:42:09.726Z"}
+{"level":"error","message":"Attempt 2 failed: ","timestamp":"2024-10-21T14:42:10.780Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T14:42:11.719Z"}
+{"level":"error","message":"Attempt 2 failed: ","timestamp":"2024-10-21T14:42:11.775Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T14:42:11.785Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T14:42:11.877Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T14:42:11.887Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T14:42:12.051Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T14:42:12.702Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T14:42:12.723Z"}
+{"level":"error","message":"Attempt 2 failed: ","timestamp":"2024-10-21T14:42:12.783Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-21T14:42:13.764Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-21T14:42:13.764Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-21T14:42:14.985Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-21T14:42:14.985Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:15.507Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T14:42:15.780Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-21T14:42:15.781Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:15.812Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:15.849Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-21T14:42:15.932Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-21T14:42:15.932Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:16.044Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:16.057Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:16.182Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:16.281Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:16.345Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:16.352Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:16.513Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:16.569Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:16.607Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:16.729Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:16.768Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:16.892Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-21T14:42:16.955Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-21T14:42:16.956Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:16.963Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:17.039Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:17.053Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:17.152Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:17.193Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:17.316Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:17.390Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:17.529Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T14:42:17.677Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T14:42:17.789Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T14:42:17.881Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T14:42:17.890Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-21T14:42:17.980Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-21T14:42:17.980Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T14:42:18.054Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T14:42:18.766Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-21T14:42:18.849Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-21T14:42:18.849Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-21T14:42:19.964Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-21T14:42:19.964Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-21T14:42:20.988Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-21T14:42:20.988Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-21T14:42:22.205Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-21T14:42:22.205Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T14:42:22.982Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T15:35:24.118Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:26.347Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:26.600Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:26.713Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:26.778Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:26.996Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:27.054Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:27.254Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:27.276Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:27.286Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:27.429Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:27.524Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:27.531Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:27.687Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:27.689Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:27.794Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:27.854Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:27.930Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:27.975Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:28.272Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:28.281Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:28.319Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:28.477Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:28.502Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:35:28.657Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T15:35:30.126Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:32.884Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:32.946Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:32.955Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:33.080Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:33.183Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:33.268Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:33.303Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:33.389Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:33.480Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:33.540Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:33.660Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:33.711Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:33.818Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:33.923Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:33.964Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:34.094Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:34.157Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:34.239Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:34.289Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:34.495Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:34.651Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:34.818Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:34.960Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T15:47:35.018Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-21T16:05:08.858Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:06.164Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:06.483Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:06.510Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:06.765Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:06.815Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:06.837Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:07.093Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:07.143Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:07.152Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:07.428Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:07.451Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:07.453Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:07.685Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:07.883Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:07.887Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:08.235Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:08.331Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:08.349Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:08.578Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:08.583Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:08.655Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:08.822Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:09.063Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:09.319Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:15.788Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:16.020Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:16.046Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:16.247Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:16.356Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:16.487Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:16.670Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:16.716Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:17.076Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:17.080Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:17.307Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:17.394Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:17.581Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:17.633Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:17.817Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:06:18.052Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:03.820Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:04.133Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:04.135Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:04.469Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:04.491Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:04.718Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:04.778Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:05.009Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:05.048Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:05.278Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:05.369Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:05.628Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:05.639Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:05.871Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:05.969Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-21T16:07:06.278Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:57.963Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:57.968Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:57.970Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:57.971Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:57.975Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.090Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.091Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.128Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.132Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.163Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.165Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.202Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.205Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.208Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.237Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.239Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.240Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.266Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.269Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.270Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.334Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.335Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.338Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.344Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.407Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.408Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.409Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.425Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.426Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.428Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.428Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.429Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.450Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.451Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.451Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.470Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.471Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.490Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.491Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.492Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.520Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.537Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.538Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.570Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.574Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.575Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.593Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.594Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.595Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.595Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.612Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.613Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.613Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.629Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.630Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.652Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.664Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.666Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.668Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.681Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.696Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.697Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.707Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.707Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.708Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.710Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.721Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.722Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.722Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.727Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.780Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.781Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.781Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.782Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.847Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.848Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.851Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.851Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.882Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.883Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.905Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.918Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.920Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.921Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.931Z"}
+{"level":"error","message":"Attempt 1 failed: Request failed with status code 429","timestamp":"2024-10-24T07:40:58.931Z"}
+{"level":"error","message":"Attempt 1 failed: ","timestamp":"2024-10-24T07:40:58.964Z"}
+{"level":"error","message":"Attempt 2 failed: ","timestamp":"2024-10-24T07:40:59.940Z"}
+{"level":"error","message":"Attempt 2 failed: ","timestamp":"2024-10-24T07:41:00.966Z"}
+{"level":"error","message":"Attempt 2 failed: ","timestamp":"2024-10-24T07:41:01.990Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:02.924Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:02.931Z"}
+{"level":"error","message":"Attempt 2 failed: ","timestamp":"2024-10-24T07:41:02.950Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:02.953Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:02.958Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.044Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.068Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.082Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.082Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.083Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.083Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.087Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.109Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.115Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.120Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.125Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.142Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.150Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.160Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.192Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.195Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.585Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.688Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.691Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.693Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.699Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.714Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.719Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.727Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.733Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.740Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.742Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.747Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.750Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.752Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.756Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.757Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.770Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.778Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.822Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.824Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.826Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.829Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.837Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.838Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.842Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.845Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.875Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.879Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.880Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.892Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.895Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.898Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.901Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.904Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.912Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.916Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.923Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.925Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.934Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.934Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.938Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.940Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.955Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.960Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.967Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.971Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.974Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.974Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.976Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.977Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.977Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.981Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.985Z"}
+{"level":"error","message":"Attempt 1 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:03.991Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.092Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.092Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.175Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.177Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.179Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.181Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.217Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.218Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.219Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.247Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.249Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.251Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.273Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.274Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.275Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.335Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.337Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.339Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.346Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.409Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.411Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.412Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.428Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.428Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.430Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.430Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.433Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.452Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.453Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.455Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.473Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.475Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.493Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.493Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.495Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.522Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.538Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.540Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.577Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.578Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.578Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.595Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.596Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.596Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.598Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.614Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.616Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.632Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.653Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.667Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.670Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.683Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.698Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.698Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.708Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.709Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.712Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.713Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.722Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.723Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.724Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.730Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.782Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.784Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.784Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.786Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.849Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.851Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.854Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.906Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.908Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.915Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.933Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.937Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.937Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.937Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.941Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:04.966Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:05.943Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:05.943Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-24T07:41:05.953Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:05.953Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:06.968Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:06.968Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-24T07:41:07.941Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:07.941Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:07.992Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:07.992Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:08.926Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:08.933Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:08.952Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:08.952Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:08.954Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:08.960Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.046Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.069Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.084Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.084Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.085Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.087Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.088Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.111Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.116Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.122Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.128Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.145Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.153Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.161Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.198Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.199Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.588Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.691Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.694Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.696Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.702Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.716Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.721Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.730Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.735Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.743Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.746Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.750Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.752Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.753Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.758Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.759Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.772Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.780Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.824Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.825Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.827Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.832Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.840Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.842Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.843Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.848Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.877Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.882Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.882Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.893Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.897Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.900Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.903Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.905Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.915Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.919Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.926Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.928Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.936Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.936Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.940Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.944Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.957Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.962Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.968Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.974Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.977Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:09.977Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.981Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:09.981Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.983Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:09.983Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.985Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:09.985Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.987Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:09.987Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.988Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-24T07:41:09.990Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:09.990Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.992Z"}
+{"level":"error","message":"Attempt 2 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:09.992Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.094Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.094Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.097Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.097Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.178Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.178Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.181Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.181Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.183Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.184Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.185Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.185Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.219Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.220Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.222Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.222Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.225Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.225Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.248Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.248Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.250Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.250Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.251Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.251Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.276Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.276Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.277Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.277Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.280Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.280Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.337Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.337Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.338Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.338Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.342Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.342Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.349Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.349Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.410Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.411Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.414Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.414Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.417Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.417Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.430Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.430Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.432Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.432Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.434Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.434Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.436Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.436Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.437Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.438Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.455Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.455Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.457Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.457Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.459Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.459Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.476Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.476Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.478Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.478Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.495Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.495Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.498Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.498Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.500Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.500Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.525Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.526Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.541Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.541Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.543Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.543Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.579Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.579Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.581Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.581Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.597Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.597Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.599Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.599Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.601Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.601Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.602Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.602Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.616Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.616Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.618Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.618Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.633Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.633Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.656Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.657Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.671Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.672Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.685Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.685Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.700Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.701Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.702Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.702Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.710Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.710Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.713Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.713Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.718Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.718Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.720Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.720Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.725Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.725Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.727Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.727Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.729Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.730Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.742Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.742Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.785Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.785Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.787Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.787Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.789Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.789Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.790Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.790Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:10.850Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.851Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.852Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.853Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.853Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:10.855Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.856Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.856Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.907Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.907Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.911Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.911Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:10.916Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.918Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.918Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:10.921Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:10.921Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:10.930Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.934Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.935Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.939Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.939Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.941Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.941Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:10.942Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.943Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.943Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.946Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.946Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-24T07:41:10.949Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.949Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:10.951Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:10.968Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:10.968Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:10.971Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:10.980Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:10.998Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:10.998Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.014Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.014Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.015Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.023Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.033Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.054Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.067Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.081Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.100Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.102Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.105Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.106Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.130Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.149Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.149Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.158Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.159Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.165Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.167Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.168Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.168Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.181Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.218Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.222Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.226Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.228Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.231Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.248Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.259Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.262Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.269Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.283Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.295Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.301Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.311Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.315Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.331Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.337Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.342Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.342Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.411Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:11.443Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-24T07:41:12.037Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:12.037Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.225Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.237Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.276Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.278Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.298Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.311Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.316Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.320Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.342Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.343Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.362Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.366Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.392Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.392Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.404Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.404Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.414Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.422Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.432Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.455Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.527Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.528Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.528Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.531Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.532Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.533Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.533Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.549Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.593Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.598Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.602Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.602Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.604Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.626Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.626Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.627Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.642Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.646Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.665Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.678Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.683Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.688Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.693Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.705Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.706Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.729Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.766Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:12.803Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-24T07:41:12.934Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:12.934Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:12.943Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:12.993Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.294Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.649Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.651Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.655Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.683Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.684Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.691Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.710Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.713Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.730Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.739Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.758Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.764Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.770Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.788Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.789Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.789Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.800Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.824Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.888Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.892Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.897Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.898Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.901Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.902Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:13.954Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.970Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.974Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.980Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.981Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.985Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:13.996Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.005Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.007Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.013Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.037Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.041Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.045Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.054Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.055Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.071Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.075Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.082Z"}
+{"level":"error","message":"Attempt 3 failed: ","timestamp":"2024-10-24T07:41:14.087Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:14.087Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.105Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.132Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.151Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.313Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:14.370Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:14.957Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:14.957Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:14.963Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:14.964Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:14.989Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:14.991Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.049Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.049Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.071Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.071Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.085Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.085Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.086Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.086Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.086Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.087Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.088Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.089Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.089Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.090Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.112Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.112Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.117Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.118Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.123Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.123Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.131Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.131Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.147Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.147Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.155Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.155Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.163Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.163Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.187Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.208Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.209Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.211Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.211Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.254Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.280Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.282Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.412Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.415Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.432Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.436Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.437Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.439Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.440Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.454Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.459Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.465Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.466Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.468Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.482Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.491Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.492Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.495Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.515Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.527Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.530Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.597Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.598Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.598Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.603Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.678Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.693Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.693Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.698Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.698Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.699Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.699Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.704Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.705Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.724Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.724Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.726Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.726Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.740Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.742Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.744Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.745Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.756Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.756Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.758Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.758Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.759Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.760Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.761Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.761Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.763Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.768Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.769Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.771Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.773Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.777Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.777Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.787Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.787Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.829Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.829Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.830Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.830Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.834Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.834Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.871Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.871Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.872Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.872Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.873Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.873Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.874Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.875Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.884Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.884Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.885Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.885Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.896Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.896Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.898Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.898Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.902Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.902Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.904Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.904Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.907Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.907Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.916Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.916Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.920Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.920Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.928Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.928Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.929Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.930Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.937Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.938Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.939Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.939Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.941Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.941Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.951Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.951Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.958Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.959Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.964Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.964Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.971Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.971Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.977Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.977Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: socket hang up","timestamp":"2024-10-24T07:41:15.979Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:15.981Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.989Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.990Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.996Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.996Z"}
+{"level":"error","message":"Attempt 3 failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:15.999Z"}
+{"level":"error","message":"Max retries reached. Error fetching location details.","timestamp":"2024-10-24T07:41:15.999Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: socket hang up","timestamp":"2024-10-24T07:41:16.002Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: socket hang up","timestamp":"2024-10-24T07:41:16.003Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: socket hang up","timestamp":"2024-10-24T07:41:16.012Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.063Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.069Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.071Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.075Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.091Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.097Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.101Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.132Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.133Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.136Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.145Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.148Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.149Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.149Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.150Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.170Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.199Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.205Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.213Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.233Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.243Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.258Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.260Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.262Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.262Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.263Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.266Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.267Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.268Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.296Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.302Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.303Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.304Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.307Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.308Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.310Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.311Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.332Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.372Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.478Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.478Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.479Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.548Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.632Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.648Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.823Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.824Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.825Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.832Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.837Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.841Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.846Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.853Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.855Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.865Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.866Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.869Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.878Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.891Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.892Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.963Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:16.967Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:17.017Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:17.182Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.334Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.341Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.368Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.379Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.381Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.434Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.434Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.439Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.444Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.453Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.467Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.475Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.501Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.501Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.502Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.502Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.505Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.513Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.515Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.516Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.518Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.556Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.570Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.594Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.611Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.616Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.633Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.635Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.635Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.640Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.641Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.641Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.643Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.658Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.666Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.666Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.667Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.676Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.677Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.680Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.683Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.686Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.701Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.735Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.843Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.848Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.857Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.906Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:17.996Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.037Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.173Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.174Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.204Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.207Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.220Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:18.243Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.245Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.250Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.251Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.253Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.255Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.265Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.268Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.270Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.274Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.276Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.323Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.339Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:18.533Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:18.558Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.702Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.733Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.746Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.748Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.814Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.818Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.846Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.847Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.865Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.868Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.875Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.882Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.883Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.884Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.885Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.887Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.890Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.935Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.942Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.958Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.992Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.994Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:18.998Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.001Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.007Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.009Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.015Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.017Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.018Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.028Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.032Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.034Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.037Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.042Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.045Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.054Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.055Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.056Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.057Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:19.089Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.210Z"}
+{"level":"error","message":"Attempt 3 to get subway failed: Request failed with status code 429","timestamp":"2024-10-24T07:41:19.230Z"}
+{"level":"error","message":"Attempt 2 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:19.955Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:19.958Z"}
+{"level":"error","message":"Attempt 1 to get subway failed: timeout of 5000ms exceeded","timestamp":"2024-10-24T07:41:19.965Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:21.648Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:23.883Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:46.797Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:47.071Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:47.097Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:47.317Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:47.370Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:47.421Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:47.611Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:47.683Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:47.746Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:47.988Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:47.997Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:48.095Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:48.253Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:48.360Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:48.419Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:48.594Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:48.656Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:48.753Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:48.897Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:48.967Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:49.094Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:49.201Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:49.315Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:49.550Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:49.984Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:50.301Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:41:50.522Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:03.420Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:03.653Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:03.659Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:03.961Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:03.993Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:04.061Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:04.292Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:04.303Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:04.379Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:04.521Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:04.701Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:04.725Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:04.954Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:04.983Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:05.116Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:05.263Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:05.325Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:05.395Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:05.581Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:05.635Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:05.820Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:05.858Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:06.069Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:06.289Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:06.311Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:06.589Z"}
+{"level":"error","message":"Error scraping the image:","timestamp":"2024-10-24T07:43:06.832Z"}

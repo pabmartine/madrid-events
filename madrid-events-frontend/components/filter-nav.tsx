@@ -3,6 +3,23 @@ import { Calendar, MapPin, ChevronUp, ChevronDown } from 'lucide-react'
 import { useIntl } from 'react-intl'
 import { FilterState, SortState } from './../types/types'
 
+interface ColorPalette {
+  primary: string;
+  secondary: string;
+  background: string;
+  text: string;
+  cardBg: string;
+  cardBorder: string;
+  inputBg: string;
+  inputBorder: string;
+  buttonBg: string;
+  buttonText: string;
+  buttonBorder: string;
+  buttonHover: string;
+  titleGradient: string;
+  titleText: string;
+}
+
 interface FilterNavProps {
   isFilterOpen: boolean
   toggleFilterVisibility: () => void
@@ -11,7 +28,7 @@ interface FilterNavProps {
   sortState: SortState
   toggleFilter: (filter: keyof FilterState) => void
   filterState: FilterState
-  colorPalette: any
+  colorPalette: ColorPalette
 }
 
 const FilterNav: React.FC<FilterNavProps> = ({

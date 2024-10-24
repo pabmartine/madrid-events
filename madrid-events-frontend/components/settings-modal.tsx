@@ -1,17 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import { X, Moon, Sun, ImageIcon, ImageOff, Locate, LocateFixed } from 'lucide-react'
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { useIntl } from 'react-intl'
 
+// Definir la interfaz para los props
 interface SettingsModalProps {
-  isOpen: boolean
-  onClose: () => void
-  initialSettings: any
-  colorPalette: any
-  onSaveSettings: (settings: any) => void
+  isOpen: boolean;
+  onClose: () => void;
+  initialSettings: {
+    isDarkMode: boolean;
+    showCarousel: boolean;
+    geoLocation: { lat: number; lon: number } | null;
+  };
+  colorPalette: {
+    cardBg: string;
+    titleText: string;
+    text: string;
+    inputBg: string;
+    inputBorder: string;
+    buttonBg: string;
+    buttonText: string;
+    buttonHover: string;
+  };
+  onSaveSettings: (settings: {
+    isDarkMode: boolean;
+    showCarousel: boolean;
+    geoLocation: { lat: number; lon: number } | null;
+  }) => void;
 }
 
-const SettingsModal = ({ 
+const SettingsModal: React.FC<SettingsModalProps> = ({ 
   isOpen, 
   onClose, 
   initialSettings,
@@ -54,17 +72,6 @@ const SettingsModal = ({
     }
   };
 
-  const MapEvents = () => {
-    const map = useMapEvents({
-      click(e) {
-        const { lat, lng } = e.latlng;
-        setLocalSettings(prev => ({ ...prev, geoLocation: { lat, lon: lng } }));
-        setMapCenter([lat, lng]);
-      },
-    });
-    return null;
-  };
-
   const handleSave = () => {
     onSaveSettings(localSettings);
     onClose();
@@ -78,7 +85,6 @@ const SettingsModal = ({
         <button
           onClick={onClose}
           className={`absolute top-2 right-2 ${colorPalette.cardBg} rounded-full p-2 transition-all duration-200 ease-out hover:bg-opacity-80`}
-          aria-label={intl.formatMessage({ id: 'app.settings.close' })}
         >
           <X size={24} />
         </button>
@@ -130,14 +136,17 @@ const SettingsModal = ({
           </div>
 
           <div className="h-48 mt-4">
-            <MapContainer center={mapCenter} zoom={13} style={{ height: '100%', width: '100%' }}>
+            <MapContainer 
+              center={mapCenter.length === 2 ? mapCenter as [number, number] : [40.4168, -3.7038]} 
+              zoom={13} 
+              style={{ height: '100%', width: '100%' }}
+            >
               <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
               {localSettings.geoLocation && (
                 <Marker position={[localSettings.geoLocation.lat, localSettings.geoLocation.lon]}>
                   <Popup>{intl.formatMessage({ id: 'app.settings.your.location' })}</Popup>
                 </Marker>
               )}
-              <MapEvents />
             </MapContainer>
           </div>
 
@@ -153,4 +162,4 @@ const SettingsModal = ({
   );
 };
 
-export default SettingsModal
+export default SettingsModal;

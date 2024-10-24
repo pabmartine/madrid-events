@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 
+// Definir la interfaz para los props
 interface ToastProps {
-  message: string
-  isVisible: boolean
-  onHide: () => void
+  message: string;
+  isVisible: boolean;
+  onHide: () => void;
 }
 
-const Toast = ({ message, isVisible, onHide }) => {
+const Toast: React.FC<ToastProps> = ({ message, isVisible, onHide }) => {
   useEffect(() => {
     if (isVisible) {
       const timer = setTimeout(() => {
@@ -26,4 +27,4 @@ const Toast = ({ message, isVisible, onHide }) => {
   );
 };
 
-export default Toast
+export default Toast;

@@ -15,13 +15,17 @@ const MapController: React.FC<MapControllerProps> = ({ events, shouldResetView, 
 
   useEffect(() => {
     if (shouldResetView || JSON.stringify(eventsRef.current) !== JSON.stringify(events)) {
-      const eventsWithCoordinates = events.filter(e => e.latitude && e.longitude)
+      // Filtrar eventos donde latitude y longitude son números válidos (no null)
+      const eventsWithCoordinates = events.filter(e => e.latitude !== null && e.longitude !== null)
+      
       if (eventsWithCoordinates.length > 0) {
-        const bounds = L.latLngBounds(eventsWithCoordinates.map(e => [e.latitude, e.longitude]))
+        // Asegurarse de que todos los valores pasados sean números válidos
+        const bounds = L.latLngBounds(eventsWithCoordinates.map(e => [e.latitude as number, e.longitude as number]))
         map.fitBounds(bounds)
       } else {
         map.setView([40.4168, -3.7038], 12)
       }
+      
       onResetViewComplete()
       eventsRef.current = events
     }
