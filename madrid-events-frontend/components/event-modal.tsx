@@ -7,6 +7,7 @@ import { useIntl } from 'react-intl'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { Event } from '../types/types'
 
+export type { EventModalProps };
 interface ColorPalette {
   cardBg: string
   titleText: string

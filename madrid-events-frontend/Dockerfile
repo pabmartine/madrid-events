@@ -1,24 +1,25 @@
-# Usa una imagen ligera de Node.js
-FROM node:18-alpine
+# Etapa de construcción
+FROM node:18-alpine AS build
 
-# Establece el directorio de trabajo en el contenedor
+# Variables de entorno para uso en el frontend
+ARG NEXT_PUBLIC_API_HOST
+ARG NEXT_PUBLIC_API_PORT
+
+# Variables de entorno
+ENV NEXT_PUBLIC_API_HOST=$NEXT_PUBLIC_API_HOST
+ENV NEXT_PUBLIC_API_PORT=$NEXT_PUBLIC_API_PORT
+
+# Directorio de trabajo y copia de archivos
 WORKDIR /app
-
-# Copia los archivos de dependencias
-COPY package.json package-lock.json ./
-
-# Instala las dependencias
-RUN npm install
-
-# Copia el resto del código de la aplicación
 COPY . .
-COPY .env .env
 
-# Exponer el puerto 3000
-EXPOSE 3000
+# Limpiar módulos y reinstalar
+RUN rm -rf node_modules package-lock.json
+RUN npm install
+RUN npm run build
 
-# Para debugging, puedes listar los archivos antes de ejecutar
-RUN ls -la
-
-# Ejecutar el servidor de desarrollo de Next.js
-CMD npm run dev
+# Etapa de producción (Nginx)
+FROM nginx:1.27.0-alpine
+COPY --from=build /app/out /usr/share/nginx/html
+COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80

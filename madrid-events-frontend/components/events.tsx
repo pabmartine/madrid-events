@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, KeyboardEvent, useCallback } from 'react'
-import L from 'leaflet'
+// Removed unused import
 import 'leaflet/dist/leaflet.css'
 import { useIntl } from 'react-intl';
 
@@ -12,7 +12,8 @@ import ErrorMessage from './error-message'
 import Toast from './toast'
 import SettingsModal from './settings-modal'
 import AutoCarousel from './auto-carousel'
-import EventModal from './event-modal'
+// Removed duplicate import of EventModal
+import EventModal, { EventModalProps } from './event-modal';
 import EventCard from './event-card'
 import EventMap from './event-map'
 import Header from './header'
@@ -20,10 +21,10 @@ import FilterNav from './filter-nav'
 import Footer from './footer'
 
 
-const API_HOST = process.env.REACT_APP_API_HOST;
-if (!API_HOST) throw new Error('REACT_APP_API_HOST environment variable is not set.');
-const API_PORT = process.env.REACT_APP_API_PORT;
-if (!API_PORT) throw new Error('REACT_APP_API_PORT environment variable is not set.');
+const API_HOST = process.env.NEXT_PUBLIC_API_HOST;
+if (!API_HOST) throw new Error('NEXT_PUBLIC_API_HOST environment variable is not set.');
+const API_PORT = process.env.NEXT_PUBLIC_API_PORT;
+if (!API_PORT) throw new Error('NEXT_PUBLIC_API_PORT environment variable is not set.');
 
 
 
@@ -31,9 +32,9 @@ const ITEMS_PER_PAGE = 20;
 
 
 
-const lazyLoadComponent = (factory: () => Promise<{ default: React.ComponentType<any> }>) => {
+const lazyLoadComponent = (factory: () => Promise<{ default: React.FC<EventModalProps> }>) => {
   return React.lazy(() => 
-    new Promise<{ default: React.ComponentType<any> }>(resolve => {
+    new Promise<{ default: React.FC<EventModalProps> }>(resolve => {
       setTimeout(() => {
         resolve(factory());
       }, 100);
@@ -79,7 +80,7 @@ export function Events() {
   const [filter, setFilter] = useState('');
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
-  const [distance, setDistance] = useState<number | null>(null);
+const [distance] = useState<number | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [filterState, setFilterState] = useState<FilterState>({
     today: true,
@@ -389,13 +390,14 @@ export function Events() {
       display: none;
     }
   `;
-
-  const [geoLocation, setGeoLocation] = useState(() => {
+const [geoLocation, setGeoLocation] = useState(() => {
     const savedLocation = localStorage.getItem('lastGeoLocation');
     return savedLocation ? JSON.parse(savedLocation) : null;
-  });
+});
+console.log('geoLocation:', geoLocation);
+// });
 
-  const [isLocating, setIsLocating] = useState(false);
+// const [isLocating, setIsLocating] = useState(false);
 
   
 

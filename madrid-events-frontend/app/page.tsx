@@ -1,11 +1,14 @@
-import { Events } from "@/components/events"
+import dynamic from 'next/dynamic';
+import { Events } from '@/components/events';
 import { LanguageProvider } from '@/components/language-provider';
 
-
-export default function Page() {
-  return (
+// Wrapping the main page component in dynamic import to disable SSR
+const PageComponent = () => (
     <LanguageProvider>
       <Events />
     </LanguageProvider>
-  );
-}
+);
+
+const Page = dynamic(() => Promise.resolve(PageComponent), { ssr: false });
+
+export default Page;
