@@ -107,8 +107,17 @@ function deg2rad(deg) {
     return deg * (Math.PI/180);
 }
 
+const allowedOrigins = process.env.FRONTEND_URL.split(',');
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: function (origin, callback) {
+    // Permitir solicitudes sin origin (por ejemplo, desde el mismo servidor)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type']
 }));
