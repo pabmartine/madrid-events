@@ -20,8 +20,10 @@ import FilterNav from './filter-nav'
 import Footer from './footer'
 
 
-const API_HOST = 'http://krahen.synology.me';
-const API_PORT = 5015;
+const API_HOST = process.env.API_HOST;
+if (!API_HOST) throw new Error('API_HOST environment variable is not set.');
+const API_PORT = process.env.API_PORT;
+if (!API_PORT) throw new Error('API_PORT environment variable is not set.');
 
 
 const ITEMS_PER_PAGE = 20;
@@ -86,7 +88,7 @@ export function Events() {
     free: false,
     children: false,
   });
-  const [sortState, setSortState] = useState<SortState>({ by: 'date', order: 'asc' });
+  const [sortState, setSortState] = useState<SortState>({ by: 'distance', order: 'asc' });
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [error, setError] = useState<string | null>(null);
