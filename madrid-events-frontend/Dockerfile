@@ -12,7 +12,6 @@ RUN npm install
 
 # Copia el resto del código de la aplicación
 COPY . .
-COPY .env .env
 
 # Exponer el puerto 3000
 EXPOSE 3000
