@@ -20,10 +20,11 @@ import FilterNav from './filter-nav'
 import Footer from './footer'
 
 
-const API_HOST = process.env.API_HOST;
-if (!API_HOST) throw new Error('API_HOST environment variable is not set.');
-const API_PORT = process.env.API_PORT;
-if (!API_PORT) throw new Error('API_PORT environment variable is not set.');
+const API_HOST = process.env.REACT_APP_API_HOST;
+if (!API_HOST) throw new Error('REACT_APP_API_HOST environment variable is not set.');
+const API_PORT = process.env.REACT_APP_API_PORT;
+if (!API_PORT) throw new Error('REACT_APP_API_PORT environment variable is not set.');
+
 
 
 const ITEMS_PER_PAGE = 20;
