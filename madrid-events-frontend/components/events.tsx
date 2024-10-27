@@ -216,7 +216,7 @@ const [distance] = useState<number | null>(null);
 const applyFiltersAndSort = useCallback(() => {
   let filteredEvents = events;
 
-  // Aplicar filters
+  // Aplicar filtros
   const applyDateFilter = (startDate: Date, endDate: Date) => {
     // Configurar las horas según el filtro seleccionado
     startDate.setHours(0, 0, 0, 0);    // 00:00 para el inicio
@@ -236,11 +236,15 @@ const applyFiltersAndSort = useCallback(() => {
   };
 
   const today = new Date();
+  today.setHours(0, 0, 0, 0);
   const weekStart = new Date(today);
   weekStart.setDate(today.getDate() - today.getDay());
+  weekStart.setHours(0, 0, 0, 0);
   const weekEnd = new Date(weekStart);
   weekEnd.setDate(weekStart.getDate() + 6);
+  weekEnd.setHours(23, 59, 59, 999);
   const monthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  monthEnd.setHours(23, 59, 59, 999);
 
   if (filterState.today) {
     filteredEvents = applyDateFilter(today, today);
@@ -249,9 +253,11 @@ const applyFiltersAndSort = useCallback(() => {
     filteredEvents = applyDateFilter(weekStart, weekEnd);
   }
   if (filterState.thisWeekend) {
-    const weekendStart = new Date(weekEnd);
-    weekendStart.setDate(weekEnd.getDate() - 1);
-    filteredEvents = applyDateFilter(weekendStart, weekEnd);
+    const saturday = new Date(weekEnd);
+    saturday.setDate(weekEnd.getDate() - 1); // Sábado
+    saturday.setHours(0, 0, 0, 0);
+    const sunday = new Date(weekEnd); // Domingo ya está definido en weekEnd
+    filteredEvents = applyDateFilter(saturday, sunday);
   }
   if (filterState.thisMonth) {
     filteredEvents = applyDateFilter(today, monthEnd);
