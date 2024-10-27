@@ -212,79 +212,87 @@ const [distance] = useState<number | null>(null);
 
   const [activeSearch, setActiveSearch] = useState(false);
 
-  const applyFiltersAndSort = useCallback(() => {
-    let filteredEvents = events;
+  
+const applyFiltersAndSort = useCallback(() => {
+  let filteredEvents = events;
 
-    // Aplicar filters
-    const applyDateFilter = (startDate: Date, endDate: Date) => {
-      return filteredEvents.filter(event => {
-        const initDate = new Date(event.dtstart);
-        const finishDate = new Date(event.dtend);
-        return (
-          (initDate <= endDate && finishDate >= startDate) &&
-          !isDateExcluded(startDate, event["excluded-days"]) &&
-          !isDateExcluded(endDate, event["excluded-days"])
-        );
-      });
-    };
+  // Aplicar filters
+  const applyDateFilter = (startDate: Date, endDate: Date) => {
+    // Configurar las horas según el filtro seleccionado
+    startDate.setHours(0, 0, 0, 0);    // 00:00 para el inicio
+    endDate.setHours(23, 59, 59, 999); // 23:59 para el final
 
-    const today = new Date();
-    const weekStart = new Date(today);
-    weekStart.setDate(today.getDate() - today.getDay());
-    const weekEnd = new Date(weekStart);
-    weekEnd.setDate(weekStart.getDate() + 6);
-    const monthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    return filteredEvents.filter(event => {
+      const initDate = new Date(event.dtstart);
+      const finishDate = new Date(event.dtend);
 
-    if (filterState.today) {
-      filteredEvents = applyDateFilter(today, today);
-    }
-    if (filterState.thisWeek) {
-      filteredEvents = applyDateFilter(weekStart, weekEnd);
-    }
-    if (filterState.thisWeekend) {
-      const weekendStart = new Date(weekEnd);
-      weekendStart.setDate(weekEnd.getDate() - 1);
-      filteredEvents = applyDateFilter(weekendStart, weekEnd);
-    }
-    if (filterState.thisMonth) {
-      filteredEvents = applyDateFilter(today, monthEnd);
-    }
-    if (filterState.free) {
-      filteredEvents = filteredEvents.filter(event => event.free);
-    }
-    if (filterState.children) {
-      filteredEvents = filteredEvents.filter(event =>
-        event.audience && event.audience.toLowerCase().includes('niños')
+      // Comparar tanto fecha como hora exacta
+      return (
+        initDate <= endDate && finishDate >= startDate &&
+        !isDateExcluded(startDate, event["excluded-days"]) &&
+        !isDateExcluded(endDate, event["excluded-days"])
       );
-    }
-
-    // Aplicar ordenación
-    filteredEvents.sort((a, b) => {
-      if (sortState.by === 'date') {
-        const dateA = new Date(a.dtstart).getTime();
-        const dateB = new Date(b.dtstart).getTime();
-        return sortState.order === 'asc' ? dateA - dateB : dateB - dateA;
-      } else if (sortState.by === 'distance') {
-        const distanceA = a.distance ?? Infinity;
-        const distanceB = b.distance ?? Infinity;
-        
-        if (distanceA === Infinity && distanceB === Infinity) {
-          return 0;
-        }
-        
-        return sortState.order === 'asc' 
-          ? distanceA - distanceB 
-          : distanceB - distanceA;
-      }
-      return 0;
     });
+  };
 
-    setFilteredEvents(filteredEvents);
-    setVisibleEvents(filteredEvents.slice(0, ITEMS_PER_PAGE));
-    setHasMore(filteredEvents.length > ITEMS_PER_PAGE);
-    setPage(1);
-    setShouldResetMapView(true);
-  }, [events, filterState, sortState, isDateExcluded]);
+  const today = new Date();
+  const weekStart = new Date(today);
+  weekStart.setDate(today.getDate() - today.getDay());
+  const weekEnd = new Date(weekStart);
+  weekEnd.setDate(weekStart.getDate() + 6);
+  const monthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+  if (filterState.today) {
+    filteredEvents = applyDateFilter(today, today);
+  }
+  if (filterState.thisWeek) {
+    filteredEvents = applyDateFilter(weekStart, weekEnd);
+  }
+  if (filterState.thisWeekend) {
+    const weekendStart = new Date(weekEnd);
+    weekendStart.setDate(weekEnd.getDate() - 1);
+    filteredEvents = applyDateFilter(weekendStart, weekEnd);
+  }
+  if (filterState.thisMonth) {
+    filteredEvents = applyDateFilter(today, monthEnd);
+  }
+  if (filterState.free) {
+    filteredEvents = filteredEvents.filter(event => event.free);
+  }
+  if (filterState.children) {
+    filteredEvents = filteredEvents.filter(event =>
+      event.audience && event.audience.toLowerCase().includes('niños')
+    );
+  }
+
+  // Aplicar ordenación
+  filteredEvents.sort((a, b) => {
+    if (sortState.by === 'date') {
+      const dateA = new Date(a.dtstart).getTime();
+      const dateB = new Date(b.dtstart).getTime();
+      return sortState.order === 'asc' ? dateA - dateB : dateB - dateA;
+    } else if (sortState.by === 'distance') {
+      const distanceA = a.distance ?? Infinity;
+      const distanceB = b.distance ?? Infinity;
+
+      if (distanceA === Infinity && distanceB === Infinity) {
+        return 0;
+      }
+
+      return sortState.order === 'asc' 
+        ? distanceA - distanceB 
+        : distanceB - distanceA;
+    }
+    return 0;
+  });
+
+  setFilteredEvents(filteredEvents);
+  setVisibleEvents(filteredEvents.slice(0, ITEMS_PER_PAGE));
+  setHasMore(filteredEvents.length > ITEMS_PER_PAGE);
+  setPage(1);
+  setShouldResetMapView(true);
+}, [events, filterState, sortState, isDateExcluded]);
+
 
   useEffect(() => {
     if (!activeSearch) {
