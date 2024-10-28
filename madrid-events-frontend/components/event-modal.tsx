@@ -79,9 +79,9 @@ export default function EventModal({
     return (
       <div className="flex items-center">
         <Icon
-          className={`w-5 h-5 mr-2 flex-shrink-0 ${colorPalette.titleText}`}
+          className={`w-5 h-5 mr-2 flex-shrink-0 ${colorPalette.subtitleText}`}
         />
-        <span className={`${colorPalette.text} flex items-center`}>
+        <span className={`${colorPalette.subtitleText} flex items-center`}>
           {content}
           {extraContent && (
             <span className="ml-2 flex-shrink-0">{extraContent}</span>

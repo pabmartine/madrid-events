@@ -98,7 +98,7 @@ const EventCard: React.FC<EventCardProps> = ({
         )}
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-gray-900 opacity-70" />
         <span
-          className={`absolute top-2 right-2 ${colorPalette.priceBadgeBg} ${colorPalette.priceBadgeText} px-2 py-1 rounded-full text-sm font-bold`}
+          className={`absolute top-2 right-2 ${colorPalette.priceBadgeBg} ${colorPalette.priceBadgeText} px-2 py-1 rounded-lg text-sm font-bold`}
         >
           {event.free
             ? intl.formatMessage({ id: 'app.event.free' })
@@ -112,7 +112,14 @@ const EventCard: React.FC<EventCardProps> = ({
       </div>
       <div className="p-4 flex-grow flex flex-col">
         <h2
-          className={`text-xl font-semibold line-clamp-2 ${colorPalette.titleText} mb-2`}
+          className={`text-xl font-semibold ${colorPalette.titleText} mb-2`}
+          style={{
+            display: '-webkit-box',
+            WebkitBoxOrient: 'vertical',
+            WebkitLineClamp: 2,
+            overflow: 'hidden',
+            minHeight: '3em', /* Forces the title to occupy the space equivalent to two lines */
+          }}
         >
           {event.title}
         </h2>
@@ -130,7 +137,7 @@ const EventCard: React.FC<EventCardProps> = ({
                 intl.formatMessage({ id: 'app.event.location.unavailable' })}
             </span>
           </div>
-          <div className={`${colorPalette.text} flex items-center`}>
+          <div className={`${colorPalette.subtitleText} flex items-center`}>
             <Calendar size={16} className="mr-1" />
             <span className="text-sm">
               {new Date(event.dtstart).toLocaleDateString()}
