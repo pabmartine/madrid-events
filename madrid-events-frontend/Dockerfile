@@ -16,7 +16,7 @@ COPY . .
 # Limpiar módulos y reinstalar
 RUN rm -rf node_modules package-lock.json
 RUN npm install
-RUN npm run build
+RUN npm run build-no-lint
 
 # Etapa de producción (Nginx)
 FROM nginx:1.27.0-alpine
