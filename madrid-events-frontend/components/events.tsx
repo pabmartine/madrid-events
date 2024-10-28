@@ -449,6 +449,7 @@ export function Events() {
     isDarkMode: boolean;
     showCarousel: boolean;
     geoLocation: { lat: number; lon: number } | null;
+    pastEvents: boolean;
   }
 
   // Estado inicial para settingsState
