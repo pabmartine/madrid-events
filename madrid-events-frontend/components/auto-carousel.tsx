@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { useIntl } from 'react-intl'
-import { Event } from '../types/types'
-
+import React, { useState, useEffect } from 'react';
+import { useIntl } from 'react-intl';
+import { Event } from '../types/types';
 
 const AutoCarousel = ({ events }: { events: Event[] }) => {
   const intl = useIntl();
@@ -20,7 +19,7 @@ const AutoCarousel = ({ events }: { events: Event[] }) => {
   };
 
   return (
-    <div 
+    <div
       className="relative w-full h-[50vh] overflow-hidden mb-12 rounded-lg shadow-lg cursor-pointer"
       onClick={handleClick}
       role="region"
@@ -34,9 +33,15 @@ const AutoCarousel = ({ events }: { events: Event[] }) => {
           <div
             key={event.id}
             className={`absolute top-0 left-0 w-full h-full transition-all duration-500 ease-in-out ${
-              index === currentIndex ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'
+              index === currentIndex
+                ? 'opacity-100 translate-x-0'
+                : 'opacity-0 translate-x-full'
             }`}
-            style={{ backgroundImage, backgroundSize: 'cover', backgroundPosition: 'center' }}
+            style={{
+              backgroundImage,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
             aria-hidden={index !== currentIndex}
           >
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -44,7 +49,12 @@ const AutoCarousel = ({ events }: { events: Event[] }) => {
                 <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 px-4 animate-fade-in-up">
                   {event.title}
                 </h2>
-                <p className="text-lg text-white">{event["event-location"] || intl.formatMessage({ id: 'app.event.location.unspecified' })}</p>
+                <p className="text-lg text-white">
+                  {event['event-location'] ||
+                    intl.formatMessage({
+                      id: 'app.event.location.unspecified',
+                    })}
+                </p>
               </div>
             </div>
           </div>
@@ -54,4 +64,4 @@ const AutoCarousel = ({ events }: { events: Event[] }) => {
   );
 };
 
-export default React.memo(AutoCarousel)
+export default React.memo(AutoCarousel);

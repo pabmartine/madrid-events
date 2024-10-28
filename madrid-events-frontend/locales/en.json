@@ -77,6 +77,7 @@
   "app.settings.locate": "Locate",
   "app.settings.your.location": "Your location",
   "app.settings.save": "Save settings",
+  "app.settings.pastEvents": "Mostrar eventos pasados",
   "app.open.settings": "Open settings",
   "app.loading": "Loading..."
 }

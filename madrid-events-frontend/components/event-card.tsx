@@ -20,7 +20,13 @@ interface EventCardProps {
   onLastElementVisible: () => void;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event, onSelect, colorPalette, isLast, onLastElementVisible }) => {
+const EventCard: React.FC<EventCardProps> = ({
+  event,
+  onSelect,
+  colorPalette,
+  isLast,
+  onLastElementVisible,
+}) => {
   const intl = useIntl();
 
   const truncatePrice = (price: string) => {
@@ -41,7 +47,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, onSelect, colorPalette, is
           }
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (cardRef.current) {
@@ -59,7 +65,9 @@ const EventCard: React.FC<EventCardProps> = ({ event, onSelect, colorPalette, is
     <div
       ref={cardRef}
       className={`transition-all duration-300 ease-out ${
-        isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-4'
+        isVisible
+          ? 'opacity-100 transform translate-y-0'
+          : 'opacity-0 transform translate-y-4'
       } ${colorPalette.cardBg} ${colorPalette.cardBorder} rounded-xl shadow-lg overflow-hidden transition-all duration-200 ease-out transform hover:scale-105 hover:shadow-xl cursor-pointer h-full flex flex-col`}
       onClick={() => onSelect(event)}
       onKeyDown={(e) => {
@@ -69,13 +77,16 @@ const EventCard: React.FC<EventCardProps> = ({ event, onSelect, colorPalette, is
       }}
       tabIndex={0}
       role="button"
-      aria-label={intl.formatMessage({ id: 'app.event.details' }, { title: event.title })}
+      aria-label={intl.formatMessage(
+        { id: 'app.event.details' },
+        { title: event.title },
+      )}
     >
       <div className="relative h-48 overflow-hidden">
         {event.image ? (
-          <Image 
-            src={event.image} 
-            alt={event.title} 
+          <Image
+            src={event.image}
+            alt={event.title}
             layout="fill"
             objectFit="cover"
             className="transition-transform duration-300 group-hover:scale-110"
@@ -86,25 +97,44 @@ const EventCard: React.FC<EventCardProps> = ({ event, onSelect, colorPalette, is
           </div>
         )}
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-gray-900 opacity-70" />
-        <span className={`absolute top-2 right-2 ${colorPalette.priceBadgeBg} ${colorPalette.priceBadgeText} px-2 py-1 rounded-full text-sm font-bold`}>
-          {event.free ? intl.formatMessage({ id: 'app.event.free' }) : truncatePrice(intl.formatMessage({ id: 'app.event.from' }, { price: event.price || '20€' }))}
+        <span
+          className={`absolute top-2 right-2 ${colorPalette.priceBadgeBg} ${colorPalette.priceBadgeText} px-2 py-1 rounded-full text-sm font-bold`}
+        >
+          {event.free
+            ? intl.formatMessage({ id: 'app.event.free' })
+            : truncatePrice(
+                intl.formatMessage(
+                  { id: 'app.event.from' },
+                  { price: event.price || '20€' },
+                ),
+              )}
         </span>
       </div>
       <div className="p-4 flex-grow flex flex-col">
-        <h2 className={`text-xl font-semibold line-clamp-2 ${colorPalette.titleText} mb-2`}>
+        <h2
+          className={`text-xl font-semibold line-clamp-2 ${colorPalette.titleText} mb-2`}
+        >
           {event.title}
         </h2>
         <p className={`${colorPalette.text} line-clamp-2 mb-4 text-sm`}>
-          {event.description || intl.formatMessage({ id: 'app.event.description.unavailable' })}
+          {event.description ||
+            intl.formatMessage({ id: 'app.event.description.unavailable' })}
         </p>
         <div className="mt-auto">
-          <div className={`${colorPalette.subtitleText} mb-2 flex items-center`}>
+          <div
+            className={`${colorPalette.subtitleText} mb-2 flex items-center`}
+          >
             <MapPin size={16} className="mr-1" />
-            <span className="text-sm truncate">{event["event-location"] || intl.formatMessage({ id: 'app.event.location.unavailable' })}</span>
+            <span className="text-sm truncate">
+              {event['event-location'] ||
+                intl.formatMessage({ id: 'app.event.location.unavailable' })}
+            </span>
           </div>
           <div className={`${colorPalette.text} flex items-center`}>
             <Calendar size={16} className="mr-1" />
-            <span className="text-sm">{new Date(event.dtstart).toLocaleDateString()}</span>
+            <span className="text-sm">
+              {new Date(event.dtstart).toLocaleDateString()}
+            </span>
             {event.time && (
               <>
                 <Clock size={16} className="ml-2 mr-1" />
@@ -112,17 +142,20 @@ const EventCard: React.FC<EventCardProps> = ({ event, onSelect, colorPalette, is
               </>
             )}
           </div>
-          <div className={`flex items-center justify-between mt-4 pt-4 border-t border-gray-700 ${colorPalette.text}`}>
+          <div
+            className={`flex items-center justify-between mt-4 pt-4 border-t border-gray-700 ${colorPalette.text}`}
+          >
             <div className="flex items-center">
-              <Image 
-                src="/metro.png" 
+              <Image
+                src="/metro.png"
                 alt={intl.formatMessage({ id: 'app.event.metro' })}
-                width={24} 
+                width={24}
                 height={24}
                 className="mr-2"
               />
               <span className="text-sm font-semibold">
-                {event.subway || intl.formatMessage({ id: 'app.map.subway.unavailable' })}
+                {event.subway ||
+                  intl.formatMessage({ id: 'app.map.subway.unavailable' })}
               </span>
               {event.subwayLines && event.subwayLines.length > 0 && (
                 <div className="flex ml-2">
@@ -131,7 +164,10 @@ const EventCard: React.FC<EventCardProps> = ({ event, onSelect, colorPalette, is
                       key={index}
                       className="inline-flex items-center justify-center w-5 h-5 rounded-full text-white text-xs font-bold ml-1"
                       style={{ backgroundColor: line.color }}
-                      aria-label={intl.formatMessage({ id: 'app.event.subway.line' }, { number: line.number })}
+                      aria-label={intl.formatMessage(
+                        { id: 'app.event.subway.line' },
+                        { number: line.number },
+                      )}
                     >
                       {line.number}
                     </span>
@@ -142,8 +178,11 @@ const EventCard: React.FC<EventCardProps> = ({ event, onSelect, colorPalette, is
             <div className="flex items-center">
               <Ruler size={16} className="mr-1" />
               <span className="text-sm font-semibold">
-                {event.distance 
-                  ? intl.formatMessage({ id: 'app.map.distance.km' }, { distance: event.distance.toFixed(2) })
+                {event.distance
+                  ? intl.formatMessage(
+                      { id: 'app.map.distance.km' },
+                      { distance: event.distance.toFixed(2) },
+                    )
                   : intl.formatMessage({ id: 'app.map.distance.unavailable' })}
               </span>
             </div>

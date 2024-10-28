@@ -1,7 +1,7 @@
-import React from 'react'
-import { Calendar, MapPin, ChevronUp, ChevronDown } from 'lucide-react'
-import { useIntl } from 'react-intl'
-import { FilterState, SortState } from './../types/types'
+import React from 'react';
+import { Calendar, MapPin, ChevronUp, ChevronDown } from 'lucide-react';
+import { useIntl } from 'react-intl';
+import { FilterState, SortState } from './../types/types';
 
 interface ColorPalette {
   primary: string;
@@ -21,27 +21,27 @@ interface ColorPalette {
 }
 
 interface FilterNavProps {
-  isFilterOpen: boolean
-  toggleFilterVisibility: () => void
-  isMapView: boolean
-  sortEvents: (by: 'date' | 'distance') => void
-  sortState: SortState
-  toggleFilter: (filter: keyof FilterState) => void
-  filterState: FilterState
-  colorPalette: ColorPalette
+  isFilterOpen: boolean;
+  toggleFilterVisibility: () => void;
+  isMapView: boolean;
+  filterState: FilterState;
+  sortState: SortState;
+  colorPalette: ColorPalette;
+  onToggleFilter: (filter: keyof FilterState) => void;
+  onSortEvents: (by: 'date' | 'distance') => void;
 }
 
 const FilterNav: React.FC<FilterNavProps> = ({
   isFilterOpen,
   toggleFilterVisibility,
   isMapView,
-  sortEvents,
-  sortState,
-  toggleFilter,
   filterState,
-  colorPalette
+  sortState,
+  colorPalette,
+  onToggleFilter,
+  onSortEvents,
 }) => {
-  const intl = useIntl()
+  const intl = useIntl();
 
   return (
     <nav className={`${colorPalette.cardBg} shadow-sm mb-8`}>
@@ -50,7 +50,9 @@ const FilterNav: React.FC<FilterNavProps> = ({
           onClick={toggleFilterVisibility}
           className={`w-full text-left flex items-center justify-between ${colorPalette.text} hover:${colorPalette.titleText}`}
         >
-          <span className="font-semibold">{intl.formatMessage({ id: 'app.filters' })}</span>
+          <span className="font-semibold">
+            {intl.formatMessage({ id: 'app.filters' })}
+          </span>
           {isFilterOpen ? <ChevronUp /> : <ChevronDown />}
         </button>
         {isFilterOpen && (
@@ -58,10 +60,10 @@ const FilterNav: React.FC<FilterNavProps> = ({
             {!isMapView && (
               <>
                 <button
-                  onClick={() => sortEvents('date')}
+                  onClick={() => onSortEvents('date')}
                   className={`flex items-center justify-between px-4 py-2 rounded-full border ${
-                    sortState.by === 'date' 
-                      ? `border-${colorPalette.primary} ${colorPalette.titleText}` 
+                    sortState.by === 'date'
+                      ? `border-${colorPalette.primary} ${colorPalette.titleText}`
                       : `border-gray-600 ${colorPalette.text}`
                   } hover:border-${colorPalette.primary} hover:${colorPalette.titleText} transition-colors duration-200`}
                 >
@@ -69,16 +71,19 @@ const FilterNav: React.FC<FilterNavProps> = ({
                     <Calendar size={18} className="mr-2" />
                     {intl.formatMessage({ id: 'app.sort.date' })}
                   </span>
-                  {sortState.by === 'date' && (
-                    sortState.order === 'asc' ? <ChevronUp size={18} /> : <ChevronDown size={18} />
-                  )}
+                  {sortState.by === 'date' &&
+                    (sortState.order === 'asc' ? (
+                      <ChevronUp size={18} />
+                    ) : (
+                      <ChevronDown size={18} />
+                    ))}
                 </button>
 
                 <button
-                  onClick={() => sortEvents('distance')}
+                  onClick={() => onSortEvents('distance')}
                   className={`flex items-center justify-between px-4 py-2 rounded-full border ${
-                    sortState.by === 'distance' 
-                      ? `border-${colorPalette.primary} ${colorPalette.titleText}` 
+                    sortState.by === 'distance'
+                      ? `border-${colorPalette.primary} ${colorPalette.titleText}`
                       : `border-gray-600 ${colorPalette.text}`
                   } hover:border-${colorPalette.primary} hover:${colorPalette.titleText} transition-colors duration-200`}
                 >
@@ -86,23 +91,44 @@ const FilterNav: React.FC<FilterNavProps> = ({
                     <MapPin size={18} className="mr-2" />
                     {intl.formatMessage({ id: 'app.sort.distance' })}
                   </span>
-                  {sortState.by === 'distance' && (
-                    sortState.order === 'asc' ? <ChevronUp size={18} /> : <ChevronDown size={18} />
-                  )}
+                  {sortState.by === 'distance' &&
+                    (sortState.order === 'asc' ? (
+                      <ChevronUp size={18} />
+                    ) : (
+                      <ChevronDown size={18} />
+                    ))}
                 </button>
               </>
             )}
             {[
-              { key: 'today', label: intl.formatMessage({ id: 'app.filter.today' }) },
-              { key: 'thisWeek', label: intl.formatMessage({ id: 'app.filter.thisWeek' }) },
-              { key: 'thisWeekend', label: intl.formatMessage({ id: 'app.filter.thisWeekend' }) },
-              { key: 'thisMonth', label: intl.formatMessage({ id: 'app.filter.thisMonth' }) },
-              { key: 'free', label: intl.formatMessage({ id: 'app.filter.free' }) },
-              { key: 'children', label: intl.formatMessage({ id: 'app.filter.children' }) }
+              {
+                key: 'today',
+                label: intl.formatMessage({ id: 'app.filter.today' }),
+              },
+              {
+                key: 'thisWeek',
+                label: intl.formatMessage({ id: 'app.filter.thisWeek' }),
+              },
+              {
+                key: 'thisWeekend',
+                label: intl.formatMessage({ id: 'app.filter.thisWeekend' }),
+              },
+              {
+                key: 'thisMonth',
+                label: intl.formatMessage({ id: 'app.filter.thisMonth' }),
+              },
+              {
+                key: 'free',
+                label: intl.formatMessage({ id: 'app.filter.free' }),
+              },
+              {
+                key: 'children',
+                label: intl.formatMessage({ id: 'app.filter.children' }),
+              },
             ].map(({ key, label }) => (
               <button
                 key={key}
-                onClick={() => toggleFilter(key as keyof FilterState)}
+                onClick={() => onToggleFilter(key as keyof FilterState)}
                 className={`px-4 py-2 rounded-full text-sm ${
                   filterState[key as keyof FilterState]
                     ? `${colorPalette.buttonBg} ${colorPalette.buttonText}`
@@ -116,7 +142,7 @@ const FilterNav: React.FC<FilterNavProps> = ({
         )}
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default FilterNav
+export default FilterNav;

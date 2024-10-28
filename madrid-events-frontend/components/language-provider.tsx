@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useState, useEffect, ReactNode } from 'react'; // Asegúrate de importar ReactNode
 import { IntlProvider } from 'react-intl';
@@ -14,7 +14,9 @@ interface LanguageProviderProps {
   children: ReactNode; // Define el tipo para children
 }
 
-export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
+export const LanguageProvider: React.FC<LanguageProviderProps> = ({
+  children,
+}) => {
   const [locale, setLocale] = useState<'es' | 'en'>('en'); // Restringir locale a 'es' o 'en'
 
   useEffect(() => {
@@ -23,7 +25,11 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   }, []);
 
   return (
-    <IntlProvider messages={messages[locale]} locale={locale} defaultLocale="en">
+    <IntlProvider
+      messages={messages[locale]}
+      locale={locale}
+      defaultLocale="en"
+    >
       {children}
     </IntlProvider>
   );

@@ -4,9 +4,9 @@ import { LanguageProvider } from '@/components/language-provider';
 
 // Wrapping the main page component in dynamic import to disable SSR
 const PageComponent = () => (
-    <LanguageProvider>
-      <Events />
-    </LanguageProvider>
+  <LanguageProvider>
+    <Events />
+  </LanguageProvider>
 );
 
 const Page = dynamic(() => Promise.resolve(PageComponent), { ssr: false });
