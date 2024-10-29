@@ -442,7 +442,7 @@ export function Events() {
       isDarkMode: savedTheme === 'dark',
       showCarousel: savedCarouselState === null ? true : savedCarouselState === 'true',
       geoLocation: savedGeoLocation ? JSON.parse(savedGeoLocation) : null,
-      pastEvents: savedPastEvents === null ? false : savedPastEvents === 'false',,
+      pastEvents: savedPastEvents === null ? false : savedPastEvents === 'false',
     });
   }, []);
 
