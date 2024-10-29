@@ -440,10 +440,9 @@ export function Events() {
 
     setSettingsState({
       isDarkMode: savedTheme === 'dark',
-      showCarousel:
-        savedCarouselState === null ? true : savedCarouselState === 'true',
+      showCarousel: savedCarouselState === null ? true : savedCarouselState === 'true',
       geoLocation: savedGeoLocation ? JSON.parse(savedGeoLocation) : null,
-      pastEvents: savedPastEvents,
+      pastEvents: savedPastEvents === null ? false : savedPastEvents === 'false',,
     });
   }, []);
 
