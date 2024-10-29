@@ -436,12 +436,14 @@ export function Events() {
     const savedTheme = localStorage.getItem('theme');
     const savedCarouselState = localStorage.getItem('showCarousel');
     const savedGeoLocation = localStorage.getItem('lastGeoLocation');
+    const savedPastEvents = localStorage.getItem('pastEvents');
 
     setSettingsState({
       isDarkMode: savedTheme === 'dark',
       showCarousel:
         savedCarouselState === null ? true : savedCarouselState === 'true',
       geoLocation: savedGeoLocation ? JSON.parse(savedGeoLocation) : null,
+      pastEvents: savedPastEvents,
     });
   }, []);
 
