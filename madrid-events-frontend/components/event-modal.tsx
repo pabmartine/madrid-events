@@ -172,7 +172,8 @@ export default function EventModal({
             <h3 className={`text-lg mb-4 ${colorPalette.subtitleText}`}>
               {event['event-location']}
             </h3>
-            <p className={`${colorPalette.text} mb-4`}>{event.description}</p>
+            <p className={`${colorPalette.text} mb-4`} dangerouslySetInnerHTML={{ __html: event.description }}></p>
+
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               {renderAddress()}

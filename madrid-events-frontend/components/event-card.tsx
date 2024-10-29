@@ -30,7 +30,7 @@ const EventCard: React.FC<EventCardProps> = ({
   const intl = useIntl();
 
   const truncatePrice = (price: string) => {
-    return price.length > 30 ? price.substring(0, 27) + '...' : price;
+    return price.length > 5 ? price.substring(0, 5) + '...' : price;
   };
 
   const cardRef = useRef<HTMLDivElement>(null);
@@ -87,7 +87,7 @@ const EventCard: React.FC<EventCardProps> = ({
           <Image
             src={event.image}
             alt={event.title}
-            layout="fill"
+            fill
             objectFit="cover"
             className="transition-transform duration-300 group-hover:scale-110"
           />
@@ -123,10 +123,8 @@ const EventCard: React.FC<EventCardProps> = ({
         >
           {event.title}
         </h2>
-        <p className={`${colorPalette.text} line-clamp-2 mb-4 text-sm`}>
-          {event.description ||
-            intl.formatMessage({ id: 'app.event.description.unavailable' })}
-        </p>
+        <p className={`${colorPalette.text} line-clamp-2 mb-4 text-sm`} dangerouslySetInnerHTML={{ __html: event.description || intl.formatMessage({ id: 'app.event.description.unavailable' }) }}></p>
+
         <div className="mt-auto">
           <div
             className={`${colorPalette.subtitleText} mb-2 flex items-center`}

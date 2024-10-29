@@ -303,7 +303,8 @@ export function Events() {
     if (filterState.children) {
       filteredEvents = filteredEvents.filter(
         (event) =>
-          event.audience && event.audience.toLowerCase().includes('niños'),
+          event.audience && event.audience.some(aud => aud.toLowerCase().includes('niños'))
+
       );
     }
 

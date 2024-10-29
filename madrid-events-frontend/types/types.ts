@@ -7,7 +7,7 @@ export interface Event {
   dtstart: string;
   dtend: string;
   time: string;
-  audience: string;
+  audience: string[];
   'event-location': string;
   locality: string;
   'postal-code': string;

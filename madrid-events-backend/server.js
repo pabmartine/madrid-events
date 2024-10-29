@@ -9,7 +9,8 @@ const NodeCache = require('node-cache');
 const { MongoClient } = require('mongodb');
 const rateLimit = require("express-rate-limit");
 const helmet = require('helmet');
-const winston = require('winston');  // Importar Winston
+const winston = require('winston');
+const xml2js = require('xml2js');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -24,21 +25,19 @@ let db;
 
 // Crear un logger personalizado usando Winston
 const logger = winston.createLogger({
-    level: 'error',  // Solo loguea a partir del nivel 'error'
+    level: 'error',
     format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.json()
     ),
     transports: [
-        // Transport para mostrar solo los errores en la consola
         new winston.transports.Console({
-            level: 'error',  // Mostrar solo errores
+            level: 'error',
             format: winston.format.combine(
-                winston.format.colorize(),   // Colores en consola para legibilidad
-                winston.format.simple()      // Mostrar solo mensaje simple en consola
+                winston.format.colorize(),
+                winston.format.simple()
             )
         }),
-        // Transport opcional para escribir errores en archivo
         new winston.transports.File({ filename: 'error.log', level: 'error' })
     ]
 });
@@ -124,7 +123,6 @@ app.use(cors({
 
 async function scrapeImageFromUrl(url) {
     try {
-        console.log('scraping image from for URL:', url);
         const response = await axios.get(url);
         const $ = cheerio.load(response.data);
         const imageElement = $('.image-content img');
@@ -133,9 +131,6 @@ async function scrapeImageFromUrl(url) {
         if (imageUrl && !imageUrl.startsWith('http')) {
             imageUrl = `https://www.madrid.es${imageUrl}`;
         }
-
-        console.log('Obtained:', imageUrl || null);
-
         return imageUrl || imageNotFound;
     } catch (error) {
         logger.error('Error scraping the image:', error.message);
@@ -159,14 +154,16 @@ async function getLocationDetails(latitude, longitude, maxRetries = 3, retryDela
             const { address } = response.data;
             return {
                 distrito: address.quarter || '',
-                barrio: address.suburb || ''
+                barrio: address.suburb || '',
+                direccion: address.road || '',
+                ciudad: address.city || ''
             };
         } catch (error) {
             attempts++;
             logger.error(`Attempt ${attempts} failed: ${error.message}`);
             if (attempts >= maxRetries) {
                 logger.error('Max retries reached. Error fetching location details.');
-                return { distrito: '', barrio: '' };
+                return { distrito: '', barrio: '', direccion: '', ciudad: '' };s
             }
             await new Promise(resolve => setTimeout(resolve, retryDelay));
         }
@@ -214,6 +211,172 @@ async function deletePastEvents() {
     }
 }
 
+async function processXmlEvent(xmlEvent) {
+    try {
+        // Extraer datos básicos
+        const mappedEvent = {
+            id: `xml-${xmlEvent.$.id}`, // Prefijo 'xml-' para diferenciar de eventos JSON
+            title: xmlEvent.basicData[0].title[0].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim(),
+            description: xmlEvent.basicData[0].body[0].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim(),
+            free: false, // Por defecto, ya que no tenemos esta información
+            price: '', // No disponible en el XML
+            dtstart: '', // Se llenará desde extradata/fechas
+            dtend: '', // Se llenará desde extradata/fechas
+            time: '', // No disponible directamente
+            audience: [], // Inicializado como array vacío
+            'event-location': xmlEvent.geoData[0].address[0],
+            locality: xmlEvent.geoData[0].locality[0] || '',
+            'postal-code': xmlEvent.geoData[0].zipcode[0],
+            'street-address': xmlEvent.geoData[0].address[0],
+            latitude: parseFloat(xmlEvent.geoData[0].latitude[0]),
+            longitude: parseFloat(xmlEvent.geoData[0].longitude[0]),
+            'organization-name': '',
+            link: xmlEvent.basicData[0].web[0],
+            image: null, // Se llenará después
+            distrito: '', // Se llenará con getLocationDetails
+            barrio: '', // Se llenará con getLocationDetails
+            distance: null, // Se calculará después
+            subway: '', // Se llenará con getNearestSubway
+            subwayLines: [], // Se llenará después
+            'excluded-days': ''
+        };
+
+        console.log(`Basic event data mapped: Title="${mappedEvent.title}", Location="${mappedEvent['event-location']}"`);
+        console.log(`Coordinates: Lat=${mappedEvent.latitude}, Lon=${mappedEvent.longitude}`);
+
+        // Procesar extradata
+        console.log('Processing extradata...');
+        if (xmlEvent.extradata && xmlEvent.extradata[0]) {
+            const extradata = xmlEvent.extradata[0];
+
+            // Procesar categorías para la audience
+            if (extradata.categorias && extradata.categorias[0].categoria) {
+                const categoria = extradata.categorias[0].categoria[0];
+
+                // Buscar el item de categoría principal
+                if (categoria.item) {
+                    const categoriaItem = categoria.item.find(item =>
+                        item.$ && item.$.name === 'Categoria');
+                    if (categoriaItem && categoriaItem._) {
+                        mappedEvent.audience.push(categoriaItem._);
+                    }
+                }
+
+                // Procesar subcategorías
+                if (categoria.subcategorias &&
+                    categoria.subcategorias[0].subcategoria) {
+
+                    const subcategorias = categoria.subcategorias[0].subcategoria;
+
+                    // Iterar sobre cada subcategoría
+                    subcategorias.forEach(subcategoria => {
+                        if (subcategoria.item) {
+                            const subcategoriaItem = subcategoria.item.find(item =>
+                                item.$ && item.$.name === 'SubCategoria');
+
+                            if (subcategoriaItem && subcategoriaItem._) {
+                                mappedEvent.audience.push(subcategoriaItem._);
+                            }
+                        }
+                    });
+                }
+
+                console.log(`Audience mapped: ${JSON.stringify(mappedEvent.audience)}`);
+            }
+
+            // Procesar precio
+            if (extradata.item) {
+                const serviciosPago = extradata.item.find(item =>
+                    item.$ && item.$.name === 'Servicios de pago' && item._);
+
+                if (serviciosPago) {
+                    const precioText = serviciosPago._
+                        .replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1')
+                        .replace(/<[^>]*>/g, '')
+                        .trim();
+
+                    mappedEvent.price = precioText;
+                    mappedEvent.free = precioText.toLowerCase().includes('gratuito') ||
+                                     precioText.toLowerCase().includes('gratis');
+                    console.log(`Price mapped: ${mappedEvent.price}, Free: ${mappedEvent.free}`);
+                }
+
+                // Procesar horario
+                const horario = extradata.item.find(item =>
+                    item.$ && item.$.name === 'Horario' && item._);
+
+                if (horario) {
+                    mappedEvent.time = horario._
+                        .replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1')
+                        .replace(/<[^>]*>/g, '')
+                        .trim();
+                    console.log(`Time mapped: ${mappedEvent.time}`);
+                }
+            }
+
+            // Procesar fechas
+            if (extradata.fechas && extradata.fechas[0].rango) {
+                const rango = extradata.fechas[0].rango[0];
+                mappedEvent.dtstart = convertDateFormat(rango.inicio[0]);
+                mappedEvent.dtend = convertDateFormat(rango.fin[0]);
+
+                // Verificar si la fecha de fin es posterior a la fecha actual
+                const currentDate = new Date();
+                const endDate = new Date(mappedEvent.dtend);
+
+                if (endDate < currentDate) {
+                    console.log(`Event ${mappedEvent.id} discarded: End date (${mappedEvent.dtend}) is in the past`);
+                    return null;
+                }
+
+                console.log(`Dates mapped: Start=${mappedEvent.dtstart}, End=${mappedEvent.dtend}`);
+            }
+        }
+
+        // Procesar imagen
+        console.log('Processing image information...');
+        if (xmlEvent.multimedia && xmlEvent.multimedia[0] && xmlEvent.multimedia[0].media) {
+            const mediaItems = xmlEvent.multimedia[0].media;
+
+            if (Array.isArray(mediaItems)) {
+                const imageMedia = mediaItems.find(media =>
+                    media &&
+                    media.type &&
+                    Array.isArray(media.type) &&
+                    media.type[0] &&
+                    media.type[0].toLowerCase() === 'image'
+                );
+
+                if (imageMedia && imageMedia.url && imageMedia.url[0]) {
+                    mappedEvent.image = imageMedia.url[0];
+                    console.log(`Image URL found: ${mappedEvent.image}`);
+                } else {
+                    mappedEvent.image = imageNotFound;
+                    console.log('No valid image URL found in media items, using default image');
+                }
+            } else {
+                console.log('Media items is not an array, using default image');
+                mappedEvent.image = imageNotFound;
+            }
+        } else {
+            mappedEvent.image = imageNotFound;
+            console.log('No multimedia section found or invalid structure, using default image');
+        }
+
+        return mappedEvent;
+    } catch (error) {
+        console.error('Error processing XML event:', error);
+        logger.error('Error processing XML event:', error);
+        return null;
+    }
+}
+
+// Función auxiliar para convertir formato de fecha
+function convertDateFormat(dateStr) {
+    const [day, month, year] = dateStr.split('/');
+    const converted = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T00:00:00.000Z`;
+    return converted;
+}
 
 async function fetchAndStoreEvents() {
     try {
@@ -238,7 +401,7 @@ async function fetchAndStoreEvents() {
         const subwaysCollection = db.collection('subways');
 
         const eventPromises = eventsData['@graph'].map(async (event) => {
-            let locationDetails = { distrito: '', barrio: '' };
+            let locationDetails = { distrito: '', barrio: '', direccion: '', ciudad: '' };
             let eventDistance = null;
             let nearestSubway = null;
             let imageUrl = null;
@@ -256,7 +419,9 @@ async function fetchAndStoreEvents() {
             if (existingEvent) {                
                 locationDetails = {
                     distrito: existingEvent.distrito || '',
-                    barrio: existingEvent.barrio || ''
+                    barrio: existingEvent.barrio || '',
+                    direccion: existingEvent['street-address'] || '',
+                    ciudad: existingEvent.locality || ''
                 };
                 eventDistance = existingEvent.distance || null;
                 nearestSubway = existingEvent.subway || null;
@@ -297,10 +462,10 @@ async function fetchAndStoreEvents() {
                 dtstart: event.dtstart || '',
                 dtend: event.dtend || '',
                 time: event.time || '',
-                audience: event.audience || '',
-                'event-location': event['event-location']
-                    ? cleanOrganizationName(event['event-location'], locationDetails.distrito, locationDetails.barrio)
-                    : '',
+                audience: Array.isArray(event.audience) ? event.audience : [event.audience || ''], // Asegura que siempre sea un array
+                    'event-location': event['event-location']
+                        ? cleanOrganizationName(event['event-location'], locationDetails.distrito, locationDetails.barrio)
+                        : '',
                 locality: event.address?.area?.locality || '',
                 'postal-code': event.address?.area?.['postal-code'] || '',
                 'street-address': event.address?.area?.['street-address'] || '',
@@ -329,6 +494,104 @@ async function fetchAndStoreEvents() {
         await Promise.all(eventPromises);
     } catch (error) {
         logger.error('Error fetching and storing events:', error.message);
+    }
+}
+
+// Función para obtener y procesar eventos XML
+async function fetchAndStoreXmlEvents() {
+    console.log('Starting XML events fetch and store process...');
+    try {
+        const url = 'https://www.esmadrid.com/opendata/agenda_v1_es.xml';
+        const response = await axios.get(url);
+        const xmlData = response.data;
+
+        // Parsear XML
+        const parser = new xml2js.Parser();
+        const result = await parser.parseStringPromise(xmlData);
+
+        if (!result || !result.serviceList || !result.serviceList.service) {
+            throw new Error('Unexpected XML structure');
+        }
+
+        const totalEvents = result.serviceList.service.length;
+        console.log(`Found ${totalEvents} events in XML feed`);
+
+        const collection = db.collection(collectionName);
+        const subwaysCollection = db.collection('subways');
+
+        const eventPromises = result.serviceList.service.map(async (xmlEvent, index) => {
+            const mappedEvent = await processXmlEvent(xmlEvent);
+
+            if (!mappedEvent) {
+                return;
+            }
+
+            let locationDetails = { distrito: '', barrio: '', direccion: '', ciudad: '' };
+            let eventDistance = null;
+            let nearestSubway = null;
+            let subwayLines = [];
+
+            const existingEvent = await collection.findOne({ id: mappedEvent.id });
+
+            if (existingEvent) {
+                locationDetails = {
+                    distrito: existingEvent.distrito || '',
+                    barrio: existingEvent.barrio || '',
+                    direccion: existingEvent['street-address'] || '',
+                    ciudad: existingEvent.locality || ''
+                };
+                eventDistance = existingEvent.distance || null;
+                nearestSubway = existingEvent.subway || null;
+                subwayLines = existingEvent.subwayLines || [];
+            } else {
+
+                if (mappedEvent.latitude && mappedEvent.longitude) {
+
+                    locationDetails = await getLocationDetails(mappedEvent.latitude, mappedEvent.longitude);
+
+                    eventDistance = calculateDistance(baseLat, baseLon, mappedEvent.latitude, mappedEvent.longitude);
+
+                    nearestSubway = await getNearestSubway(mappedEvent.latitude, mappedEvent.longitude);
+
+                    if (nearestSubway) {
+                        const normalizedSubway = normalizeString(nearestSubway);
+                        const subwayData = await subwaysCollection.findOne({
+                            subway: { $regex: new RegExp(`^${normalizedSubway}$`, 'i') }
+                        });
+                        if (subwayData) {
+                            subwayLines = subwayData.lines;
+                        } else {
+                            console.log('No subway lines data found');
+                        }
+                    }
+                } else {
+                    console.log('No coordinates available for this event');
+                }
+            }
+
+            // Actualizar el evento con los detalles adicionales
+            mappedEvent['street-address'] = mappedEvent['street-address'] || locationDetails.road;
+            mappedEvent.distrito = locationDetails.distrito;
+            mappedEvent.barrio = locationDetails.barrio;
+            mappedEvent.locality = locationDetails.ciudad;
+            mappedEvent.address = locationDetails.diireccion;
+            mappedEvent.distance = eventDistance;
+            mappedEvent.subway = nearestSubway || '';
+            mappedEvent.subwayLines = subwayLines;
+
+            // Insertar o actualizar en la base de datos
+            await collection.updateOne(
+                { id: mappedEvent.id },
+                { $set: mappedEvent },
+                { upsert: true }
+            );
+        });
+
+        await Promise.all(eventPromises);
+        console.log('All XML events have been processed and stored');
+    } catch (error) {
+        console.error('Error in fetchAndStoreXmlEvents:', error);
+        logger.error('Error fetching and storing XML events:', error.message);
     }
 }
 
@@ -478,20 +741,42 @@ async function connectToMongoDB() {
   }
 }
 
+// Modificar la función startServer para incluir el nuevo servicio
 async function startServer() {
-  const client = await connectToMongoDB();
-  
-  app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-    fetchAndStoreEvents();
-    setInterval(fetchAndStoreEvents, 24 * 60 * 60 * 1000);
-  });
+    console.log('Starting server initialization...');
+    const client = await connectToMongoDB();
 
-  process.on('SIGINT', async () => {
-    await client.close();
-    console.log('MongoDB connection closed');
-    process.exit(0);
-  });
+    app.listen(port, () => {
+        console.log(`Server running on port ${port}`);
+        console.log('Initializing data fetch services...');
+
+//        // Ejecutar ambos servicios de fetching
+        console.log('Starting initial JSON events fetch...');
+        fetchAndStoreEvents();
+//        console.log('Starting initial XML events fetch...');
+        fetchAndStoreXmlEvents();
+
+        // Configurar intervalos para ambos servicios
+        console.log('Setting up periodic fetch intervals...');
+        setInterval(() => {
+            console.log('Running scheduled JSON events fetch...');
+            fetchAndStoreEvents();
+        }, 24 * 60 * 60 * 1000);
+
+        setInterval(() => {
+            console.log('Running scheduled XML events fetch...');
+            fetchAndStoreXmlEvents();
+        }, 24 * 60 * 60 * 1000);
+
+        console.log('Server initialization completed');
+    });
+
+    process.on('SIGINT', async () => {
+        console.log('Received SIGINT signal, cleaning up...');
+        await client.close();
+        console.log('MongoDB connection closed');
+        process.exit(0);
+    });
 }
 
 startServer();
