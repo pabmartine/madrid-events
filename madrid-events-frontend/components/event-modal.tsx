@@ -129,6 +129,12 @@ export default function EventModal({
     );
   };
 
+  const decodeHTMLEntities = (text: string) => {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = text;
+    return textarea.value;
+  };
+
   return (
     <div
       className="fixed inset-0 z-[9999] overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center"
@@ -167,7 +173,7 @@ export default function EventModal({
               id="modal-title"
               className={`text-2xl font-bold mb-2 ${colorPalette.text}`}
             >
-              {event.title}
+               {decodeHTMLEntities(event.title)}
             </h2>
             <h3 className={`text-lg mb-4 ${colorPalette.subtitleText}`}>
               {event['event-location']}
@@ -218,7 +224,7 @@ export default function EventModal({
                   >
                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                     <Marker position={[event.latitude, event.longitude]}>
-                      <Popup>{event.title}</Popup>
+                      <Popup>{decodeHTMLEntities(event.title)}</Popup>
                     </Marker>
                   </MapContainer>
                 </div>

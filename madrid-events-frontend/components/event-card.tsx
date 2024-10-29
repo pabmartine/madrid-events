@@ -61,6 +61,12 @@ const EventCard: React.FC<EventCardProps> = ({
     };
   }, [isLast, onLastElementVisible]);
 
+    const decodeHTMLEntities = (text: string) => {
+      const textarea = document.createElement('textarea');
+      textarea.innerHTML = text;
+      return textarea.value;
+    };
+
   return (
     <div
       ref={cardRef}
@@ -121,7 +127,7 @@ const EventCard: React.FC<EventCardProps> = ({
             minHeight: '3em', /* Forces the title to occupy the space equivalent to two lines */
           }}
         >
-          {event.title}
+          {decodeHTMLEntities(event.title)}
         </h2>
         <p className={`${colorPalette.text} line-clamp-2 mb-4 text-sm`} dangerouslySetInnerHTML={{ __html: event.description || intl.formatMessage({ id: 'app.event.description.unavailable' }) }}></p>
 

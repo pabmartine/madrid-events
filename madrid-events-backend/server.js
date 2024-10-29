@@ -334,29 +334,20 @@ async function processXmlEvent(xmlEvent) {
         }
 
         // Procesar imagen
-        console.log('Processing image information...');
         if (xmlEvent.multimedia && xmlEvent.multimedia[0] && xmlEvent.multimedia[0].media) {
             const mediaItems = xmlEvent.multimedia[0].media;
 
-            if (Array.isArray(mediaItems)) {
-                const imageMedia = mediaItems.find(media =>
-                    media &&
-                    media.type &&
-                    Array.isArray(media.type) &&
-                    media.type[0] &&
-                    media.type[0].toLowerCase() === 'image'
-                );
+            // Buscamos el primer elemento de tipo imagen que tenga una URL válida
+            const imageMedia = mediaItems.find(media =>
+                media.$?.type?.toLowerCase() === 'image' && media.url?.[0]
+            );
 
-                if (imageMedia && imageMedia.url && imageMedia.url[0]) {
-                    mappedEvent.image = imageMedia.url[0];
-                    console.log(`Image URL found: ${mappedEvent.image}`);
-                } else {
-                    mappedEvent.image = imageNotFound;
-                    console.log('No valid image URL found in media items, using default image');
-                }
+            if (imageMedia) {
+                mappedEvent.image = imageMedia.url[0];
+                console.log(`Image URL found: ${mappedEvent.image}`);
             } else {
-                console.log('Media items is not an array, using default image');
                 mappedEvent.image = imageNotFound;
+                console.log('No valid image URL found in media items, using default image');
             }
         } else {
             mappedEvent.image = imageNotFound;
@@ -427,6 +418,38 @@ async function fetchAndStoreEvents() {
                 nearestSubway = existingEvent.subway || null;
                 imageUrl = existingEvent.image || null;
                 subwayLines = existingEvent.subwayLines || [];
+
+
+                // Calcular o actualizar valores faltantes en locationDetails
+                if (!locationDetails.distrito || !locationDetails.barrio || !locationDetails.direccion || !locationDetails.ciudad) {
+                    locationDetails = await getLocationDetails(event.location.latitude, event.location.longitude);
+                }
+
+                // Calcular eventDistance si está ausente
+                if (eventDistance === null && event.location?.latitude && event.location?.longitude) {
+                    eventDistance = calculateDistance(baseLat, baseLon, event.location.latitude, event.location.longitude);
+                }
+
+                // Calcular nearestSubway y subwayLines si están ausentes
+                if (!nearestSubway && event.location?.latitude && event.location?.longitude) {
+                    nearestSubway = await getNearestSubway(event.location.latitude, event.location.longitude);
+
+                    if (nearestSubway) {
+                        const normalizedSubway = normalizeString(nearestSubway);
+                        const subwayData = await subwaysCollection.findOne({
+                            subway: { $regex: new RegExp(`^${normalizedSubway}$`, 'i') }
+                        });
+                        if (subwayData) {
+                            subwayLines = subwayData.lines;
+                        }
+                    }
+                }
+
+                // Obtener imagen si no está presente
+                if (!imageUrl) {
+                    imageUrl = await scrapeImageFromUrl(event.link);
+                }
+
             } else {
                 if (event.location?.latitude && event.location?.longitude) {
                     locationDetails = await getLocationDetails(event.location.latitude, event.location.longitude);
@@ -543,6 +566,33 @@ async function fetchAndStoreXmlEvents() {
                 eventDistance = existingEvent.distance || null;
                 nearestSubway = existingEvent.subway || null;
                 subwayLines = existingEvent.subwayLines || [];
+
+                // Calcular o actualizar valores faltantes en locationDetails
+                                if (!locationDetails.distrito || !locationDetails.barrio || !locationDetails.direccion || !locationDetails.ciudad) {
+                                    locationDetails = await getLocationDetails(mappedEvent.latitude, mappedEvent.longitude);
+                                }
+
+                                // Calcular eventDistance si está ausente
+                                if (eventDistance === null && mappedEvent.latitude && mappedEvent.longitude) {
+                                    eventDistance = calculateDistance(baseLat, baseLon, mappedEvent.latitude, mappedEvent.longitude);
+                                }
+
+                                // Calcular nearestSubway y subwayLines si están ausentes
+                                if (!nearestSubway && mappedEvent.latitude && mappedEvent.longitude) {
+                                    nearestSubway = await getNearestSubway(mappedEvent.latitude, mappedEvent.longitude);
+
+                                    if (nearestSubway) {
+                                        const normalizedSubway = normalizeString(nearestSubway);
+                                        const subwayData = await subwaysCollection.findOne({
+                                            subway: { $regex: new RegExp(`^${normalizedSubway}$`, 'i') }
+                                        });
+                                        if (subwayData) {
+                                            subwayLines = subwayData.lines;
+                                        } else {
+                                            console.log('No subway lines data found');
+                                        }
+                                    }
+                                }
             } else {
 
                 if (mappedEvent.latitude && mappedEvent.longitude) {
