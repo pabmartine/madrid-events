@@ -63,21 +63,25 @@ const Header: React.FC<HeaderProps> = ({
             />
           </div>
           <button
-            onClick={toggleMapView}
-            className={`p-2 rounded-full ${colorPalette.buttonBg} ${colorPalette.buttonText}`}
-            aria-label={intl.formatMessage({
-              id: isMapView ? 'app.view.list' : 'app.view.map',
-            })}
-          >
-            {isMapView ? <List size={20} /> : <Map size={20} />}
-          </button>
-          <button
-            onClick={openSettings}
-            className={`p-2 rounded-full ${colorPalette.buttonBg} ${colorPalette.buttonText}`}
-            aria-label={intl.formatMessage({ id: 'app.open.settings' })}
-          >
-            <Settings size={20} />
-          </button>
+                      onClick={toggleMapView}
+                      className={`hover:opacity-80 transition-opacity`}
+                      aria-label={intl.formatMessage({
+                        id: isMapView ? 'app.view.list' : 'app.view.map',
+                      })}
+                    >
+                      {isMapView ? (
+                        <List size={24} className={colorPalette.buttonText} />
+                      ) : (
+                        <Map size={24} className={colorPalette.buttonText} />
+                      )}
+                    </button>
+           <button
+                      onClick={openSettings}
+                      className={`hover:opacity-80 transition-opacity`}
+                      aria-label={intl.formatMessage({ id: 'app.open.settings' })}
+                    >
+                      <Settings size={24} className={colorPalette.buttonText} />
+                    </button>
         </div>
       </div>
     </header>

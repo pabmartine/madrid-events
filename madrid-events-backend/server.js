@@ -94,9 +94,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     const R = 6371;
     const dLat = deg2rad(lat2 - lat1);
     const dLon = deg2rad(lon2 - lon1);
-    const a = 
+    const a =
         Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
         Math.sin(dLon/2) * Math.sin(dLon/2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     return R * c;
@@ -127,7 +127,7 @@ async function scrapeImageFromUrl(url) {
         const $ = cheerio.load(response.data);
         const imageElement = $('.image-content img');
         let imageUrl = imageElement.attr('src');
-        
+
         if (imageUrl && !imageUrl.startsWith('http')) {
             imageUrl = `https://www.madrid.es${imageUrl}`;
         }
@@ -200,7 +200,7 @@ async function deletePastEvents() {
     try {
         const collection = db.collection(collectionName);
         const currentDate = new Date().toISOString();
-        
+
         const result = await collection.deleteMany({
             dtend: { $lt: currentDate }
         });
@@ -372,9 +372,7 @@ function convertDateFormat(dateStr) {
 async function fetchAndStoreEvents() {
     try {
 
-        // Delete past events before fetching new ones
-        await deletePastEvents();
-        
+
         const url = 'https://datos.madrid.es/egob/catalogo/206974-0-agenda-eventos-culturales-100.json';
         const response = await axios.get(url);
         let eventsData = response.data;
@@ -397,7 +395,7 @@ async function fetchAndStoreEvents() {
             let nearestSubway = null;
             let imageUrl = null;
             let subwayLines = [];
-        
+
             if (event.free === 0) {
                 const lowercasePrice = event.price.toLowerCase();
                 if (lowercasePrice.includes('gratis') || lowercasePrice.includes('gratuit')) {
@@ -407,7 +405,7 @@ async function fetchAndStoreEvents() {
 
             const existingEvent = await collection.findOne({ id: event.id });
 
-            if (existingEvent) {                
+            if (existingEvent) {
                 locationDetails = {
                     distrito: existingEvent.distrito || '',
                     barrio: existingEvent.barrio || '',
@@ -659,10 +657,10 @@ app.get('/recalculate', validateCoordinates, async (req, res) => {
         if (newLat !== baseLat.toFixed(2) || newLon !== baseLon.toFixed(2)) {
             baseLat = lat;
             baseLon = lon;
-            
+
             console.log(`Recalculating distances with new base coordinates: ${baseLat}, ${baseLon}`);
             await fetchAndStoreEvents();
-            
+
             res.json({ message: 'Recalculation completed with new coordinates', baseLat, baseLon });
         } else {
             res.status(400).json({ message: 'Coordinates are the same, no recalculation needed', baseLat, baseLon });
@@ -716,10 +714,10 @@ app.get('/getImage', async (req, res) => {
 
         if (imageUrl) {
             await collection.updateOne({ id: id }, { $set: { image: imageUrl } });
-        } 
-        
+        }
+
         imageCache[id] = imageUrl;
-        
+
         res.json({ id, image: imageUrl });
 
     } catch (error) {
@@ -734,7 +732,7 @@ function normalizeString(str) {
 
 app.get('/getSubwayLines', async (req, res) => {
   const { subway } = req.query;
-  
+
   if (!subway) {
     return res.status(400).json({ error: 'Missing subway parameter' });
   }
@@ -753,9 +751,9 @@ app.get('/getSubwayLines', async (req, res) => {
     });
 
     if (subwayData) {
-      const response = { 
+      const response = {
         subway: subwayData.subway,
-        lines: subwayData.lines 
+        lines: subwayData.lines
       };
 
       subwayCache[normalizedSubway] = response;
@@ -791,42 +789,20 @@ async function connectToMongoDB() {
   }
 }
 
-// Modificar la función startServer para incluir el nuevo servicio
-async function startServer() {
-    console.log('Starting server initialization...');
-    const client = await connectToMongoDB();
+app.listen(port, async () => {
+    console.log(`Server running on port ${port}`);
+    await connectToMongoDB();
+    await deletePastEvents();
+    fetchAndStoreEvents();
+    fetchAndStoreXmlEvents();
 
-    app.listen(port, () => {
-        console.log(`Server running on port ${port}`);
-        console.log('Initializing data fetch services...');
+    setInterval(deletePastEvents, 24 * 60 * 60 * 1000);
+    setInterval(fetchAndStoreEvents, 24 * 60 * 60 * 1000);
+    setInterval(fetchAndStoreXmlEvents, 24 * 60 * 60 * 1000);
+})
 
-//        // Ejecutar ambos servicios de fetching
-        console.log('Starting initial JSON events fetch...');
-        fetchAndStoreEvents();
-//        console.log('Starting initial XML events fetch...');
-        fetchAndStoreXmlEvents();
-
-        // Configurar intervalos para ambos servicios
-        console.log('Setting up periodic fetch intervals...');
-        setInterval(() => {
-            console.log('Running scheduled JSON events fetch...');
-            fetchAndStoreEvents();
-        }, 24 * 60 * 60 * 1000);
-
-        setInterval(() => {
-            console.log('Running scheduled XML events fetch...');
-            fetchAndStoreXmlEvents();
-        }, 24 * 60 * 60 * 1000);
-
-        console.log('Server initialization completed');
-    });
-
-    process.on('SIGINT', async () => {
-        console.log('Received SIGINT signal, cleaning up...');
-        await client.close();
-        console.log('MongoDB connection closed');
-        process.exit(0);
-    });
-}
-
-startServer();
+process.on('SIGINT', async () => {
+    console.log('Closing MongoDB connection...');
+    await db.close();
+    process.exit(0);
+});
