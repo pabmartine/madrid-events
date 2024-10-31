@@ -12,6 +12,7 @@ const winston = require('winston');
 const xml2js = require('xml2js');
 const constants = require('./config/constants');
 const { Event, EventDomainService } = require('./domain');
+const logger = require('./config/logger');
 
 const app = express();
 
@@ -32,9 +33,8 @@ app.use(cors({
         if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
-            console.log('Origin blocked by CORS:', origin);
-            console.log('Allowed origins:', allowedOrigins);
-            callback(new Error('Not allowed by CORS'));
+            logger.warn('Origin blocked by CORS', { origin, allowedOrigins });
+                        callback(new Error('Not allowed by CORS'));
         }
     },
     credentials: true, // Permitir credenciales
@@ -43,24 +43,7 @@ app.use(cors({
     exposedHeaders: ['Content-Range', 'X-Content-Range']
 }));
 
-// Crear un logger personalizado usando Winston
-const logger = winston.createLogger({
-    level: 'error',
-    format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.json()
-    ),
-    transports: [
-        new winston.transports.Console({
-            level: 'error',
-            format: winston.format.combine(
-                winston.format.colorize(),
-                winston.format.simple()
-            )
-        }),
-        new winston.transports.File({ filename: 'error.log', level: 'error' })
-    ]
-});
+
 
 // Configuración de Axios
 axios.defaults.timeout = constants.AXIOS_TIMEOUT;
@@ -185,7 +168,7 @@ async function deletePastEvents() {
             dtend: { $lt: currentDate }
         });
 
-        console.log(`Deleted ${result.deletedCount} past events`);
+        logger.info(`Deleted past events`, { count: result.deletedCount });
     } catch (error) {
         logger.error('Error deleting past events:', error.message);
     }
@@ -289,7 +272,8 @@ async function fetchAndStoreEvents() {
 }
 
 async function fetchAndStoreXmlEvents() {
-    console.log('Starting XML events fetch and store process...');
+        logger.info('Starting XML events fetch and store process');
+
     try {
         const response = await axios.get(constants.XML_EVENTS_API_URL);
         const xmlData = response.data;
@@ -302,7 +286,7 @@ async function fetchAndStoreXmlEvents() {
         }
 
         const totalEvents = result.serviceList.service.length;
-        console.log(`Found ${totalEvents} events in XML feed`);
+         logger.info(`Found XML events`, { count: totalEvents });
 
         const collection = db.collection(constants.COLLECTION_NAME);
         const subwaysCollection = db.collection('subways');
@@ -373,9 +357,8 @@ async function fetchAndStoreXmlEvents() {
         });
 
         await Promise.all(eventPromises);
-        console.log('All XML events have been processed and stored');
+        logger.info('XML events processing completed');
     } catch (error) {
-        console.error('Error in fetchAndStoreXmlEvents:', error);
         logger.error('Error fetching and storing XML events:', error.message);
     }
 }
@@ -384,8 +367,7 @@ app.get('/recalculate', validateCoordinates, async (req, res) => {
     try {
         const { lat, lon } = req.query;
 
-        console.log(`Current coordinates: ${baseLat}, ${baseLon}`);
-        console.log(`New coordinates: ${lat}, ${lon}`);
+         logger.info('Recalculate coordinates request', { lat, lon });
 
         const newLat = parseFloat(lat).toFixed(2);
         const newLon = parseFloat(lon).toFixed(2);
@@ -394,7 +376,7 @@ app.get('/recalculate', validateCoordinates, async (req, res) => {
             baseLat = lat;
             baseLon = lon;
 
-            console.log(`Recalculating distances with new base coordinates: ${baseLat}, ${baseLon}`);
+            logger.info('Recalculating distances with new coordinates', { baseLat, baseLon });
             await fetchAndStoreEvents();
 
             res.json({ message: 'Recalculation completed with new coordinates', baseLat, baseLon });
@@ -434,7 +416,6 @@ app.get('/getImage', async (req, res) => {
                 }
 
                 if (imageCache[id]) {
-                    console.log('Returning image from cache for id:', id);
                     return res.json({ id, image: imageCache[id] });
                 }
 
@@ -526,7 +507,7 @@ app.get('/getImage', async (req, res) => {
                     useUnifiedTopology: true
                 });
                 db = client.db(constants.DB_NAME);
-                console.log('Connected to MongoDB');
+                 logger.info('Connected to MongoDB');
                 return client;
             } catch (error) {
                 logger.error('Error connecting to MongoDB:', error.message);
@@ -537,7 +518,7 @@ app.get('/getImage', async (req, res) => {
 
 
         app.listen(constants.PORT, async () => {
-            console.log(`Server running on port ${constants.PORT}`);
+            logger.info(`Server starting`, { port: constants.PORT });
             await connectToMongoDB();
             await deletePastEvents();
             fetchAndStoreEvents();
@@ -548,8 +529,15 @@ app.get('/getImage', async (req, res) => {
             setInterval(fetchAndStoreXmlEvents, constants.UPDATE_INTERVAL);
         });
 
+        // Manejo de señales de terminación
         process.on('SIGINT', async () => {
-            console.log('Closing MongoDB connection...');
-            await db.close();
-            process.exit(0);
+            logger.info('Shutting down server');
+            try {
+                await db.close();
+                logger.info('MongoDB connection closed');
+                process.exit(0);
+            } catch (error) {
+                logger.error('Error during shutdown', error);
+                process.exit(1);
+            }
         });
