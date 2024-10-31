@@ -1,6 +1,5 @@
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
-console.log('MONGO_URI:', process.env.MONGO_URI);
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
@@ -11,17 +10,13 @@ const rateLimit = require("express-rate-limit");
 const helmet = require('helmet');
 const winston = require('winston');
 const xml2js = require('xml2js');
+const constants = require('./config/constants');
 
 const app = express();
-const port = process.env.PORT || 5000;
-
-const mongoURI = process.env.MONGO_URI;
-const dbName = process.env.DB_NAME || 'madrid-events';
-const collectionName = process.env.COLLECTION_NAME || 'events';
-
-const imageNotFound = "https://www.tea-tron.com/antorodriguez/blog/wp-content/uploads/2016/04/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png";
 
 let db;
+let baseLat = constants.BASE_LAT;
+let baseLon = constants.BASE_LON;
 
 // Crear un logger personalizado usando Winston
 const logger = winston.createLogger({
@@ -42,38 +37,29 @@ const logger = winston.createLogger({
     ]
 });
 
-// Configuración de Axios para manejar timeouts y reintentos
-axios.defaults.timeout = 5000; // 5 segundos de timeout
+// Configuración de Axios
+axios.defaults.timeout = constants.AXIOS_TIMEOUT;
 
 axios.interceptors.response.use(null, (error) => {
     if (error.config && error.response && error.response.status >= 500) {
-        // Reintentar la solicitud si falló por error de servidor
         return axios.request(error.config);
     }
     return Promise.reject(error);
 });
 
-// Declare global variables for base coordinates
-let baseLat = 40.426794;
-let baseLon = -3.637245;
-
-// Caché en memoria para las estaciones de metro y sus líneas
+// Caché en memoria
 const subwayCache = {};
-
-// Cache en memoria para almacenar las imágenes asociadas a sus URLs
 const imageCache = {};
 
-// Aplicar helmet para añadir headers de seguridad
+// Aplicar helmet para seguridad
 app.use(helmet());
 
 // Aplicar rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutos
-  max: 1000 // límite de 1000 solicitudes por ventana por IP
+    windowMs: constants.RATE_LIMIT_WINDOW_MS,
+    max: constants.RATE_LIMIT_MAX_REQUESTS
 });
 app.use(limiter);
-
-// Resto del código...
 
 function stripInvalidControlCharacters(str) {
     return str.replace(/[\x00-\x1F\x7F]/g, '');
@@ -106,11 +92,10 @@ function deg2rad(deg) {
     return deg * (Math.PI/180);
 }
 
-const allowedOrigins = process.env.FRONTEND_URL.split(',');
+const allowedOrigins = constants.FRONTEND_URL.split(',');
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Permitir solicitudes sin origin (por ejemplo, desde el mismo servidor)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -131,7 +116,7 @@ async function scrapeImageFromUrl(url) {
         if (imageUrl && !imageUrl.startsWith('http')) {
             imageUrl = `https://www.madrid.es${imageUrl}`;
         }
-        return imageUrl || imageNotFound;
+        return imageUrl || constants.IMAGE_NOT_FOUND;
     } catch (error) {
         logger.error('Error scraping the image:', error.message);
         return null;
@@ -146,11 +131,11 @@ function validateCoordinates(req, res, next) {
     next();
 }
 
-async function getLocationDetails(latitude, longitude, maxRetries = 3, retryDelay = 1000) {
+async function getLocationDetails(latitude, longitude) {
     let attempts = 0;
-    while (attempts < maxRetries) {
+    while (attempts < constants.MAX_RETRIES) {
         try {
-            const response = await axios.get(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
+            const response = await axios.get(`${constants.NOMINATIM_API_BASE}?lat=${latitude}&lon=${longitude}&format=json`);
             const { address } = response.data;
             return {
                 distrito: address.quarter || '',
@@ -161,19 +146,19 @@ async function getLocationDetails(latitude, longitude, maxRetries = 3, retryDela
         } catch (error) {
             attempts++;
             logger.error(`Attempt ${attempts} failed: ${error.message}`);
-            if (attempts >= maxRetries) {
+            if (attempts >= constants.MAX_RETRIES) {
                 logger.error('Max retries reached. Error fetching location details.');
-                return { distrito: '', barrio: '', direccion: '', ciudad: '' };s
+                return { distrito: '', barrio: '', direccion: '', ciudad: '' };
             }
-            await new Promise(resolve => setTimeout(resolve, retryDelay));
+            await new Promise(resolve => setTimeout(resolve, constants.RETRY_DELAY));
         }
     }
 }
 
-async function getNearestSubway(lat, lon, maxRetries = 3, retryDelay = 1000) {
-    const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node(around:1000,${lat},${lon})[railway=station][operator="Metro de Madrid"];out;`;
+async function getNearestSubway(lat, lon) {
+    const overpassUrl = `${constants.OVERPASS_API_BASE}?data=[out:json];node(around:1000,${lat},${lon})[railway=station][operator="Metro de Madrid"];out;`;
     let attempts = 0;
-    while (attempts < maxRetries) {
+    while (attempts < constants.MAX_RETRIES) {
         try {
             const response = await axios.get(overpassUrl);
             const elements = response.data.elements;
@@ -187,10 +172,10 @@ async function getNearestSubway(lat, lon, maxRetries = 3, retryDelay = 1000) {
         } catch (error) {
             attempts++;
             logger.error(`Attempt ${attempts} to get subway failed: ${error.message}`);
-            if (attempts >= maxRetries) {
+            if (attempts >= constants.MAX_RETRIES) {
                 return null;
             }
-            await new Promise(resolve => setTimeout(resolve, retryDelay));
+            await new Promise(resolve => setTimeout(resolve, constants.RETRY_DELAY));
         }
     }
     return null;
@@ -198,7 +183,7 @@ async function getNearestSubway(lat, lon, maxRetries = 3, retryDelay = 1000) {
 
 async function deletePastEvents() {
     try {
-        const collection = db.collection(collectionName);
+        const collection = db.collection(constants.COLLECTION_NAME);
         const currentDate = new Date().toISOString();
 
         const result = await collection.deleteMany({
@@ -213,17 +198,16 @@ async function deletePastEvents() {
 
 async function processXmlEvent(xmlEvent) {
     try {
-        // Extraer datos básicos
         const mappedEvent = {
-            id: `xml-${xmlEvent.$.id}`, // Prefijo 'xml-' para diferenciar de eventos JSON
+            id: `xml-${xmlEvent.$.id}`,
             title: xmlEvent.basicData[0].title[0].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim(),
             description: xmlEvent.basicData[0].body[0].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim(),
-            free: false, // Por defecto, ya que no tenemos esta información
-            price: '', // No disponible en el XML
-            dtstart: '', // Se llenará desde extradata/fechas
-            dtend: '', // Se llenará desde extradata/fechas
-            time: '', // No disponible directamente
-            audience: [], // Inicializado como array vacío
+            free: false,
+            price: '',
+            dtstart: '',
+            dtend: '',
+            time: '',
+            audience: [],
             'event-location': xmlEvent.geoData[0].address[0],
             locality: xmlEvent.geoData[0].locality[0] || '',
             'postal-code': xmlEvent.geoData[0].zipcode[0],
@@ -232,28 +216,21 @@ async function processXmlEvent(xmlEvent) {
             longitude: parseFloat(xmlEvent.geoData[0].longitude[0]),
             'organization-name': '',
             link: xmlEvent.basicData[0].web[0],
-            image: null, // Se llenará después
-            distrito: '', // Se llenará con getLocationDetails
-            barrio: '', // Se llenará con getLocationDetails
-            distance: null, // Se calculará después
-            subway: '', // Se llenará con getNearestSubway
-            subwayLines: [], // Se llenará después
+            image: null,
+            distrito: '',
+            barrio: '',
+            distance: null,
+            subway: '',
+            subwayLines: [],
             'excluded-days': ''
         };
 
-        console.log(`Basic event data mapped: Title="${mappedEvent.title}", Location="${mappedEvent['event-location']}"`);
-        console.log(`Coordinates: Lat=${mappedEvent.latitude}, Lon=${mappedEvent.longitude}`);
-
-        // Procesar extradata
-        console.log('Processing extradata...');
         if (xmlEvent.extradata && xmlEvent.extradata[0]) {
             const extradata = xmlEvent.extradata[0];
 
-            // Procesar categorías para la audience
             if (extradata.categorias && extradata.categorias[0].categoria) {
                 const categoria = extradata.categorias[0].categoria[0];
 
-                // Buscar el item de categoría principal
                 if (categoria.item) {
                     const categoriaItem = categoria.item.find(item =>
                         item.$ && item.$.name === 'Categoria');
@@ -262,29 +239,20 @@ async function processXmlEvent(xmlEvent) {
                     }
                 }
 
-                // Procesar subcategorías
-                if (categoria.subcategorias &&
-                    categoria.subcategorias[0].subcategoria) {
-
+                if (categoria.subcategorias && categoria.subcategorias[0].subcategoria) {
                     const subcategorias = categoria.subcategorias[0].subcategoria;
-
-                    // Iterar sobre cada subcategoría
                     subcategorias.forEach(subcategoria => {
                         if (subcategoria.item) {
                             const subcategoriaItem = subcategoria.item.find(item =>
                                 item.$ && item.$.name === 'SubCategoria');
-
                             if (subcategoriaItem && subcategoriaItem._) {
                                 mappedEvent.audience.push(subcategoriaItem._);
                             }
                         }
                     });
                 }
-
-                console.log(`Audience mapped: ${JSON.stringify(mappedEvent.audience)}`);
             }
 
-            // Procesar precio
             if (extradata.item) {
                 const serviciosPago = extradata.item.find(item =>
                     item.$ && item.$.name === 'Servicios de pago' && item._);
@@ -298,10 +266,8 @@ async function processXmlEvent(xmlEvent) {
                     mappedEvent.price = precioText;
                     mappedEvent.free = precioText.toLowerCase().includes('gratuito') ||
                                      precioText.toLowerCase().includes('gratis');
-                    console.log(`Price mapped: ${mappedEvent.price}, Free: ${mappedEvent.free}`);
                 }
 
-                // Procesar horario
                 const horario = extradata.item.find(item =>
                     item.$ && item.$.name === 'Horario' && item._);
 
@@ -310,59 +276,45 @@ async function processXmlEvent(xmlEvent) {
                         .replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1')
                         .replace(/<[^>]*>/g, '')
                         .trim();
-                    console.log(`Time mapped: ${mappedEvent.time}`);
                 }
             }
 
-            // Procesar fechas
             if (extradata.fechas && extradata.fechas[0].rango) {
                 const rango = extradata.fechas[0].rango[0];
                 mappedEvent.dtstart = convertDateFormat(rango.inicio[0]);
                 mappedEvent.dtend = convertDateFormat(rango.fin[0]);
 
-                // Verificar si la fecha de fin es posterior a la fecha actual
                 const currentDate = new Date();
                 const endDate = new Date(mappedEvent.dtend);
 
                 if (endDate < currentDate) {
-                    console.log(`Event ${mappedEvent.id} discarded: End date (${mappedEvent.dtend}) is in the past`);
                     return null;
                 }
-
-                console.log(`Dates mapped: Start=${mappedEvent.dtstart}, End=${mappedEvent.dtend}`);
             }
         }
 
-        // Procesar imagen
         if (xmlEvent.multimedia && xmlEvent.multimedia[0] && xmlEvent.multimedia[0].media) {
             const mediaItems = xmlEvent.multimedia[0].media;
-
-            // Buscamos el primer elemento de tipo imagen que tenga una URL válida
             const imageMedia = mediaItems.find(media =>
                 media.$?.type?.toLowerCase() === 'image' && media.url?.[0]
             );
 
             if (imageMedia) {
                 mappedEvent.image = imageMedia.url[0];
-                console.log(`Image URL found: ${mappedEvent.image}`);
             } else {
-                mappedEvent.image = imageNotFound;
-                console.log('No valid image URL found in media items, using default image');
+                mappedEvent.image = constants.IMAGE_NOT_FOUND;
             }
         } else {
-            mappedEvent.image = imageNotFound;
-            console.log('No multimedia section found or invalid structure, using default image');
+            mappedEvent.image = constants.IMAGE_NOT_FOUND;
         }
 
         return mappedEvent;
     } catch (error) {
-        console.error('Error processing XML event:', error);
         logger.error('Error processing XML event:', error);
         return null;
     }
 }
 
-// Función auxiliar para convertir formato de fecha
 function convertDateFormat(dateStr) {
     const [day, month, year] = dateStr.split('/');
     const converted = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T00:00:00.000Z`;
@@ -371,10 +323,7 @@ function convertDateFormat(dateStr) {
 
 async function fetchAndStoreEvents() {
     try {
-
-
-        const url = 'https://datos.madrid.es/egob/catalogo/206974-0-agenda-eventos-culturales-100.json';
-        const response = await axios.get(url);
+        const response = await axios.get(constants.EVENTS_API_URL);
         let eventsData = response.data;
 
         if (typeof eventsData === 'string') {
@@ -386,7 +335,7 @@ async function fetchAndStoreEvents() {
             throw new Error('Unexpected API response structure: missing @graph');
         }
 
-        const collection = db.collection(collectionName);
+        const collection = db.collection(constants.COLLECTION_NAME);
         const subwaysCollection = db.collection('subways');
 
         const eventPromises = eventsData['@graph'].map(async (event) => {
@@ -417,18 +366,14 @@ async function fetchAndStoreEvents() {
                 imageUrl = existingEvent.image || null;
                 subwayLines = existingEvent.subwayLines || [];
 
-
-                // Calcular o actualizar valores faltantes en locationDetails
                 if (!locationDetails.distrito || !locationDetails.barrio || !locationDetails.direccion || !locationDetails.ciudad) {
                     locationDetails = await getLocationDetails(event.location.latitude, event.location.longitude);
                 }
 
-                // Calcular eventDistance si está ausente
                 if (eventDistance === null && event.location?.latitude && event.location?.longitude) {
                     eventDistance = calculateDistance(baseLat, baseLon, event.location.latitude, event.location.longitude);
                 }
 
-                // Calcular nearestSubway y subwayLines si están ausentes
                 if (!nearestSubway && event.location?.latitude && event.location?.longitude) {
                     nearestSubway = await getNearestSubway(event.location.latitude, event.location.longitude);
 
@@ -443,7 +388,6 @@ async function fetchAndStoreEvents() {
                     }
                 }
 
-                // Obtener imagen si no está presente
                 if (!imageUrl) {
                     imageUrl = await scrapeImageFromUrl(event.link);
                 }
@@ -451,358 +395,342 @@ async function fetchAndStoreEvents() {
             } else {
                 if (event.location?.latitude && event.location?.longitude) {
                     locationDetails = await getLocationDetails(event.location.latitude, event.location.longitude);
-                }
-
-                if (event.location?.latitude && event.location?.longitude) {
                     eventDistance = calculateDistance(baseLat, baseLon, event.location.latitude, event.location.longitude);
-                }
 
-                if (event.location?.latitude && event.location?.longitude) {
-                    nearestSubway = await getNearestSubway(event.location.latitude, event.location.longitude);
-                }
+                                        nearestSubway = await getNearestSubway(event.location.latitude, event.location.longitude);
 
-                imageUrl = await scrapeImageFromUrl(event.link);
-
-                if (nearestSubway) {
-                    const normalizedSubway = normalizeString(nearestSubway);
-                    const subwayData = await subwaysCollection.findOne({
-                        subway: { $regex: new RegExp(`^${normalizedSubway}$`, 'i') }
-                    });
-                    if (subwayData) {
-                        subwayLines = subwayData.lines;
-                    }
-                }
-            }
-
-            const mappedEvent = {
-                id: event.id || '',
-                title: event.title || '',
-                description: event.description || '',
-                free: event.free || false,
-                price: event.price || '',
-                dtstart: event.dtstart || '',
-                dtend: event.dtend || '',
-                time: event.time || '',
-                audience: Array.isArray(event.audience) ? event.audience : [event.audience || ''], // Asegura que siempre sea un array
-                    'event-location': event['event-location']
-                        ? cleanOrganizationName(event['event-location'], locationDetails.distrito, locationDetails.barrio)
-                        : '',
-                locality: event.address?.area?.locality || '',
-                'postal-code': event.address?.area?.['postal-code'] || '',
-                'street-address': event.address?.area?.['street-address'] || '',
-                latitude: event.location?.latitude || null,
-                longitude: event.location?.longitude || null,
-                'organization-name': event.organization?.['organization-name']
-                    ? cleanOrganizationName(event.organization['organization-name'], locationDetails.distrito, locationDetails.barrio)
-                    : '',
-                link: event.link || '',
-                image: imageUrl,
-                distrito: locationDetails.distrito,
-                barrio: locationDetails.barrio,
-                distance: eventDistance,
-                subway: nearestSubway || '',
-                subwayLines: subwayLines,
-                'excluded-days': event['excluded-days'] || ''
-            };
-
-            await collection.updateOne(
-                { id: mappedEvent.id },
-                { $set: mappedEvent },
-                { upsert: true }
-            );
-        });
-
-        await Promise.all(eventPromises);
-    } catch (error) {
-        logger.error('Error fetching and storing events:', error.message);
-    }
-}
-
-// Función para obtener y procesar eventos XML
-async function fetchAndStoreXmlEvents() {
-    console.log('Starting XML events fetch and store process...');
-    try {
-        const url = 'https://www.esmadrid.com/opendata/agenda_v1_es.xml';
-        const response = await axios.get(url);
-        const xmlData = response.data;
-
-        // Parsear XML
-        const parser = new xml2js.Parser();
-        const result = await parser.parseStringPromise(xmlData);
-
-        if (!result || !result.serviceList || !result.serviceList.service) {
-            throw new Error('Unexpected XML structure');
-        }
-
-        const totalEvents = result.serviceList.service.length;
-        console.log(`Found ${totalEvents} events in XML feed`);
-
-        const collection = db.collection(collectionName);
-        const subwaysCollection = db.collection('subways');
-
-        const eventPromises = result.serviceList.service.map(async (xmlEvent, index) => {
-            const mappedEvent = await processXmlEvent(xmlEvent);
-
-            if (!mappedEvent) {
-                return;
-            }
-
-            let locationDetails = { distrito: '', barrio: '', direccion: '', ciudad: '' };
-            let eventDistance = null;
-            let nearestSubway = null;
-            let subwayLines = [];
-
-            const existingEvent = await collection.findOne({ id: mappedEvent.id });
-
-            if (existingEvent) {
-                locationDetails = {
-                    distrito: existingEvent.distrito || '',
-                    barrio: existingEvent.barrio || '',
-                    direccion: existingEvent['street-address'] || '',
-                    ciudad: existingEvent.locality || ''
-                };
-                eventDistance = existingEvent.distance || null;
-                nearestSubway = existingEvent.subway || null;
-                subwayLines = existingEvent.subwayLines || [];
-
-                // Calcular o actualizar valores faltantes en locationDetails
-                                if (!locationDetails.distrito || !locationDetails.barrio || !locationDetails.direccion || !locationDetails.ciudad) {
-                                    locationDetails = await getLocationDetails(mappedEvent.latitude, mappedEvent.longitude);
-                                }
-
-                                // Calcular eventDistance si está ausente
-                                if (eventDistance === null && mappedEvent.latitude && mappedEvent.longitude) {
-                                    eventDistance = calculateDistance(baseLat, baseLon, mappedEvent.latitude, mappedEvent.longitude);
-                                }
-
-                                // Calcular nearestSubway y subwayLines si están ausentes
-                                if (!nearestSubway && mappedEvent.latitude && mappedEvent.longitude) {
-                                    nearestSubway = await getNearestSubway(mappedEvent.latitude, mappedEvent.longitude);
-
-                                    if (nearestSubway) {
-                                        const normalizedSubway = normalizeString(nearestSubway);
-                                        const subwayData = await subwaysCollection.findOne({
-                                            subway: { $regex: new RegExp(`^${normalizedSubway}$`, 'i') }
-                                        });
-                                        if (subwayData) {
-                                            subwayLines = subwayData.lines;
-                                        } else {
-                                            console.log('No subway lines data found');
+                                        if (nearestSubway) {
+                                            const normalizedSubway = normalizeString(nearestSubway);
+                                            const subwayData = await subwaysCollection.findOne({
+                                                subway: { $regex: new RegExp(`^${normalizedSubway}$`, 'i') }
+                                            });
+                                            if (subwayData) {
+                                                subwayLines = subwayData.lines;
+                                            }
                                         }
                                     }
+
+                                    imageUrl = await scrapeImageFromUrl(event.link);
                                 }
-            } else {
 
-                if (mappedEvent.latitude && mappedEvent.longitude) {
+                                const mappedEvent = {
+                                    id: event.id || '',
+                                    title: event.title || '',
+                                    description: event.description || '',
+                                    free: event.free || false,
+                                    price: event.price || '',
+                                    dtstart: event.dtstart || '',
+                                    dtend: event.dtend || '',
+                                    time: event.time || '',
+                                    audience: Array.isArray(event.audience) ? event.audience : [event.audience || ''],
+                                    'event-location': event['event-location']
+                                        ? cleanOrganizationName(event['event-location'], locationDetails.distrito, locationDetails.barrio)
+                                        : '',
+                                    locality: event.address?.area?.locality || '',
+                                    'postal-code': event.address?.area?.['postal-code'] || '',
+                                    'street-address': event.address?.area?.['street-address'] || '',
+                                    latitude: event.location?.latitude || null,
+                                    longitude: event.location?.longitude || null,
+                                    'organization-name': event.organization?.['organization-name']
+                                        ? cleanOrganizationName(event.organization['organization-name'], locationDetails.distrito, locationDetails.barrio)
+                                        : '',
+                                    link: event.link || '',
+                                    image: imageUrl,
+                                    distrito: locationDetails.distrito,
+                                    barrio: locationDetails.barrio,
+                                    distance: eventDistance,
+                                    subway: nearestSubway || '',
+                                    subwayLines: subwayLines,
+                                    'excluded-days': event['excluded-days'] || ''
+                                };
 
-                    locationDetails = await getLocationDetails(mappedEvent.latitude, mappedEvent.longitude);
+                                await collection.updateOne(
+                                    { id: mappedEvent.id },
+                                    { $set: mappedEvent },
+                                    { upsert: true }
+                                );
+                            });
 
-                    eventDistance = calculateDistance(baseLat, baseLon, mappedEvent.latitude, mappedEvent.longitude);
-
-                    nearestSubway = await getNearestSubway(mappedEvent.latitude, mappedEvent.longitude);
-
-                    if (nearestSubway) {
-                        const normalizedSubway = normalizeString(nearestSubway);
-                        const subwayData = await subwaysCollection.findOne({
-                            subway: { $regex: new RegExp(`^${normalizedSubway}$`, 'i') }
-                        });
-                        if (subwayData) {
-                            subwayLines = subwayData.lines;
-                        } else {
-                            console.log('No subway lines data found');
+                            await Promise.all(eventPromises);
+                        } catch (error) {
+                            logger.error('Error fetching and storing events:', error.message);
                         }
                     }
-                } else {
-                    console.log('No coordinates available for this event');
-                }
-            }
 
-            // Actualizar el evento con los detalles adicionales
-            mappedEvent['street-address'] = mappedEvent['street-address'] || locationDetails.road;
-            mappedEvent.distrito = locationDetails.distrito;
-            mappedEvent.barrio = locationDetails.barrio;
-            mappedEvent.locality = locationDetails.ciudad;
-            mappedEvent.address = locationDetails.diireccion;
-            mappedEvent.distance = eventDistance;
-            mappedEvent.subway = nearestSubway || '';
-            mappedEvent.subwayLines = subwayLines;
+                    async function fetchAndStoreXmlEvents() {
+                        console.log('Starting XML events fetch and store process...');
+                        try {
+                            const response = await axios.get(constants.XML_EVENTS_API_URL);
+                            const xmlData = response.data;
 
-            // Insertar o actualizar en la base de datos
-            await collection.updateOne(
-                { id: mappedEvent.id },
-                { $set: mappedEvent },
-                { upsert: true }
-            );
-        });
+                            const parser = new xml2js.Parser();
+                            const result = await parser.parseStringPromise(xmlData);
 
-        await Promise.all(eventPromises);
-        console.log('All XML events have been processed and stored');
-    } catch (error) {
-        console.error('Error in fetchAndStoreXmlEvents:', error);
-        logger.error('Error fetching and storing XML events:', error.message);
-    }
-}
+                            if (!result || !result.serviceList || !result.serviceList.service) {
+                                throw new Error('Unexpected XML structure');
+                            }
 
-// Nuevo servicio de recalculación con validación
-app.get('/recalculate', validateCoordinates, async (req, res) => {
-    try {
-        const { lat, lon } = req.query;
+                            const totalEvents = result.serviceList.service.length;
+                            console.log(`Found ${totalEvents} events in XML feed`);
 
-        console.log(`Current coordinates: ${baseLat}, ${baseLon}`);
-        console.log(`New coordinates: ${lat}, ${lon}`);
+                            const collection = db.collection(constants.COLLECTION_NAME);
+                            const subwaysCollection = db.collection('subways');
 
-        const newLat = parseFloat(lat).toFixed(2);
-        const newLon = parseFloat(lon).toFixed(2);
+                            const eventPromises = result.serviceList.service.map(async (xmlEvent, index) => {
+                                const mappedEvent = await processXmlEvent(xmlEvent);
 
-        if (newLat !== baseLat.toFixed(2) || newLon !== baseLon.toFixed(2)) {
-            baseLat = lat;
-            baseLon = lon;
+                                if (!mappedEvent) {
+                                    return;
+                                }
 
-            console.log(`Recalculating distances with new base coordinates: ${baseLat}, ${baseLon}`);
-            await fetchAndStoreEvents();
+                                let locationDetails = { distrito: '', barrio: '', direccion: '', ciudad: '' };
+                                let eventDistance = null;
+                                let nearestSubway = null;
+                                let subwayLines = [];
 
-            res.json({ message: 'Recalculation completed with new coordinates', baseLat, baseLon });
-        } else {
-            res.status(400).json({ message: 'Coordinates are the same, no recalculation needed', baseLat, baseLon });
-        }
-    } catch (error) {
-        logger.error('Error in recalculate service:', error.message);
-        res.status(500).json({ error: 'An error occurred during recalculation', details: error.message });
-    }
-});
+                                const existingEvent = await collection.findOne({ id: mappedEvent.id });
 
-app.get('/getEvents', async (req, res) => {
-    try {
-        const { distrito_nombre, barrio_nombre } = req.query;
-        const collection = db.collection(collectionName);
+                                if (existingEvent) {
+                                    locationDetails = {
+                                        distrito: existingEvent.distrito || '',
+                                        barrio: existingEvent.barrio || '',
+                                        direccion: existingEvent['street-address'] || '',
+                                        ciudad: existingEvent.locality || ''
+                                    };
+                                    eventDistance = existingEvent.distance || null;
+                                    nearestSubway = existingEvent.subway || null;
+                                    subwayLines = existingEvent.subwayLines || [];
 
-        let query = {};
-        if (distrito_nombre) query.distrito = distrito_nombre;
-        if (barrio_nombre) query.barrio = barrio_nombre;
+                                    if (!locationDetails.distrito || !locationDetails.barrio || !locationDetails.direccion || !locationDetails.ciudad) {
+                                        locationDetails = await getLocationDetails(mappedEvent.latitude, mappedEvent.longitude);
+                                    }
 
-        const events = await collection.find(query).toArray();
+                                    if (eventDistance === null && mappedEvent.latitude && mappedEvent.longitude) {
+                                        eventDistance = calculateDistance(baseLat, baseLon, mappedEvent.latitude, mappedEvent.longitude);
+                                    }
 
-        res.json(events);
-    } catch (error) {
-        logger.error('Error fetching events:', error.message);
-        res.status(500).json({ error: 'An error occurred while fetching events', details: error.message });
-    }
-});
+                                    if (!nearestSubway && mappedEvent.latitude && mappedEvent.longitude) {
+                                        nearestSubway = await getNearestSubway(mappedEvent.latitude, mappedEvent.longitude);
 
-app.get('/getImage', async (req, res) => {
-    try {
-        const { id } = req.query;
+                                        if (nearestSubway) {
+                                            const normalizedSubway = normalizeString(nearestSubway);
+                                            const subwayData = await subwaysCollection.findOne({
+                                                subway: { $regex: new RegExp(`^${normalizedSubway}$`, 'i') }
+                                            });
+                                            if (subwayData) {
+                                                subwayLines = subwayData.lines;
+                                            } else {
+                                                console.log('No subway lines data found');
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if (mappedEvent.latitude && mappedEvent.longitude) {
+                                        locationDetails = await getLocationDetails(mappedEvent.latitude, mappedEvent.longitude);
+                                        eventDistance = calculateDistance(baseLat, baseLon, mappedEvent.latitude, mappedEvent.longitude);
+                                        nearestSubway = await getNearestSubway(mappedEvent.latitude, mappedEvent.longitude);
 
-        if (!id) {
-            return res.status(400).json({ error: 'Missing id parameter' });
-        }
+                                        if (nearestSubway) {
+                                            const normalizedSubway = normalizeString(nearestSubway);
+                                            const subwayData = await subwaysCollection.findOne({
+                                                subway: { $regex: new RegExp(`^${normalizedSubway}$`, 'i') }
+                                            });
+                                            if (subwayData) {
+                                                subwayLines = subwayData.lines;
+                                            } else {
+                                                console.log('No subway lines data found');
+                                            }
+                                        }
+                                    } else {
+                                        console.log('No coordinates available for this event');
+                                    }
+                                }
 
-        if (imageCache[id]) {
-            console.log('Returning image from cache for id:', id);
-            return res.json({ id, image: imageCache[id] });
-        }
+                                mappedEvent['street-address'] = mappedEvent['street-address'] || locationDetails.road;
+                                mappedEvent.distrito = locationDetails.distrito;
+                                mappedEvent.barrio = locationDetails.barrio;
+                                mappedEvent.locality = locationDetails.ciudad;
+                                mappedEvent.address = locationDetails.direccion;
+                                mappedEvent.distance = eventDistance;
+                                mappedEvent.subway = nearestSubway || '';
+                                mappedEvent.subwayLines = subwayLines;
 
-        const collection = db.collection(collectionName);
-        let event = await collection.findOne({ id: id });
+                                await collection.updateOne(
+                                    { id: mappedEvent.id },
+                                    { $set: mappedEvent },
+                                    { upsert: true }
+                                );
+                            });
 
-        if (event && event.image) {
-            imageCache[id] = event.image;
-            return res.json({ id, image: event.image });
-        }
+                            await Promise.all(eventPromises);
+                            console.log('All XML events have been processed and stored');
+                        } catch (error) {
+                            console.error('Error in fetchAndStoreXmlEvents:', error);
+                            logger.error('Error fetching and storing XML events:', error.message);
+                        }
+                    }
 
-        const imageUrl = await scrapeImageFromUrl(event.link);
+                    app.get('/recalculate', validateCoordinates, async (req, res) => {
+                        try {
+                            const { lat, lon } = req.query;
 
-        if (imageUrl) {
-            await collection.updateOne({ id: id }, { $set: { image: imageUrl } });
-        }
+                            console.log(`Current coordinates: ${baseLat}, ${baseLon}`);
+                            console.log(`New coordinates: ${lat}, ${lon}`);
 
-        imageCache[id] = imageUrl;
+                            const newLat = parseFloat(lat).toFixed(2);
+                            const newLon = parseFloat(lon).toFixed(2);
 
-        res.json({ id, image: imageUrl });
+                            if (newLat !== baseLat.toFixed(2) || newLon !== baseLon.toFixed(2)) {
+                                baseLat = lat;
+                                baseLon = lon;
 
-    } catch (error) {
-        logger.error('Error fetching image:', error.message);
-        res.status(500).json({ error: 'An error occurred while fetching image', details: error.message });
-    }
-});
+                                console.log(`Recalculating distances with new base coordinates: ${baseLat}, ${baseLon}`);
+                                await fetchAndStoreEvents();
 
-function normalizeString(str) {
-  return str.toLowerCase();
-}
+                                res.json({ message: 'Recalculation completed with new coordinates', baseLat, baseLon });
+                            } else {
+                                res.status(400).json({ message: 'Coordinates are the same, no recalculation needed', baseLat, baseLon });
+                            }
+                        } catch (error) {
+                            logger.error('Error in recalculate service:', error.message);
+                            res.status(500).json({ error: 'An error occurred during recalculation', details: error.message });
+                        }
+                    });
 
-app.get('/getSubwayLines', async (req, res) => {
-  const { subway } = req.query;
+                    app.get('/getEvents', async (req, res) => {
+                        try {
+                            const { distrito_nombre, barrio_nombre } = req.query;
+                            const collection = db.collection(constants.COLLECTION_NAME);
 
-  if (!subway) {
-    return res.status(400).json({ error: 'Missing subway parameter' });
-  }
+                            let query = {};
+                            if (distrito_nombre) query.distrito = distrito_nombre;
+                            if (barrio_nombre) query.barrio = barrio_nombre;
 
-  const normalizedSubway = normalizeString(subway);
+                            const events = await collection.find(query).toArray();
 
-  if (subwayCache[normalizedSubway]) {
-    return res.json(subwayCache[normalizedSubway]);
-  }
+                            res.json(events);
+                        } catch (error) {
+                            logger.error('Error fetching events:', error.message);
+                            res.status(500).json({ error: 'An error occurred while fetching events', details: error.message });
+                        }
+                    });
 
-  try {
-    const collection = db.collection('subways');
+                    app.get('/getImage', async (req, res) => {
+                        try {
+                            const { id } = req.query;
 
-    const subwayData = await collection.findOne({
-      subway: { $regex: new RegExp(`^${normalizedSubway}$`, 'i') }
-    });
+                            if (!id) {
+                                return res.status(400).json({ error: 'Missing id parameter' });
+                            }
 
-    if (subwayData) {
-      const response = {
-        subway: subwayData.subway,
-        lines: subwayData.lines
-      };
+                            if (imageCache[id]) {
+                                console.log('Returning image from cache for id:', id);
+                                return res.json({ id, image: imageCache[id] });
+                            }
 
-      subwayCache[normalizedSubway] = response;
+                            const collection = db.collection(constants.COLLECTION_NAME);
+                            let event = await collection.findOne({ id: id });
 
-      res.json(response);
-    } else {
-      res.status(404).json({ error: 'Subway station not found' });
-    }
-  } catch (error) {
-    logger.error('Error fetching subway lines:', error.message);
-    res.status(500).json({ error: 'An error occurred while fetching subway lines', details: error.message });
-  }
-});
+                            if (event && event.image) {
+                                imageCache[id] = event.image;
+                                return res.json({ id, image: event.image });
+                            }
 
-// Middleware de manejo de errores global
-app.use((err, req, res, next) => {
-  logger.error(err.stack);
-  res.status(500).json({
-    error: 'An unexpected error occurred',
-    details: process.env.NODE_ENV === 'development' ? err.message : 'No additional details available'
-  });
-});
+                            const imageUrl = await scrapeImageFromUrl(event.link);
 
-async function connectToMongoDB() {
-  try {
-    const client = await MongoClient.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
-    db = client.db(dbName);
-    console.log('Connected to MongoDB');
-    return client;
-  } catch (error) {
-    logger.error('Error connecting to MongoDB:', error.message);
-    process.exit(1);
-  }
-}
+                            if (imageUrl) {
+                                await collection.updateOne({ id: id }, { $set: { image: imageUrl } });
+                            }
 
-app.listen(port, async () => {
-    console.log(`Server running on port ${port}`);
-    await connectToMongoDB();
-    await deletePastEvents();
-    fetchAndStoreEvents();
-    fetchAndStoreXmlEvents();
+                            imageCache[id] = imageUrl;
 
-    setInterval(deletePastEvents, 24 * 60 * 60 * 1000);
-    setInterval(fetchAndStoreEvents, 24 * 60 * 60 * 1000);
-    setInterval(fetchAndStoreXmlEvents, 24 * 60 * 60 * 1000);
-})
+                            res.json({ id, image: imageUrl });
 
-process.on('SIGINT', async () => {
-    console.log('Closing MongoDB connection...');
-    await db.close();
-    process.exit(0);
-});
+                        } catch (error) {
+                            logger.error('Error fetching image:', error.message);
+                            res.status(500).json({ error: 'An error occurred while fetching image', details: error.message });
+                        }
+                    });
+
+                    function normalizeString(str) {
+                        return str.toLowerCase();
+                    }
+
+                    app.get('/getSubwayLines', async (req, res) => {
+                        const { subway } = req.query;
+
+                        if (!subway) {
+                            return res.status(400).json({ error: 'Missing subway parameter' });
+                        }
+
+                        const normalizedSubway = normalizeString(subway);
+
+                        if (subwayCache[normalizedSubway]) {
+                            return res.json(subwayCache[normalizedSubway]);
+                        }
+
+                        try {
+                            const collection = db.collection('subways');
+
+                            const subwayData = await collection.findOne({
+                                subway: { $regex: new RegExp(`^${normalizedSubway}$`, 'i') }
+                            });
+
+                            if (subwayData) {
+                                const response = {
+                                    subway: subwayData.subway,
+                                    lines: subwayData.lines
+                                };
+
+                                subwayCache[normalizedSubway] = response;
+
+                                res.json(response);
+                            } else {
+                                res.status(404).json({ error: 'Subway station not found' });
+                            }
+                        } catch (error) {
+                            logger.error('Error fetching subway lines:', error.message);
+                            res.status(500).json({ error: 'An error occurred while fetching subway lines', details: error.message });
+                        }
+                    });
+
+                    app.use((err, req, res, next) => {
+                        logger.error(err.stack);
+                        res.status(500).json({
+                            error: 'An unexpected error occurred',
+                            details: process.env.NODE_ENV === 'development' ? err.message : 'No additional details available'
+                        });
+                    });
+
+                    async function connectToMongoDB() {
+                        try {
+                            const client = await MongoClient.connect(constants.MONGO_URI, {
+                                useNewUrlParser: true,
+                                useUnifiedTopology: true
+                            });
+                            db = client.db(constants.DB_NAME);
+                            console.log('Connected to MongoDB');
+                            return client;
+                        } catch (error) {
+                            logger.error('Error connecting to MongoDB:', error.message);
+                            process.exit(1);
+                        }
+                    }
+
+                    app.listen(constants.PORT, async () => {
+                        console.log(`Server running on port ${constants.PORT}`);
+                        await connectToMongoDB();
+                        await deletePastEvents();
+                        fetchAndStoreEvents();
+                        fetchAndStoreXmlEvents();
+
+                        setInterval(deletePastEvents, constants.UPDATE_INTERVAL);
+                        setInterval(fetchAndStoreEvents, constants.UPDATE_INTERVAL);
+                        setInterval(fetchAndStoreXmlEvents, constants.UPDATE_INTERVAL);
+                    });
+
+                    process.on('SIGINT', async () => {
+                        console.log('Closing MongoDB connection...');
+                        await db.close();
+                        process.exit(0);
+                    });
