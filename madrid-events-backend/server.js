@@ -1,18 +1,19 @@
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
-const axios = require('axios');
-const cors = require('cors');
+const axios = require('./config/axios');
 const cheerio = require('cheerio');
 const NodeCache = require('node-cache');
 const { MongoClient } = require('mongodb');
-const rateLimit = require("express-rate-limit");
 const helmet = require('helmet');
 const winston = require('winston');
 const xml2js = require('xml2js');
 const constants = require('./config/constants');
 const { Event, EventDomainService } = require('./domain');
 const logger = require('./config/logger');
+const limiter = require('./config/rateLimiter');
+const cors = require('./config/cors');
+const cache = require('./config/cache');
 
 const app = express();
 
@@ -20,53 +21,14 @@ let db;
 let baseLat = constants.BASE_LAT;
 let baseLon = constants.BASE_LON;
 
+
 // Configuración de CORS - debe ir antes de las rutas
-app.use(cors({
-    origin: function (origin, callback) {
-        // Permitir peticiones sin origin (como las de Postman)
-        if (!origin) {
-            return callback(null, true);
-        }
-
-        const allowedOrigins = constants.FRONTEND_URL.split(',').map(url => url.trim());
-
-        if (allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            logger.warn('Origin blocked by CORS', { origin, allowedOrigins });
-                        callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true, // Permitir credenciales
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    exposedHeaders: ['Content-Range', 'X-Content-Range']
-}));
-
-
-
-// Configuración de Axios
-axios.defaults.timeout = constants.AXIOS_TIMEOUT;
-
-axios.interceptors.response.use(null, (error) => {
-    if (error.config && error.response && error.response.status >= 500) {
-        return axios.request(error.config);
-    }
-    return Promise.reject(error);
-});
-
-// Caché en memoria
-const subwayCache = {};
-const imageCache = {};
+app.use(cors);
 
 // Aplicar helmet para seguridad
 app.use(helmet());
 
 // Aplicar rate limiting
-const limiter = rateLimit({
-    windowMs: constants.RATE_LIMIT_WINDOW_MS,
-    max: constants.RATE_LIMIT_MAX_REQUESTS
-});
 app.use(limiter);
 
 function stripInvalidControlCharacters(str) {
@@ -266,6 +228,10 @@ async function fetchAndStoreEvents() {
         });
 
         await Promise.all(eventPromises);
+
+        // Limpiar todas las cachés de eventos después de actualizar
+                cache.clearPattern('events:');
+
     } catch (error) {
         logger.error('Error fetching and storing events:', error.message);
     }
@@ -357,7 +323,9 @@ async function fetchAndStoreXmlEvents() {
         });
 
         await Promise.all(eventPromises);
-        logger.info('XML events processing completed');
+
+         // Limpiar todas las cachés de eventos después de actualizar
+                cache.clearPattern('events:');
     } catch (error) {
         logger.error('Error fetching and storing XML events:', error.message);
     }
@@ -379,6 +347,9 @@ app.get('/recalculate', validateCoordinates, async (req, res) => {
             logger.info('Recalculating distances with new coordinates', { baseLat, baseLon });
             await fetchAndStoreEvents();
 
+ // Limpiar caché de eventos al recalcular
+            cache.clearPattern('events:');
+
             res.json({ message: 'Recalculation completed with new coordinates', baseLat, baseLon });
         } else {
             res.status(400).json({ message: 'Coordinates are the same, no recalculation needed', baseLat, baseLon });
@@ -392,6 +363,13 @@ app.get('/recalculate', validateCoordinates, async (req, res) => {
 app.get('/getEvents', async (req, res) => {
     try {
         const { distrito_nombre, barrio_nombre } = req.query;
+
+        // Intentar obtener de caché primero
+        const cachedEvents = await cache.getEvents(distrito_nombre, barrio_nombre);
+        if (cachedEvents) {
+            return res.json(cachedEvents);
+        }
+
         const collection = db.collection(constants.COLLECTION_NAME);
 
         let query = {};
@@ -399,9 +377,11 @@ app.get('/getEvents', async (req, res) => {
         if (barrio_nombre) query.barrio = barrio_nombre;
 
         const eventsData = await collection.find(query).toArray();
-        const events = eventsData.map(eventData => EventDomainService.fromJSON(eventData));
 
-        res.json(events.map(event => event.toJSON()));
+        // Guardar en caché antes de devolver
+        cache.setEvents(eventsData, distrito_nombre, barrio_nombre);
+
+        res.json(eventsData);
     } catch (error) {
         logger.error('Error fetching events:', error.message);
         res.status(500).json({ error: 'An error occurred while fetching events', details: error.message });
@@ -412,43 +392,43 @@ app.get('/getImage', async (req, res) => {
     try {
         const { id } = req.query;
         if (!id) {
-                    return res.status(400).json({ error: 'Missing id parameter' });
-                }
+            return res.status(400).json({ error: 'Missing id parameter' });
+        }
 
-                if (imageCache[id]) {
-                    return res.json({ id, image: imageCache[id] });
-                }
+        const cachedImage = await cache.getImage(id);
+        if (cachedImage) {
+            return res.json({ id, image: cachedImage });
+        }
 
-                const collection = db.collection(constants.COLLECTION_NAME);
-                let eventData = await collection.findOne({ id: id });
+        const collection = db.collection(constants.COLLECTION_NAME);
+        let eventData = await collection.findOne({ id: id });
 
-                if (!eventData) {
-                    return res.status(404).json({ error: 'Event not found' });
-                }
+        if (!eventData) {
+            return res.status(404).json({ error: 'Event not found' });
+        }
 
-                const event = EventDomainService.fromJSON(eventData);
+        const event = EventDomainService.fromJSON(eventData);
 
-                if (event.image) {
-                    imageCache[id] = event.image;
-                    return res.json({ id, image: event.image });
-                }
+        if (event.image) {
+            cache.setImage(id, event.image);
+            return res.json({ id, image: event.image });
+        }
 
-                const imageUrl = await scrapeImageFromUrl(event.link);
+        const imageUrl = await scrapeImageFromUrl(event.link);
 
-                if (imageUrl) {
-                    event.image = imageUrl;
-                    await collection.updateOne({ id: id }, { $set: event.toJSON() });
-                }
+        if (imageUrl) {
+            event.image = imageUrl;
+            await collection.updateOne({ id: id }, { $set: event.toJSON() });
+            cache.setImage(id, imageUrl);
+        }
 
-                imageCache[id] = imageUrl;
+        res.json({ id, image: imageUrl });
 
-                res.json({ id, image: imageUrl });
-
-            } catch (error) {
-                logger.error('Error fetching image:', error.message);
-                res.status(500).json({ error: 'An error occurred while fetching image', details: error.message });
-            }
-        });
+    } catch (error) {
+        logger.error('Error fetching image:', error.message);
+        res.status(500).json({ error: 'An error occurred while fetching image', details: error.message });
+    }
+});
 
         function normalizeString(str) {
             return str.toLowerCase();
@@ -463,8 +443,9 @@ app.get('/getImage', async (req, res) => {
 
             const normalizedSubway = normalizeString(subway);
 
-            if (subwayCache[normalizedSubway]) {
-                return res.json(subwayCache[normalizedSubway]);
+            const cachedLines = await cache.getSubwayLines(normalizedSubway);
+            if (cachedLines) {
+                return res.json(cachedLines);
             }
 
             try {
@@ -480,8 +461,7 @@ app.get('/getImage', async (req, res) => {
                         lines: subwayData.lines
                     };
 
-                    subwayCache[normalizedSubway] = response;
-
+                    cache.setSubwayLines(normalizedSubway, response);
                     res.json(response);
                 } else {
                     res.status(404).json({ error: 'Subway station not found' });
