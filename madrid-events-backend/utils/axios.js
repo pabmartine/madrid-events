@@ -1,5 +1,5 @@
 const axios = require('axios');
-const constants = require('./constants');
+const constants = require('../config/constants');
 
 // Configuración de Axios
 axios.defaults.timeout = constants.AXIOS_TIMEOUT;

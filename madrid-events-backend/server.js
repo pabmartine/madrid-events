@@ -3,33 +3,27 @@ require('dotenv').config({
     path: path.join(__dirname, '.env')
 });
 const express = require('express');
-const axios = require('./config/axios');
 const cheerio = require('cheerio');
 const NodeCache = require('node-cache');
-const {
-    MongoClient
-} = require('mongodb');
 const helmet = require('helmet');
 const winston = require('winston');
 const xml2js = require('xml2js');
 const fs = require('fs').promises;
+
+const { Event, EventDomainService } = require('./domain');
 const constants = require('./config/constants');
-const {
-    Event,
-    EventDomainService
-} = require('./domain');
-const logger = require('./config/logger');
-const limiter = require('./config/rateLimiter');
 const cors = require('./config/cors');
-const cache = require('./config/cache');
+const limiter = require('./config/rateLimiter');
+const logger = require('./utils/logger');
+const axios = require('./utils/axios');
+const cache = require('./service/cache');
+const database = require('./service/database');
+const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
-let db;
 let baseLat = constants.BASE_LAT;
 let baseLon = constants.BASE_LON;
-
-
 
 // Inicialización de datos del metro
 async function initializeSubwayData() {
@@ -108,8 +102,6 @@ async function getSubwayLines(stationName) {
         return [];
     }
 }
-
-
 
 function stripInvalidControlCharacters(str) {
     return str.replace(/[\x00-\x1F\x7F]/g, '');
@@ -285,6 +277,7 @@ async function getNearestSubway(lat, lon) {
 
 async function deletePastEvents() {
     try {
+        const db = await database.getDb();
         const collection = db.collection(constants.COLLECTION_NAME);
         const currentDate = new Date().toISOString();
 
@@ -386,8 +379,8 @@ async function fetchAndStoreEvents() {
 
         logger.info(`Processing ${eventsData['@graph'].length} events`);
 
+        const db = await database.getDb();
         const collection = db.collection(constants.COLLECTION_NAME);
-
 
         const eventPromises = eventsData['@graph'].map(async (eventData, index) => {
             try {
@@ -571,6 +564,7 @@ async function fetchAndStoreXmlEvents() {
         const totalEvents = result.serviceList.service.length;
         logger.info(`Found ${totalEvents} XML events to process`);
 
+        const db = await database.getDb();
         const collection = db.collection(constants.COLLECTION_NAME);
 
         const eventPromises = result.serviceList.service.map(async (xmlEvent, index) => {
@@ -809,6 +803,7 @@ app.get('/getEvents', async (req, res) => {
             return res.json(cachedEvents);
         }
 
+        const db = await database.getDb();
         const collection = db.collection(constants.COLLECTION_NAME);
 
         let query = {};
@@ -848,6 +843,7 @@ app.get('/getImage', async (req, res) => {
             });
         }
 
+        const db = await database.getDb();
         const collection = db.collection(constants.COLLECTION_NAME);
         let eventData = await collection.findOne({
             id: id
@@ -940,43 +936,18 @@ app.get('/getSubwayLines', async (req, res) => {
     }
 });
 
-app.use((err, req, res, next) => {
-    logger.error(err.stack);
-    res.status(500).json({
-        error: 'An unexpected error occurred',
-        details: process.env.NODE_ENV === 'development' ? err.message : 'No additional details available'
-    });
-});
-
-async function connectToMongoDB() {
-    try {
-        const client = await MongoClient.connect(constants.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        db = client.db(constants.DB_NAME);
-        logger.info('Connected to MongoDB');
-        return client;
-    } catch (error) {
-        logger.error('Error connecting to MongoDB:', error.message);
-        process.exit(1);
-    }
-}
-
-// Configuración de CORS - debe ir antes de las rutas
+app.use(errorHandler);
 app.use(cors);
-
-// Aplicar helmet para seguridad
 app.use(helmet());
-
-// Aplicar rate limiting
 app.use(limiter);
 
 app.listen(constants.PORT, async () => {
     logger.info(`Server starting`, {
         port: constants.PORT
     });
-    await connectToMongoDB();
+
+    // Inicializar conexión a la base de datos
+    await database.connectToMongoDB();
 
     // Inicializar datos del metro
     const subwayInitialized = await initializeSubwayData();
@@ -995,11 +966,12 @@ app.listen(constants.PORT, async () => {
 process.on('SIGINT', async () => {
     logger.info('Shutting down server');
     try {
-        await db.close();
-        logger.info('MongoDB connection closed');
+        await database.closeConnection();
         process.exit(0);
     } catch (error) {
         logger.error('Error during shutdown', error);
         process.exit(1);
     }
 });
+
+module.exports = app;

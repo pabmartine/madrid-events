@@ -1,7 +1,7 @@
 // config/cors.js
 const cors = require('cors');
 const constants = require('./constants');
-const logger = require('./logger');
+const logger = require('../utils/logger');
 
 const corsOptions = {
     origin: function (origin, callback) {

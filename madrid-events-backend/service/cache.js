@@ -1,6 +1,6 @@
 // services/cache.js
 const NodeCache = require('node-cache');
-const logger = require('../config/logger');
+const logger = require('../utils/logger');
 
 const CACHE_TTL = {
     IMAGES: 7 * 24 * 60 * 60,  // 1 semana
