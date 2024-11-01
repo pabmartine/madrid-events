@@ -1,0 +1,2566 @@
+[{
+  "id": "66fab66ddbd7865e8d8af192",
+  "subway": "Acacias",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    },
+    {
+      "number": 3,
+      "color": "#ffe114"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af193",
+  "subway": "Aeropuerto T1-T2-T3",
+  "lines": [
+    {
+      "number": 8,
+      "color": "#f27ca2"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af194",
+  "subway": "Aeropuerto T4",
+  "lines": [
+    {
+      "number": 8,
+      "color": "#f27ca2"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af195",
+  "subway": "Alameda de Osuna",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af196",
+  "subway": "Alcorcón Central",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af197",
+  "subway": "Alfonso XIII",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af198",
+  "subway": "Almendrales",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af199",
+  "subway": "Alonso Cano",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af19a",
+  "subway": "Alonso de Mendoza",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af19b",
+  "subway": "Alonso Martínez",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    },
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    },
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af19c",
+  "subway": "Alto de Extremadura",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af19d",
+  "subway": "Alto del Arenal",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af19e",
+  "subway": "Aluche",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af19f",
+  "subway": "Alvarado",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1a0",
+  "subway": "Antón Martín",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1a1",
+  "subway": "Antonio Machado",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1a2",
+  "subway": "Arganda del Rey",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1a3",
+  "subway": "Arganzuela-Planetario",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1a4",
+  "subway": "Argüelles",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    },
+    {
+      "number": 4,
+      "color": "#944248"
+    },
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1a5",
+  "subway": "Arroyo Culebro",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1a6",
+  "subway": "Arroyo del Fresno",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1a7",
+  "subway": "Artilleros",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1a8",
+  "subway": "Arturo Soria",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1a9",
+  "subway": "Ascao",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1aa",
+  "subway": "Atocha",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1ab",
+  "subway": "Atocha Renfe",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1ac",
+  "subway": "Avenida de América",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    },
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    },
+    {
+      "number": 7,
+      "color": "#faa64a"
+    },
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1ad",
+  "subway": "Avenida de la Ilustración",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1ae",
+  "subway": "Avenida de la Paz",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1af",
+  "subway": "Aviación Española",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1b0",
+  "subway": "Bambú",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1b1",
+  "subway": "Banco de España",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1b2",
+  "subway": "Barajas",
+  "lines": [
+    {
+      "number": 8,
+      "color": "#f27ca2"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1b3",
+  "subway": "Barrio de la Concepción",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1b4",
+  "subway": "Barrio del Pilar",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1b5",
+  "subway": "Barrio del Puerto",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1b6",
+  "subway": "Batán",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1b7",
+  "subway": "Baunatal",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1b8",
+  "subway": "Begoña",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1b9",
+  "subway": "Bilbao",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    },
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1ba",
+  "subway": "Buenos Aires",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1bb",
+  "subway": "Callao",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    },
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1bc",
+  "subway": "Campamento",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1bd",
+  "subway": "Campo de las Naciones",
+  "lines": [
+    {
+      "number": 8,
+      "color": "#f27ca2"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1be",
+  "subway": "Canal",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    },
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1bf",
+  "subway": "Canillas",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1c0",
+  "subway": "Canillejas",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1c1",
+  "subway": "Carabanchel",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1c2",
+  "subway": "Carabanchel Alto",
+  "lines": [
+    {
+      "number": 11,
+      "color": "#008b43"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1c3",
+  "subway": "Carpetana",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1c4",
+  "subway": "Cartagena",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1c5",
+  "subway": "Casa de Campo",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    },
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1c6",
+  "subway": "Casa del Reloj",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1c7",
+  "subway": "Chamartín",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    },
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1c8",
+  "subway": "Chueca",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1c9",
+  "subway": "Ciudad de los Ángeles",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1ca",
+  "subway": "Ciudad Lineal",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1cb",
+  "subway": "Ciudad Universitaria",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1cc",
+  "subway": "Colombia",
+  "lines": [
+    {
+      "number": 8,
+      "color": "#f27ca2"
+    },
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1cd",
+  "subway": "Colón",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1ce",
+  "subway": "Colonia Jardín",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1cf",
+  "subway": "Concha Espina",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1d0",
+  "subway": "Conde de Casal",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1d1",
+  "subway": "Congosto",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1d2",
+  "subway": "Conservatorio",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1d3",
+  "subway": "Coslada Central",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1d4",
+  "subway": "Cruz del Rayo",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1d5",
+  "subway": "Cuatro Caminos",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    },
+    {
+      "number": 2,
+      "color": "#cd031f"
+    },
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1d6",
+  "subway": "Cuatro Vientos",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1d7",
+  "subway": "Cuzco",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1d8",
+  "subway": "Delicias",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1d9",
+  "subway": "Diego de León",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    },
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    },
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1da",
+  "subway": "Duque de Pastrana",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1db",
+  "subway": "El Bercial",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1dc",
+  "subway": "El Capricho",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1dd",
+  "subway": "El Carmen",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1de",
+  "subway": "El Carrascal",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1df",
+  "subway": "El Casar",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1e0",
+  "subway": "Embajadores",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    },
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1e1",
+  "subway": "Empalme",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1e2",
+  "subway": "Esperanza",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1e3",
+  "subway": "Estadio Olímpico",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1e4",
+  "subway": "Estrecho",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1e5",
+  "subway": "Estrella",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1e6",
+  "subway": "Eugenia de Montijo",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1e7",
+  "subway": "Francos Rodríguez",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1e8",
+  "subway": "Fuencarral",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1e9",
+  "subway": "Fuenlabrada Central",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1ea",
+  "subway": "García Noblejas",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1eb",
+  "subway": "Getafe Central",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1ec",
+  "subway": "Goya",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    },
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1ed",
+  "subway": "Gran Vía",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    },
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1ee",
+  "subway": "Gregorio Marañón",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    },
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1ef",
+  "subway": "Guzmán el Bueno",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    },
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1f0",
+  "subway": "Henares",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1f1",
+  "subway": "Herrera Oria",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1f2",
+  "subway": "Hortaleza",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1f3",
+  "subway": "Hospital 12 de Octubre",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1f4",
+  "subway": "Hospital de Fuenlabrada",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1f5",
+  "subway": "Hospital de Móstoles",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1f6",
+  "subway": "Hospital del Henares",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1f7",
+  "subway": "Hospital Infanta Sofía",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1f8",
+  "subway": "Hospital Severo Ochoa",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1f9",
+  "subway": "Ibiza",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1fa",
+  "subway": "Iglesia",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1fb",
+  "subway": "Islas Filipinas",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1fc",
+  "subway": "Jarama",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1fd",
+  "subway": "Joaquín Vilumbrales",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1fe",
+  "subway": "Juan de la Cierva",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af1ff",
+  "subway": "Julián Besteiro",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af200",
+  "subway": "La Elipa",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af201",
+  "subway": "La Gavia",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af202",
+  "subway": "La Granja",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af203",
+  "subway": "La Latina",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af204",
+  "subway": "La Moraleja",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af205",
+  "subway": "La Peseta",
+  "lines": [
+    {
+      "number": 11,
+      "color": "#008b43"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af206",
+  "subway": "La Poveda",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af207",
+  "subway": "La Rambla",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af208",
+  "subway": "Lacoma",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af209",
+  "subway": "Lago",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af20a",
+  "subway": "Laguna",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af20b",
+  "subway": "Las Musas",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af20c",
+  "subway": "Las Suertes",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af20d",
+  "subway": "Las Tablas",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af20e",
+  "subway": "Lavapiés",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af20f",
+  "subway": "Leganés Central",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af210",
+  "subway": "Legazpi",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    },
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af211",
+  "subway": "Lista",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af212",
+  "subway": "Loranca",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af213",
+  "subway": "Los Espartales",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af214",
+  "subway": "Lucero",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af215",
+  "subway": "Manoteras",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af216",
+  "subway": "Manuel Becerra",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    },
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af217",
+  "subway": "Manuel de Falla",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af218",
+  "subway": "Manuela Malasaña",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af219",
+  "subway": "Mar de Cristal",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    },
+    {
+      "number": 8,
+      "color": "#f27ca2"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af21a",
+  "subway": "Marqués de la Valdavia",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af21b",
+  "subway": "Marqués de Vadillo",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af21c",
+  "subway": "Méndez Álvaro",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af21d",
+  "subway": "Menéndez Pelayo",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af21e",
+  "subway": "Metropolitano",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af21f",
+  "subway": "Miguel Hernández",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af220",
+  "subway": "Moncloa",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    },
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af221",
+  "subway": "Montecarmelo",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af222",
+  "subway": "Móstoles Central",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af223",
+  "subway": "Noviciado",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    },
+    {
+      "number": 3,
+      "color": "#ffe114"
+    },
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af224",
+  "subway": "Nueva Numancia",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af225",
+  "subway": "Nuevos Ministerios",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    },
+    {
+      "number": 8,
+      "color": "#f27ca2"
+    },
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af226",
+  "subway": "Núñez de Balboa",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    },
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af227",
+  "subway": "O'Donnell",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af228",
+  "subway": "Opañel",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af229",
+  "subway": "Ópera",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af22a",
+  "subway": "Oporto",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    },
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af22b",
+  "subway": "Pacífico",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    },
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af22c",
+  "subway": "Palos de la Frontera",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af22d",
+  "subway": "Pan Bendito",
+  "lines": [
+    {
+      "number": 11,
+      "color": "#008b43"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af22e",
+  "subway": "Parque de las Avenidas",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af22f",
+  "subway": "Parque de los Estados",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af230",
+  "subway": "Parque de Santa María",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af231",
+  "subway": "Parque Europa",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af232",
+  "subway": "Parque Lisboa",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af233",
+  "subway": "Parque Oeste",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af234",
+  "subway": "Pavones",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af235",
+  "subway": "Peñagrande",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af236",
+  "subway": "Pinar de Chamartín",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    },
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af237",
+  "subway": "Pinar del Rey",
+  "lines": [
+    {
+      "number": 8,
+      "color": "#f27ca2"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af238",
+  "subway": "Pío XII",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af239",
+  "subway": "Pirámides",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af23a",
+  "subway": "Pitis",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af23b",
+  "subway": "Plaza de Castilla",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    },
+    {
+      "number": 9,
+      "color": "#a3228d"
+    },
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af23c",
+  "subway": "Plaza de España",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    },
+    {
+      "number": 10,
+      "color": "#084594"
+    },
+    {
+      "number": 2,
+      "color": "#cd031f"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af23d",
+  "subway": "Plaza Elíptica",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    },
+    {
+      "number": 11,
+      "color": "#008b43"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af23e",
+  "subway": "Portazgo",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af23f",
+  "subway": "Pradillo",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af240",
+  "subway": "Príncipe de Vergara",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    },
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af241",
+  "subway": "Príncipe Pío",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af242",
+  "subway": "Prosperidad",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af243",
+  "subway": "Pueblo Nuevo",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    },
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af244",
+  "subway": "Puente de Vallecas",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af245",
+  "subway": "Puerta de Arganda",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af246",
+  "subway": "Puerta de Toledo",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af247",
+  "subway": "Puerta del Ángel",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af248",
+  "subway": "Puerta del Sur",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    },
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af249",
+  "subway": "Quevedo",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af24a",
+  "subway": "Quintana",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af24b",
+  "subway": "República Argentina",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af24c",
+  "subway": "Retiro",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af24d",
+  "subway": "Reyes Católicos",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af24e",
+  "subway": "Ríos Rosas",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af24f",
+  "subway": "Rivas Futura",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af250",
+  "subway": "Rivas Urbanizaciones",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af251",
+  "subway": "Rivas Vaciamadrid",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af252",
+  "subway": "Ronda de la Comunicación",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af253",
+  "subway": "Rubén Darío",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af254",
+  "subway": "Sainz de Baranda",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    },
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af255",
+  "subway": "San Bernardo",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    },
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af256",
+  "subway": "San Blas",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af257",
+  "subway": "San Cipriano",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af258",
+  "subway": "San Cristóbal",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af259",
+  "subway": "San Fermín-Orcasur",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af25a",
+  "subway": "San Fernando",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af25b",
+  "subway": "San Francisco",
+  "lines": [
+    {
+      "number": 11,
+      "color": "#008b43"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af25c",
+  "subway": "San Lorenzo",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af25d",
+  "subway": "San Nicasio",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af25e",
+  "subway": "Santiago Bernabéu",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af25f",
+  "subway": "Santo Domingo",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af260",
+  "subway": "Serrano",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af261",
+  "subway": "Sevilla",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af262",
+  "subway": "Sierra de Guadalupe",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af263",
+  "subway": "Simancas",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af264",
+  "subway": "Sol",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    },
+    {
+      "number": 2,
+      "color": "#cd031f"
+    },
+    {
+      "number": 3,
+      "color": "#ffe114"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af265",
+  "subway": "Suanzes",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af266",
+  "subway": "Tetuán",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af267",
+  "subway": "Tirso de Molina",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af268",
+  "subway": "Torre Arias",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af269",
+  "subway": "Tres Olivos",
+  "lines": [
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af26a",
+  "subway": "Tribunal",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    },
+    {
+      "number": 10,
+      "color": "#084594"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af26b",
+  "subway": "Universidad Rey Juan Carlos",
+  "lines": [
+    {
+      "number": 12,
+      "color": "#a49a00"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af26c",
+  "subway": "Urgel",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af26d",
+  "subway": "Usera",
+  "lines": [
+    {
+      "number": 6,
+      "color": "#9fa4a6"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af26e",
+  "subway": "Valdeacederas",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af26f",
+  "subway": "Valdebernardo",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af270",
+  "subway": "Valdecarros",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af271",
+  "subway": "Valdezarza",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af272",
+  "subway": "Velázquez",
+  "lines": [
+    {
+      "number": 4,
+      "color": "#944248"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af273",
+  "subway": "Ventas",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    },
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af274",
+  "subway": "Ventilla",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af275",
+  "subway": "Ventura Rodríguez",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af276",
+  "subway": "Vicálvaro",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af277",
+  "subway": "Villa de Vallecas",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af278",
+  "subway": "Villaverde Alto",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af279",
+  "subway": "Villaverde Bajo-Cruce",
+  "lines": [
+    {
+      "number": 3,
+      "color": "#ffe114"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af27a",
+  "subway": "Vinateros",
+  "lines": [
+    {
+      "number": 9,
+      "color": "#a3228d"
+    }
+  ]
+},
+{
+  "id": "66fab66ddbd7865e8d8af27b",
+  "subway": "Vista Alegre",
+  "lines": [
+    {
+      "number": 5,
+      "color": "#96bf0d"
+    }
+  ]
+},
+{
+  "id": "671b944ea322e2be8c143a10",
+  "subway": "Alsacia",
+  "lines": [
+    {
+      "number": 2,
+      "color": "#cd031f"
+    }
+  ]
+},
+{
+  "id": "671e2768d6b85076ccf03464",
+  "subway": "Estadio Metropolitano",
+  "lines": [
+    {
+      "number": 7,
+      "color": "#faa64a"
+    }
+  ]
+},
+{
+  "id": "671e27b7d6b85076ccf03465",
+  "subway": "Estación del Arte",
+  "lines": [
+    {
+      "number": 1,
+      "color": "#30a3dc"
+    }
+  ]
+}]

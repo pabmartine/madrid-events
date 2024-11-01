@@ -23,7 +23,7 @@ module.exports = {
 
     // API Configuration
     AXIOS_TIMEOUT: 5000,
-    MAX_RETRIES: 3,
+    MAX_RETRIES: 5,
     RETRY_DELAY: 1000,
 
     // Rate limiting

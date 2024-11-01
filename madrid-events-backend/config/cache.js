@@ -5,7 +5,8 @@ const logger = require('../config/logger');
 const CACHE_TTL = {
     IMAGES: 7 * 24 * 60 * 60,  // 1 semana
     SUBWAY_LINES: 24 * 60 * 60, // 1 día
-    EVENTS: 60 * 60            // 1 hora
+    EVENTS: 60 * 60,           // 1 hora
+    SUBWAY_DATA: 24 * 60 * 60  // 1 día para los datos completos del metro
 };
 
 class CacheService {
@@ -63,6 +64,15 @@ class CacheService {
 
     setSubwayLines(name, lines) {
         return this.set(`subway:${name.toLowerCase()}`, lines, CACHE_TTL.SUBWAY_LINES);
+    }
+
+    // Métodos específicos para el conjunto completo de datos del metro
+    getSubwayData() {
+        return this.get('subway:fulldata');
+    }
+
+    setSubwayData(data) {
+        return this.set('subway:fulldata', data, CACHE_TTL.SUBWAY_DATA);
     }
 
     // Métodos específicos para eventos
