@@ -1,7 +1,4 @@
-const path = require('path');
-require('dotenv').config({
-    path: path.join(__dirname, '.env')
-});
+
 const express = require('express');
 const cheerio = require('cheerio');
 const NodeCache = require('node-cache');
@@ -743,6 +740,11 @@ async function fetchAndStoreXmlEvents() {
     }
 }
 
+app.use(errorHandler);
+app.use(cors);
+app.use(helmet());
+app.use(limiter);
+
 app.get('/recalculate', validateCoordinates, async (req, res) => {
     try {
         const {
@@ -936,10 +938,7 @@ app.get('/getSubwayLines', async (req, res) => {
     }
 });
 
-app.use(errorHandler);
-app.use(cors);
-app.use(helmet());
-app.use(limiter);
+
 
 app.listen(constants.PORT, async () => {
     logger.info(`Server starting`, {
