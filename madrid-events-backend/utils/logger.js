@@ -2,7 +2,7 @@
 const winston = require('winston');
 
 const logger = winston.createLogger({
-    level: 'info',
+    level: 'debug',
     format: winston.format.combine(
         winston.format.timestamp(),
          winston.format.errors({ stack: true }),
@@ -10,7 +10,7 @@ const logger = winston.createLogger({
     ),
     transports: [
         new winston.transports.Console({
-            level: 'info',
+            level: 'debug',
             format: winston.format.combine(
                 winston.format.colorize(),
                 winston.format.simple(),

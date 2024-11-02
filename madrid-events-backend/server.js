@@ -16,11 +16,17 @@ const axios = require('./utils/axios');
 const cache = require('./service/cache');
 const database = require('./service/database');
 const errorHandler = require('./middleware/errorHandler');
+const LocationQueue = require('./service/locationQueue');
+const SubwayQueue = require('./service/subwayQueue');
+const ImageQueue = require('./service/imageQueue');
 
 const app = express();
 
 let baseLat = constants.BASE_LAT;
 let baseLon = constants.BASE_LON;
+let locationQueue;
+let subwayQueue;
+let imageQueue;
 
 // Inicialización de datos del metro
 async function initializeSubwayData() {
@@ -115,69 +121,12 @@ function cleanOrganizationName(orgName, distrito, barrio) {
     }).trim();
 }
 
-async function scrapeImageFromUrl(url) {
-    try {
-        logger.debug('Starting image scraping', {
-            url
-        });
-
-        const response = await axios.get(url);
-        logger.debug('Received response from URL', {
-            url,
-            status: response.status,
-            contentType: response.headers['content-type'],
-            dataLength: response.data.length
-        });
-
-        const $ = cheerio.load(response.data);
-        const imageElement = $('.image-content img');
-
-        if (!imageElement.length) {
-            logger.warn('No image element found with selector .image-content img', {
-                url,
-                htmlSample: response.data.substring(0, 200) + '...'
-            });
-        }
-
-        let imageUrl = imageElement.attr('src');
-
-        if (imageUrl && !imageUrl.startsWith('http')) {
-            const originalImageUrl = imageUrl;
-            imageUrl = `https://www.madrid.es${imageUrl}`;
-        }
-
-        const finalImageUrl = imageUrl || constants.IMAGE_NOT_FOUND;
-        logger.debug('Returning image URL', {
-            originalUrl: url,
-            finalImageUrl,
-            isDefaultImage: finalImageUrl === constants.IMAGE_NOT_FOUND
-        });
-
-        return finalImageUrl;
-    } catch (error) {
-        logger.error('Error scraping image', {
-            url,
-            error: error.message,
-            stack: error.stack,
-            response: error.response ? {
-                status: error.response.status,
-                statusText: error.response.statusText,
-                headers: error.response.headers,
-                data: error.response.data ? error.response.data.substring(0, 200) + '...' : 'No response data'
-            } : 'No response object'
-        });
-
-        if (error.code) {
-            logger.error('Network or system error details', {
-                code: error.code,
-                syscall: error.syscall,
-                hostname: error.hostname,
-                port: error.port
-            });
-        }
-
+async function scrapeImageFromUrl(url, eventId) {
+    if (!imageQueue) {
+        logger.error('Image queue service not initialized');
         return null;
     }
+    return imageQueue.getImageUrl(eventId, url);
 }
 
 function validateCoordinates(req, res, next) {
@@ -193,83 +142,25 @@ function validateCoordinates(req, res, next) {
     next();
 }
 
-async function getLocationDetails(latitude, longitude) {
-    let attempts = 0;
-    while (attempts < constants.MAX_RETRIES) {
-        try {
-            const response = await axios.get(`${constants.NOMINATIM_API_BASE}?lat=${latitude}&lon=${longitude}&format=json`);
-            const {
-                address
-            } = response.data;
-
-            logger.debug(`Successfully fetched location details on attempt ${attempts + 1}`, {
-                latitude,
-                longitude
-            });
-
-            return {
-                distrito: address.quarter || '',
-                barrio: address.suburb || '',
-                direccion: address.road || '',
-                ciudad: address.city || ''
-            };
-        } catch (error) {
-            attempts++;
-            const delay = constants.RETRY_DELAY * Math.pow(2, attempts - 1);
-
-            if (attempts >= constants.MAX_RETRIES) {
-                logger.error('Max retries reached for location details. Returning empty values.', {
-                    latitude,
-                    longitude,
-                    totalAttempts: attempts
-                });
-                return {
-                    distrito: '',
-                    barrio: '',
-                    direccion: '',
-                    ciudad: ''
-                };
-            }
-            await new Promise(resolve => setTimeout(resolve, delay));
-        }
+async function getLocationDetails(latitude, longitude, eventId) {
+    if (!locationQueue) {
+        logger.error('Location queue service not initialized');
+        return {
+            distrito: '',
+            barrio: '',
+            direccion: '',
+            ciudad: ''
+        };
     }
+    return locationQueue.getLocationDetails(latitude, longitude, eventId);
 }
 
-async function getNearestSubway(lat, lon) {
-    const overpassUrl = `${constants.OVERPASS_API_BASE}?data=[out:json];node(around:1000,${lat},${lon})[railway=station][operator="Metro de Madrid"];out;`;
-    let attempts = 0;
-    while (attempts < constants.MAX_RETRIES) {
-        try {
-            const response = await axios.get(overpassUrl);
-            const elements = response.data.elements;
-
-            logger.debug(`Successfully fetched subway data on attempt ${attempts + 1}`, {
-                latitude: lat,
-                longitude: lon
-            });
-
-            if (elements && elements.length > 0) {
-                const station = elements.find(element => element.tags && element.tags.name);
-                return station ? station.tags.name : null;
-            } else {
-                return null;
-            }
-        } catch (error) {
-            attempts++;
-            const delay = constants.RETRY_DELAY * Math.pow(2, attempts - 1);
-
-            if (attempts >= constants.MAX_RETRIES) {
-                logger.error('Max retries reached for subway data. Returning null.', {
-                    latitude: lat,
-                    longitude: lon,
-                    totalAttempts: attempts
-                });
-                return null;
-            }
-            await new Promise(resolve => setTimeout(resolve, delay));
-        }
+async function getNearestSubway(lat, lon, eventId) {
+    if (!subwayQueue) {
+        logger.error('Subway queue service not initialized');
+        return null;
     }
-    return null;
+    return subwayQueue.getNearestSubway(lat, lon, eventId);
 }
 
 async function deletePastEvents() {
@@ -305,6 +196,12 @@ async function fetchAllEvents() {
         isEventsFetchInProgress = true;
         logger.info('Starting sequential events fetch process');
 
+         // Añadir un timeout de seguridad
+                const fetchTimeout = setTimeout(() => {
+                    logger.error('Events fetch timeout reached');
+                    isEventsFetchInProgress = false;
+                }, 30 * 60 * 1000); // 30 minutos
+
         try {
             await fetchAndStoreEvents();
             logger.info('JSON events fetch completed successfully');
@@ -328,6 +225,8 @@ async function fetchAllEvents() {
         cache.clearPattern('events:');
         logger.info('Cache cleared after both fetches completed');
 
+        clearTimeout(fetchTimeout);
+
     } catch (error) {
         logger.error('Critical error in fetchAllEvents:', {
             error: error.message,
@@ -335,6 +234,227 @@ async function fetchAllEvents() {
         });
     } finally {
         isEventsFetchInProgress = false;
+    }
+}
+
+async function processEventCoordinates(event, locationDetails, nearestSubway) {
+    try {
+        const originalLat = event.latitude;
+        const originalLon = event.longitude;
+
+        logger.debug(`Processing coordinates for event ${event.id}`, {
+            latitude: originalLat,
+            longitude: originalLon
+        });
+
+        // Hacemos las dos peticiones en paralelo
+        const [locationPromise, subwayPromise] = await Promise.all([
+            // Petición de location si es necesaria
+            (!locationDetails.distrito || !locationDetails.barrio || !locationDetails.direccion || !locationDetails.ciudad)
+                ? getLocationDetails(originalLat, originalLon, event.id)
+                : Promise.resolve(locationDetails),
+
+            // Petición de subway si es necesaria
+            (!nearestSubway)
+                ? getNearestSubway(originalLat, originalLon, event.id)
+                : Promise.resolve(nearestSubway)
+        ]);
+
+        // Actualizamos los resultados
+        locationDetails = locationPromise;
+        nearestSubway = subwayPromise;
+
+        // Si encontramos subway, obtenemos las líneas
+        let subwayLines = [];
+        if (nearestSubway) {
+            logger.debug(`Found subway station for event ${event.id}: ${nearestSubway}`);
+            subwayLines = await getSubwayLines(nearestSubway);
+            logger.debug(`Retrieved subway lines for event ${event.id}`, {
+                station: nearestSubway,
+                lines: subwayLines
+            });
+        } else {
+            logger.debug(`No nearby subway found for event ${event.id}`);
+        }
+
+        // Aseguramos que las coordenadas originales se mantengan
+        event.latitude = originalLat;
+        event.longitude = originalLon;
+        event.distance = EventDomainService.calculateDistance(event, baseLat, baseLon);
+        logger.debug(`Calculated distance for event ${event.id}: ${event.distance}`);
+
+        return { locationDetails, nearestSubway, subwayLines };
+    } catch (error) {
+        logger.error(`Error processing coordinates for event ${event.id}:`, {
+            error: error.message,
+            stack: error.stack
+        });
+        throw error;
+    }
+}
+
+async function getExistingEventData(collection, eventId) {
+    try {
+        const existingEvent = await collection.findOne({ id: eventId });
+
+        if (!existingEvent) {
+            logger.debug(`No existing data found for event ${eventId}`);
+            return {
+                locationDetails: {
+                    distrito: '',
+                    barrio: '',
+                    direccion: '',
+                    ciudad: ''
+                },
+                nearestSubway: null,
+                imageUrl: null,
+                subwayLines: []
+            };
+        }
+
+        logger.debug(`Found existing data for event ${eventId}`);
+        const event = EventDomainService.fromJSON(existingEvent);
+        return {
+            locationDetails: {
+                distrito: event.distrito || '',
+                barrio: event.barrio || '',
+                direccion: event.streetAddress || '',
+                ciudad: event.locality || ''
+            },
+            nearestSubway: event.subway || null,
+            imageUrl: event.image || null,
+            subwayLines: event.subwayLines || []
+        };
+    } catch (error) {
+        logger.error(`Error getting existing data for event ${eventId}:`, {
+            error: error.message,
+            stack: error.stack
+        });
+        throw error;
+    }
+}
+
+async function updateEventWithData(event, locationDetails, nearestSubway, subwayLines, imageUrl) {
+    try {
+        logger.debug(`Updating event ${event.id} with collected data`, {
+            distrito: locationDetails.distrito,
+            barrio: locationDetails.barrio,
+            hasSubway: !!nearestSubway,
+            subwayLinesCount: subwayLines.length,
+            hasImage: !!imageUrl,
+            hasCoordinates: !!event.latitude && !!event.longitude
+        });
+
+        event.distrito = locationDetails.distrito;
+        event.barrio = locationDetails.barrio;
+        event.streetAddress = locationDetails.direccion;
+        event.locality = locationDetails.ciudad;
+        event.subway = nearestSubway || '';
+        event.subwayLines = subwayLines;
+        event.image = imageUrl;
+
+        if (event.eventLocation) {
+            logger.debug(`Cleaning organization name for event ${event.id}`);
+            const originalLocation = event.eventLocation;
+            event.eventLocation = cleanOrganizationName(event.eventLocation, event.distrito, event.barrio);
+            if (originalLocation !== event.eventLocation) {
+                logger.debug(`Organization name cleaned for event ${event.id}`, {
+                    original: originalLocation,
+                    cleaned: event.eventLocation
+                });
+            }
+        }
+
+        if (event.organizationName) {
+            event.organizationName = cleanOrganizationName(event.organizationName, event.distrito, event.barrio);
+        }
+
+        return event;
+    } catch (error) {
+        logger.error(`Error updating event ${event.id}:`, {
+            error: error.message,
+            stack: error.stack
+        });
+        throw error;
+    }
+}
+
+async function processAndStoreEvent(collection, eventData, fromXml = false) {
+    try {
+        let event;
+        if (fromXml) {
+            event = EventDomainService.fromXMLData(eventData);
+            if (!event) {
+                logger.warn(`Failed to create event from XML data`);
+                return;
+            }
+            if (!EventDomainService.isActive(event)) {
+                logger.debug(`Skipping inactive event ${event.id}`);
+                return;
+            }
+        } else {
+            event = EventDomainService.fromJSON(eventData);
+        }
+
+        logger.debug(`Processing event ${event.id}`, {
+            title: event.title,
+            isXml: fromXml
+        });
+
+        // Obtener datos existentes
+        const {
+            locationDetails,
+            nearestSubway,
+            imageUrl: existingImageUrl,
+            subwayLines
+        } = await getExistingEventData(collection, event.id);
+
+        let processedData = {
+            locationDetails,
+            nearestSubway,
+            subwayLines
+        };
+
+        // Procesar coordenadas si son válidas
+        if (EventDomainService.hasValidCoordinates(event)) {
+            processedData = await processEventCoordinates(
+                event,
+                locationDetails,
+                nearestSubway
+            );
+        } else {
+            logger.debug(`Event ${event.id} has no valid coordinates to process`);
+        }
+
+        // Obtener imagen si es necesario
+        const imageUrl = existingImageUrl || await scrapeImageFromUrl(event.link, event.id);
+
+        // Actualizar evento con todos los datos
+        event = await updateEventWithData(
+            event,
+            processedData.locationDetails,
+            processedData.nearestSubway,
+            processedData.subwayLines,
+            imageUrl
+        );
+
+        // Guardar en base de datos
+        await collection.updateOne(
+            { id: event.id },
+            { $set: event.toJSON() },
+            { upsert: true }
+        );
+
+        logger.debug(`Successfully processed and stored event ${event.id}`);
+
+    } catch (error) {
+        logger.error(`Error processing event:`, {
+            error: error.message,
+            stack: error.stack,
+            eventId: eventData.id || 'unknown',
+            isXml: fromXml
+        });
+        throw error;
     }
 }
 
@@ -381,115 +501,10 @@ async function fetchAndStoreEvents() {
 
         const eventPromises = eventsData['@graph'].map(async (eventData, index) => {
             try {
-                let locationDetails = {
-                    distrito: '',
-                    barrio: '',
-                    direccion: '',
-                    ciudad: ''
-                };
-                let nearestSubway = null;
-                let imageUrl = null;
-                let subwayLines = [];
-
                 if (index % 10 === 0) {
                     logger.debug(`Processing event ${index + 1}/${eventsData['@graph'].length}`);
                 }
-
-                const existingEvent = await collection.findOne({
-                    id: eventData.id
-                });
-                let event;
-
-                if (existingEvent) {
-                    event = EventDomainService.fromJSON(existingEvent);
-                    locationDetails = {
-                        distrito: event.distrito || '',
-                        barrio: event.barrio || '',
-                        direccion: event.streetAddress || '',
-                        ciudad: event.locality || ''
-                    };
-                    nearestSubway = event.subway || null;
-                    imageUrl = event.image || null;
-                    subwayLines = event.subwayLines || [];
-                } else {
-                    event = EventDomainService.fromJSON(eventData);
-                }
-
-                if (EventDomainService.hasValidCoordinates(event)) {
-                    // Guardamos las coordenadas originales
-                    const originalLat = event.latitude;
-                    const originalLon = event.longitude;
-
-                    logger.debug(`Processing coordinates for event ${event.id}`, {
-                        latitude: originalLat,
-                        longitude: originalLon
-                    });
-
-                    if (!locationDetails.distrito || !locationDetails.barrio || !locationDetails.direccion || !locationDetails.ciudad) {
-                        try {
-                            locationDetails = await getLocationDetails(originalLat, originalLon);
-                            logger.debug(`Location details retrieved for event ${event.id}`, locationDetails);
-                        } catch (error) {
-                            logger.error(`Failed to get location details for event ${event.id}`, {
-                                latitude: originalLat,
-                                longitude: originalLon,
-                                error: error.message
-                            });
-                            // Mantenemos locationDetails con valores vacíos
-                        }
-                    }
-
-                    // Aseguramos que las coordenadas originales se mantengan
-                    event.latitude = originalLat;
-                    event.longitude = originalLon;
-                    event.distance = EventDomainService.calculateDistance(event, baseLat, baseLon);
-
-                    if (!nearestSubway) {
-                        try {
-                            nearestSubway = await getNearestSubway(originalLat, originalLon);
-                            if (nearestSubway) {
-                                logger.debug(`Found subway station for event ${event.id}: ${nearestSubway}`);
-                                subwayLines = await getSubwayLines(nearestSubway);
-                            }
-                        } catch (error) {
-                            logger.error(`Failed to get subway info for event ${event.id}`, {
-                                latitude: originalLat,
-                                longitude: originalLon,
-                                error: error.message
-                            });
-                            // No afectamos las coordenadas aunque falle la búsqueda de metro
-                        }
-                    }
-                }
-
-                if (!imageUrl) {
-                    imageUrl = await scrapeImageFromUrl(event.link);
-                }
-
-                // Actualización de datos del evento
-                event.distrito = locationDetails.distrito;
-                event.barrio = locationDetails.barrio;
-                event.streetAddress = locationDetails.direccion;
-                event.locality = locationDetails.ciudad;
-                event.subway = nearestSubway || '';
-                event.subwayLines = subwayLines;
-                event.image = imageUrl;
-
-                if (event.eventLocation) {
-                    event.eventLocation = cleanOrganizationName(event.eventLocation, event.distrito, event.barrio);
-                }
-                if (event.organizationName) {
-                    event.organizationName = cleanOrganizationName(event.organizationName, event.distrito, event.barrio);
-                }
-
-                await collection.updateOne({
-                    id: event.id
-                }, {
-                    $set: event.toJSON()
-                }, {
-                    upsert: true
-                });
-
+                await processAndStoreEvent(collection, eventData, false);
             } catch (eventError) {
                 logger.error(`Error processing event at index ${index}:`, {
                     error: eventError.message,
@@ -570,148 +585,9 @@ async function fetchAndStoreXmlEvents() {
                     logger.debug(`Processing XML event ${index + 1}/${totalEvents}`);
                 }
 
-                const event = EventDomainService.fromXMLData(xmlEvent);
-
-                if (!event) {
-                    logger.warn(`Failed to create event from XML data at index ${index}`);
-                    return;
-                }
-
-                if (!EventDomainService.isActive(event)) {
-                    logger.debug(`Skipping inactive event ${event.id} at index ${index}`);
-                    return;
-                }
-
-                logger.debug(`Starting processing of XML event ${event.id}`, {
-                    index,
-                    title: event.title
-                });
-
-                let locationDetails = {
-                    distrito: '',
-                    barrio: '',
-                    direccion: '',
-                    ciudad: ''
-                };
-                let nearestSubway = null;
-                let subwayLines = [];
-
-                const existingEvent = await collection.findOne({
-                    id: event.id
-                });
-
-                if (existingEvent) {
-                    logger.debug(`Using existing data for event ${event.id}`);
-                    const existingEventObj = EventDomainService.fromJSON(existingEvent);
-                    locationDetails = {
-                        distrito: existingEventObj.distrito || '',
-                        barrio: existingEventObj.barrio || '',
-                        direccion: existingEventObj.streetAddress || '',
-                        ciudad: existingEventObj.locality || ''
-                    };
-                    nearestSubway = existingEventObj.subway || null;
-                    subwayLines = existingEventObj.subwayLines || [];
-                }
-
-                if (EventDomainService.hasValidCoordinates(event)) {
-                    // Guardamos las coordenadas originales
-                    const originalLat = event.latitude;
-                    const originalLon = event.longitude;
-
-                    logger.debug(`Processing coordinates for event ${event.id}`, {
-                        latitude: originalLat,
-                        longitude: originalLon
-                    });
-
-                    if (!locationDetails.distrito || !locationDetails.barrio || !locationDetails.direccion || !locationDetails.ciudad) {
-                        try {
-                            logger.debug(`Fetching location details for event ${event.id}`);
-                            locationDetails = await getLocationDetails(originalLat, originalLon);
-                            logger.debug(`Location details retrieved for event ${event.id}`, locationDetails);
-                        } catch (error) {
-                            logger.error(`Failed to get location details for event ${event.id}`, {
-                                latitude: originalLat,
-                                longitude: originalLon,
-                                error: error.message
-                            });
-                            // Mantenemos locationDetails con valores vacíos
-                        }
-                    }
-
-                    // Aseguramos que las coordenadas originales se mantengan
-                    event.latitude = originalLat;
-                    event.longitude = originalLon;
-                    event.distance = EventDomainService.calculateDistance(event, baseLat, baseLon);
-                    logger.debug(`Calculated distance for event ${event.id}: ${event.distance}`);
-
-                    if (!nearestSubway) {
-                        try {
-                            logger.debug(`Searching for nearest subway for event ${event.id}`);
-                            nearestSubway = await getNearestSubway(originalLat, originalLon);
-
-                            if (nearestSubway) {
-                                logger.debug(`Found subway station for event ${event.id}: ${nearestSubway}`);
-                                subwayLines = await getSubwayLines(nearestSubway);
-                                logger.debug(`Retrieved subway lines for event ${event.id}`, {
-                                    station: nearestSubway,
-                                    lines: subwayLines
-                                });
-                            } else {
-                                logger.debug(`No nearby subway found for event ${event.id}`);
-                            }
-                        } catch (error) {
-                            logger.error(`Failed to get subway info for event ${event.id}`, {
-                                latitude: originalLat,
-                                longitude: originalLon,
-                                error: error.message
-                            });
-                            // No afectamos las coordenadas aunque falle la búsqueda de metro
-                        }
-                    }
-                } else {
-                    logger.debug(`Event ${event.id} has no valid coordinates to process`);
-                }
-
-                logger.debug(`Updating event ${event.id} with collected data`, {
-                    distrito: locationDetails.distrito,
-                    barrio: locationDetails.barrio,
-                    hasSubway: !!nearestSubway,
-                    subwayLinesCount: subwayLines.length,
-                    hasCoordinates: !!event.latitude && !!event.longitude
-                });
-
-                event.distrito = locationDetails.distrito;
-                event.barrio = locationDetails.barrio;
-                event.streetAddress = locationDetails.direccion;
-                event.locality = locationDetails.ciudad;
-                event.subway = nearestSubway || '';
-                event.subwayLines = subwayLines;
-
-                if (event.eventLocation) {
-                    logger.debug(`Cleaning organization name for event ${event.id}`);
-                    const originalLocation = event.eventLocation;
-                    event.eventLocation = cleanOrganizationName(event.eventLocation, event.distrito, event.barrio);
-                    if (originalLocation !== event.eventLocation) {
-                        logger.debug(`Organization name cleaned for event ${event.id}`, {
-                            original: originalLocation,
-                            cleaned: event.eventLocation
-                        });
-                    }
-                }
-
-                logger.debug(`Attempting database update for event ${event.id}`);
-                await collection.updateOne({
-                    id: event.id
-                }, {
-                    $set: event.toJSON()
-                }, {
-                    upsert: true
-                });
-
-                logger.debug(`Successfully processed and stored event ${event.id}`);
-
+                await processAndStoreEvent(collection, xmlEvent, true);
             } catch (eventError) {
-                logger.error(`Error processing XML event ${event?.id || 'unknown'} at index ${index}:`, {
+                logger.error(`Error processing XML event at index ${index}:`, {
                     error: eventError.message,
                     stack: eventError.stack,
                     eventData: JSON.stringify(xmlEvent).substring(0, 200) + '...'
@@ -867,7 +743,8 @@ app.get('/getImage', async (req, res) => {
             });
         }
 
-        const imageUrl = await scrapeImageFromUrl(event.link);
+            imageUrl = await scrapeImageFromUrl(event.link, event.id);
+
 
         if (imageUrl) {
             event.image = imageUrl;
@@ -938,7 +815,8 @@ app.get('/getSubwayLines', async (req, res) => {
     }
 });
 
-
+let updateIntervalId;
+let fetchIntervalId;
 
 app.listen(constants.PORT, async () => {
     logger.info(`Server starting`, {
@@ -954,23 +832,53 @@ app.listen(constants.PORT, async () => {
         logger.error('Failed to initialize subway data, server might not work correctly');
     }
 
+     // Inicializar la cola de ubicaciones
+      const db = await database.getDb();
+      locationQueue = new LocationQueue(db);
+      subwayQueue = new SubwayQueue(db);
+      imageQueue = new ImageQueue(db);
+      logger.info('Queue services initialized');
+
     await deletePastEvents();
     await fetchAllEvents();
 
-    setInterval(deletePastEvents, constants.UPDATE_INTERVAL);
-    setInterval(fetchAllEvents, constants.UPDATE_INTERVAL);
+    updateIntervalId = setInterval(deletePastEvents, constants.UPDATE_INTERVAL);
+    fetchIntervalId = setInterval(fetchAllEvents, constants.UPDATE_INTERVAL);
 });
 
-// Manejo de señales de terminación
-process.on('SIGINT', async () => {
-    logger.info('Shutting down server');
+async function gracefulShutdown(signal) {
+    logger.info(`Received ${signal}. Shutting down server...`);
     try {
+        // Limpiamos las colas y paramos sus workers
+        if (locationQueue) {
+            locationQueue.clearQueue();
+            locationQueue.stopProcessing();
+        }
+        if (subwayQueue) {
+            subwayQueue.clearQueue();
+            subwayQueue.stopProcessing();
+        }
+
+        if (imageQueue) {
+            imageQueue.clearQueue();
+            imageQueue.stopProcessing();
+        }
+
+        clearInterval(updateIntervalId);
+        clearInterval(fetchIntervalId);
+
+        // Cerramos la conexión a la base de datos
         await database.closeConnection();
+
+        logger.info('Graceful shutdown completed');
         process.exit(0);
     } catch (error) {
         logger.error('Error during shutdown', error);
         process.exit(1);
     }
-});
+}
+
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
 
 module.exports = app;
