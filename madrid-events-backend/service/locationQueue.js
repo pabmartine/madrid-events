@@ -135,7 +135,7 @@ class LocationQueue {
             }
 
             const request = this.queue.shift();
-            logger.info('Processing location request from queue', {
+            logger.debug('Processing location request from queue', {
                 eventId: request.eventId,
                 queueLength: this.queue.length
             });

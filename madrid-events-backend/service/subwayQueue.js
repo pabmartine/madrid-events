@@ -111,7 +111,7 @@ class SubwayQueue {
             }
 
             const request = this.queue.shift();
-            logger.info('Processing subway request from queue', {
+            logger.debug('Processing subway request from queue', {
                 eventId: request.eventId,
                 queueLength: this.queue.length
             });
