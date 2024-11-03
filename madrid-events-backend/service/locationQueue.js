@@ -1,5 +1,5 @@
-const logger = require('../utils/logger');
-const axios = require('../utils/axios');
+const logger = require('../config/logger');
+const axios = require('../config/axios');
 const constants = require('../config/constants');
 
 class LocationQueue {

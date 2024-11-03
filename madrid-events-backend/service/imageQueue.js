@@ -1,5 +1,5 @@
-const logger = require('../utils/logger');
-const axios = require('../utils/axios');
+const logger = require('../config/logger');
+const axios = require('../config/axios');
 const cheerio = require('cheerio');
 const constants = require('../config/constants');
 
@@ -100,7 +100,7 @@ class ImageQueue {
             }
 
             const request = this.queue.shift();
-            logger.info('Processing image request from queue', {
+            logger.debug('Processing image request from queue', {
                 eventId: request.eventId,
                 link: request.link,
                 queueLength: this.queue.length

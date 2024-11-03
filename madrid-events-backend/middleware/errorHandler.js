@@ -1,4 +1,4 @@
-const logger = require('../utils/logger');
+const logger = require('../config/logger');
 
 // Error handler middleware
 const errorHandler = (err, req, res, next) => {

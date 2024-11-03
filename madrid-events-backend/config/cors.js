@@ -1,10 +1,10 @@
 const cors = require('cors');
 const constants = require('./constants');
-const logger = require('../utils/logger');
+const logger = require('../config/logger');
 
 const corsOptions = {
     origin: function (origin, callback) {
-        logger.info('CORS - Request received', {
+        logger.debug('CORS - Request received', {
             origin,
             configuredOrigins: constants.FRONTEND_URL,
             allowedOrigins: constants.FRONTEND_URL ? constants.FRONTEND_URL.split(',').map(url => url.trim()) : []
@@ -12,7 +12,7 @@ const corsOptions = {
 
         // Permitir peticiones sin origin (como las de Postman o desarrollo local)
         if (!origin) {
-            logger.info('CORS - Allowing request without origin');
+            logger.debug('CORS - Allowing request without origin');
             return callback(null, true);
         }
 
@@ -25,7 +25,7 @@ const corsOptions = {
         const allowedOrigins = constants.FRONTEND_URL.split(',').map(url => url.trim());
 
         if (allowedOrigins.indexOf(origin) !== -1) {
-            logger.info('CORS - Origin allowed', { origin });
+            logger.debug('CORS - Origin allowed', { origin });
             callback(null, true);
         } else {
             logger.warn('CORS - Origin blocked', {
