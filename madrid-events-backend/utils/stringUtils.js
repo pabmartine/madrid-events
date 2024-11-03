@@ -3,6 +3,10 @@ class StringUtils {
         return str.replace(/[\x00-\x1F\x7F]/g, '');
     }
 
+    static normalizeString(str) {
+        return str.toLowerCase();
+    }
+
     static cleanOrganizationName(orgName, distrito, barrio) {
         const regex = /\(([^)]+)\)/g;
         return orgName.replace(regex, (match, p1) => {
