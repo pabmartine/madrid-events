@@ -7,7 +7,10 @@ const xml2js = require('xml2js');
 const fs = require('fs').promises;
 const path = require('path');
 
-const { Event, EventDomainService } = require('./domain');
+const {
+    Event,
+    EventDomainService
+} = require('./domain');
 const constants = require('./config/constants');
 const cors = require('./config/cors');
 const limiter = require('./config/rateLimiter');
@@ -27,6 +30,8 @@ const SubwayUtils = require('./utils/subwayUtils');
 const DatabaseUtils = require('./utils/databaseUtils');
 const CoordinateUtils = require('./utils/coordinatesUtils');
 
+const routes = require('./routes');
+
 const app = express();
 
 let baseLat = constants.BASE_LAT;
@@ -34,6 +39,9 @@ let baseLon = constants.BASE_LON;
 let locationQueue;
 let subwayQueue;
 let imageQueue;
+let updateIntervalId;
+let fetchIntervalId;
+let isEventsFetchInProgress = false;
 
 // Inicialización de datos del metro
 async function initializeSubwayData() {
@@ -99,7 +107,7 @@ async function getNearestSubway(lat, lon, eventId) {
     return subwayQueue.getNearestSubway(lat, lon, eventId);
 }
 
-let isEventsFetchInProgress = false;
+
 
 async function processEventCoordinates(event, locationDetails, nearestSubway) {
     try {
@@ -112,12 +120,12 @@ async function processEventCoordinates(event, locationDetails, nearestSubway) {
         });
 
         const [locationPromise, subwayPromise] = await Promise.all([
-            (!locationDetails.distrito || !locationDetails.barrio || !locationDetails.direccion || !locationDetails.ciudad)
-                ? getLocationDetails(originalLat, originalLon, event.id)
-                : Promise.resolve(locationDetails),
-            (!nearestSubway)
-                ? getNearestSubway(originalLat, originalLon, event.id)
-                : Promise.resolve(nearestSubway)
+            (!locationDetails.distrito || !locationDetails.barrio || !locationDetails.direccion || !locationDetails.ciudad) ?
+            getLocationDetails(originalLat, originalLon, event.id) :
+            Promise.resolve(locationDetails),
+            (!nearestSubway) ?
+            getNearestSubway(originalLat, originalLon, event.id) :
+            Promise.resolve(nearestSubway)
         ]);
 
         locationDetails = locationPromise;
@@ -140,7 +148,11 @@ async function processEventCoordinates(event, locationDetails, nearestSubway) {
         event.distance = EventDomainService.calculateDistance(event, baseLat, baseLon);
         logger.debug(`Calculated distance for event ${event.id}: ${event.distance}`);
 
-        return { locationDetails, nearestSubway, subwayLines };
+        return {
+            locationDetails,
+            nearestSubway,
+            subwayLines
+        };
     } catch (error) {
         logger.error(`Error processing coordinates for event ${event.id}:`, {
             error: error.message,
@@ -259,11 +271,13 @@ async function processAndStoreEvent(collection, eventData, fromXml = false) {
             imageUrl
         );
 
-        await collection.updateOne(
-            { id: event.id },
-            { $set: event.toJSON() },
-            { upsert: true }
-        );
+        await collection.updateOne({
+            id: event.id
+        }, {
+            $set: event.toJSON()
+        }, {
+            upsert: true
+        });
 
         logger.debug(`Successfully processed and stored event ${event.id}`);
 
@@ -431,308 +445,129 @@ async function fetchAndStoreXmlEvents() {
                 statusText: error.response.statusText,
                 data: error.response.data ? error.response.data.substring(0, 200) + '...' : 'No response data'
             } : 'No response object'
-                        });
-                        throw error;
-                    }
-                }
+        });
+        throw error;
+    }
+}
 
-                async function fetchAllEvents() {
-                    if (isEventsFetchInProgress) {
-                        logger.info('Events fetch already in progress, skipping this cycle');
-                        return;
-                    }
+async function fetchAllEvents() {
+    if (isEventsFetchInProgress) {
+        logger.info('Events fetch already in progress, skipping this cycle');
+        return;
+    }
 
-                    try {
-                        isEventsFetchInProgress = true;
-                        logger.info('Starting sequential events fetch process');
+    try {
+        isEventsFetchInProgress = true;
+        logger.info('Starting sequential events fetch process');
 
-                        const fetchTimeout = setTimeout(() => {
-                            logger.error('Events fetch timeout reached');
-                            isEventsFetchInProgress = false;
-                        }, 30 * 60 * 1000); // 30 minutos
+        const fetchTimeout = setTimeout(() => {
+            logger.error('Events fetch timeout reached');
+            isEventsFetchInProgress = false;
+        }, 30 * 60 * 1000); // 30 minutos
 
-                        try {
-                            await fetchAndStoreEvents();
-                            logger.info('JSON events fetch completed successfully');
-                        } catch (jsonError) {
-                            logger.error('JSON events fetch failed, continuing with XML fetch:', {
-                                error: jsonError.message,
-                                stack: jsonError.stack
-                            });
-                        }
+        try {
+            await fetchAndStoreEvents();
+            logger.info('JSON events fetch completed successfully');
+        } catch (jsonError) {
+            logger.error('JSON events fetch failed, continuing with XML fetch:', {
+                error: jsonError.message,
+                stack: jsonError.stack
+            });
+        }
 
-                        try {
-                            await fetchAndStoreXmlEvents();
-                            logger.info('XML events fetch completed successfully');
-                        } catch (xmlError) {
-                            logger.error('XML events fetch failed:', {
-                                error: xmlError.message,
-                                stack: xmlError.stack
-                            });
-                        }
+        try {
+            await fetchAndStoreXmlEvents();
+            logger.info('XML events fetch completed successfully');
+        } catch (xmlError) {
+            logger.error('XML events fetch failed:', {
+                error: xmlError.message,
+                stack: xmlError.stack
+            });
+        }
 
-                        cache.clearPattern('events:');
-                        logger.info('Cache cleared after both fetches completed');
+        cache.clearPattern('events:');
+        logger.info('Cache cleared after both fetches completed');
 
-                        clearTimeout(fetchTimeout);
+        clearTimeout(fetchTimeout);
 
-                    } catch (error) {
-                        logger.error('Critical error in fetchAllEvents:', {
-                            error: error.message,
-                            stack: error.stack
-                        });
-                    } finally {
-                        isEventsFetchInProgress = false;
-                    }
-                }
+    } catch (error) {
+        logger.error('Critical error in fetchAllEvents:', {
+            error: error.message,
+            stack: error.stack
+        });
+    } finally {
+        isEventsFetchInProgress = false;
+    }
+}
 
-                // Middleware setup
-                app.use(errorHandler);
-                app.use(cors);
-                app.use(helmet());
-                app.use(limiter);
+// Middleware setup
+app.use(errorHandler);
+app.use(cors);
+app.use(helmet());
+app.use(limiter);
+app.use('/', routes);
 
-                // Routes
-                app.get('/recalculate', async (req, res) => {
-                    try {
-                        const { lat, lon } = req.query;
 
-                        if (!CoordinateUtils.validateCoordinates(lat, lon)) {
-                            return res.status(400).json({
-                                error: 'Invalid latitude or longitude'
-                            });
-                        }
 
-                        logger.info('Recalculate coordinates request', { lat, lon });
 
-                        const newLat = parseFloat(lat).toFixed(2);
-                        const newLon = parseFloat(lon).toFixed(2);
+app.listen(constants.PORT, async () => {
+    logger.info(`Server starting`, {
+        port: constants.PORT
+    });
 
-                        if (newLat !== baseLat.toFixed(2) || newLon !== baseLon.toFixed(2)) {
-                            baseLat = lat;
-                            baseLon = lon;
+    // Inicializar conexión a la base de datos
+    await database.connectToMongoDB();
 
-                            logger.info('Recalculating distances with new coordinates', {
-                                baseLat,
-                                baseLon
-                            });
-                            await fetchAndStoreEvents();
+    // Inicializar datos del metro
+    const subwayInitialized = await initializeSubwayData();
+    if (!subwayInitialized) {
+        logger.error('Failed to initialize subway data, server might not work correctly');
+    }
 
-                            cache.clearPattern('events:');
+    // Inicializar servicios de cola
+    const db = await database.getDb();
+    locationQueue = new LocationQueue(db);
+    subwayQueue = new SubwayQueue(db);
+    imageQueue = new ImageQueue(db);
+    logger.info('Queue services initialized');
 
-                            res.json({
-                                message: 'Recalculation completed with new coordinates',
-                                baseLat,
-                                baseLon
-                            });
-                        } else {
-                            res.status(400).json({
-                                message: 'Coordinates are the same, no recalculation needed',
-                                baseLat,
-                                baseLon
-                            });
-                        }
-                    } catch (error) {
-                        logger.error('Error in recalculate service:', error.message);
-                        res.status(500).json({
-                            error: 'An error occurred during recalculation',
-                            details: error.message
-                        });
-                    }
-                });
+    await DatabaseUtils.deletePastEvents(db, constants.COLLECTION_NAME);
+    await fetchAllEvents();
 
-                app.get('/getEvents', async (req, res) => {
-                    try {
-                        const { distrito_nombre, barrio_nombre } = req.query;
+    updateIntervalId = setInterval(() => DatabaseUtils.deletePastEvents(db, constants.COLLECTION_NAME), constants.UPDATE_INTERVAL);
+    fetchIntervalId = setInterval(fetchAllEvents, constants.UPDATE_INTERVAL);
+});
 
-                        const cachedEvents = await cache.getEvents(distrito_nombre, barrio_nombre);
-                        if (cachedEvents) {
-                            return res.json(cachedEvents);
-                        }
+async function gracefulShutdown(signal) {
+    logger.info(`Received ${signal}. Shutting down server...`);
+    try {
+        if (locationQueue) {
+            locationQueue.clearQueue();
+            locationQueue.stopProcessing();
+        }
+        if (subwayQueue) {
+            subwayQueue.clearQueue();
+            subwayQueue.stopProcessing();
+        }
+        if (imageQueue) {
+            imageQueue.clearQueue();
+            imageQueue.stopProcessing();
+        }
 
-                        const db = await database.getDb();
-                        const collection = db.collection(constants.COLLECTION_NAME);
+        clearInterval(updateIntervalId);
+        clearInterval(fetchIntervalId);
 
-                        let query = {};
-                        if (distrito_nombre) query.distrito = distrito_nombre;
-                        if (barrio_nombre) query.barrio = barrio_nombre;
+        await database.closeConnection();
 
-                        const eventsData = await collection.find(query).toArray();
+        logger.info('Graceful shutdown completed');
+        process.exit(0);
+    } catch (error) {
+        logger.error('Error during shutdown', error);
+        process.exit(1);
+    }
+}
 
-                        cache.setEvents(eventsData, distrito_nombre, barrio_nombre);
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
 
-                        res.json(eventsData);
-                    } catch (error) {
-                        logger.error('Error fetching events:', error.message);
-                        res.status(500).json({
-                            error: 'An error occurred while fetching events',
-                            details: error.message
-                        });
-                    }
-                });
-
-                app.get('/getImage', async (req, res) => {
-                    try {
-                        const { id } = req.query;
-                        if (!id) {
-                            return res.status(400).json({
-                                error: 'Missing id parameter'
-                            });
-                        }
-
-                        const cachedImage = await cache.getImage(id);
-                        if (cachedImage) {
-                            return res.json({
-                                id,
-                                image: cachedImage
-                            });
-                        }
-
-                        const db = await database.getDb();
-                        const collection = db.collection(constants.COLLECTION_NAME);
-                        let eventData = await collection.findOne({ id: id });
-
-                        if (!eventData) {
-                            return res.status(404).json({
-                                error: 'Event not found'
-                            });
-                        }
-
-                        const event = EventDomainService.fromJSON(eventData);
-
-                        if (event.image) {
-                            cache.setImage(id, event.image);
-                            return res.json({
-                                id,
-                                image: event.image
-                            });
-                        }
-
-                        const imageUrl = await scrapeImageFromUrl(event.link, event.id);
-
-                        if (imageUrl) {
-                            event.image = imageUrl;
-                            await collection.updateOne({ id: id }, {
-                                $set: event.toJSON()
-                            });
-                            cache.setImage(id, imageUrl);
-                        }
-
-                        res.json({
-                            id,
-                            image: imageUrl
-                        });
-
-                    } catch (error) {
-                        logger.error('Error fetching image:', error.message);
-                        res.status(500).json({
-                            error: 'An error occurred while fetching image',
-                            details: error.message
-                        });
-                    }
-                });
-
-                app.get('/getSubwayLines', async (req, res) => {
-                    const { subway } = req.query;
-
-                    if (!subway) {
-                        return res.status(400).json({
-                            error: 'Missing subway parameter'
-                        });
-                    }
-
-                    try {
-                        const cachedLines = await cache.getSubwayLines(subway);
-                        if (cachedLines) {
-                            return res.json(cachedLines);
-                        }
-
-                        const subwayData = cache.getSubwayData();
-                        const lines = await SubwayUtils.getSubwayLines(subway, subwayData);
-
-                        if (lines.length > 0) {
-                            const response = {
-                                subway: subway,
-                                lines: lines
-                            };
-
-                            cache.setSubwayLines(subway, response);
-                            res.json(response);
-                        } else {
-                            res.status(404).json({
-                                error: 'Subway station not found'
-                            });
-                        }
-                    } catch (error) {
-                        logger.error('Error fetching subway lines:', error.message);
-                        res.status(500).json({
-                            error: 'An error occurred while fetching subway lines',
-                            details: error.message
-                        });
-                    }
-                });
-
-                let updateIntervalId;
-                let fetchIntervalId;
-
-                app.listen(constants.PORT, async () => {
-                    logger.info(`Server starting`, {
-                        port: constants.PORT
-                    });
-
-                    // Inicializar conexión a la base de datos
-                    await database.connectToMongoDB();
-
-                    // Inicializar datos del metro
-                    const subwayInitialized = await initializeSubwayData();
-                    if (!subwayInitialized) {
-                        logger.error('Failed to initialize subway data, server might not work correctly');
-                    }
-
-                    // Inicializar servicios de cola
-                    const db = await database.getDb();
-                    locationQueue = new LocationQueue(db);
-                    subwayQueue = new SubwayQueue(db);
-                    imageQueue = new ImageQueue(db);
-                    logger.info('Queue services initialized');
-
-                    await DatabaseUtils.deletePastEvents(db, constants.COLLECTION_NAME);
-                    await fetchAllEvents();
-
-                    updateIntervalId = setInterval(() => DatabaseUtils.deletePastEvents(db, constants.COLLECTION_NAME), constants.UPDATE_INTERVAL);
-                    fetchIntervalId = setInterval(fetchAllEvents, constants.UPDATE_INTERVAL);
-                });
-
-                async function gracefulShutdown(signal) {
-                    logger.info(`Received ${signal}. Shutting down server...`);
-                    try {
-                        if (locationQueue) {
-                            locationQueue.clearQueue();
-                            locationQueue.stopProcessing();
-                        }
-                        if (subwayQueue) {
-                            subwayQueue.clearQueue();
-                            subwayQueue.stopProcessing();
-                        }
-                        if (imageQueue) {
-                            imageQueue.clearQueue();
-                            imageQueue.stopProcessing();
-                        }
-
-                        clearInterval(updateIntervalId);
-                        clearInterval(fetchIntervalId);
-
-                        await database.closeConnection();
-
-                        logger.info('Graceful shutdown completed');
-                        process.exit(0);
-                    } catch (error) {
-                        logger.error('Error during shutdown', error);
-                        process.exit(1);
-                    }
-                }
-
-                process.on('SIGINT', () => gracefulShutdown('SIGINT'));
-                process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
-
-                module.exports = app;
+module.exports = app;
