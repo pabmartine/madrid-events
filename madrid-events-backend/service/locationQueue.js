@@ -191,7 +191,7 @@ class LocationQueue {
             }
 
             // Esperar 30 segundos antes de la siguiente petición
-            await new Promise(resolve => setTimeout(resolve, 30000));
+            await new Promise(resolve => setTimeout(resolve, 5000));
         }
     }
 

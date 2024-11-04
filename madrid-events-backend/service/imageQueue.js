@@ -154,7 +154,7 @@ class ImageQueue {
                 }
             }
 
-            await new Promise(resolve => setTimeout(resolve, 15000));
+            await new Promise(resolve => setTimeout(resolve, 5000));
         }
         logger.info('Image queue processing stopped');
     }
