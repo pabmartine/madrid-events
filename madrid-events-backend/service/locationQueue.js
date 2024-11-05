@@ -39,8 +39,7 @@ class LocationQueue {
 
             // Si ya tenemos todos los datos de ubicación, los devolvemos
             if (existingEvent &&
-                existingEvent.distrito &&
-                existingEvent.barrio &&
+                (existingEvent.distrito || existingEvent.barrio) &&
                 existingEvent.streetAddress &&
                 existingEvent.locality) {
                 logger.debug('Returning existing location details', {
