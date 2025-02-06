@@ -76,3 +76,11 @@ cd frontend
 npm start    # Start development server
 npm run build # Build for production
 ```
+
+## Screenshots
+
+### Main Dashboard
+![Main Dashboard](images/_1.png)
+
+### Map View
+![Map View](images/_3.png)
