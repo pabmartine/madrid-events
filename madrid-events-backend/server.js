@@ -307,13 +307,13 @@ async function fetchAndStoreEvents() {
 
         if (typeof eventsData === 'string') {
             logger.info('Response is string, attempting to clean and parse');
-            eventsData = stripInvalidControlCharacters(eventsData);
+            eventsData = StringUtils.stripInvalidControlCharacters(eventsData);
             try {
                 eventsData = JSON.parse(eventsData);
             } catch (parseError) {
                 logger.error('Error parsing JSON:', {
                     error: parseError.message,
-                    data: eventsData.substring(0, 200) + '...'
+                    data: eventsData.substring(Math.max(0, 1059022 - 50), 1059022 + 50) + '...' //Show the area around the error
                 });
                 throw parseError;
             }
