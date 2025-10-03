@@ -501,11 +501,12 @@ async function fetchAllEvents() {
 }
 
 // Middleware setup
-app.use(errorHandler);
-app.use(cors);
 app.use(helmet());
+app.use(cors);
+app.use(express.json());
 app.use(limiter);
 app.use('/', routes);
+app.use(errorHandler);
 
 
 

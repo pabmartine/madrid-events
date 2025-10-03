@@ -14,6 +14,8 @@
   "app.linkedin.profile": "LinkedIn Profile",
   "app.github.profile": "GitHub Profile",
   "app.error.loading": "An error occurred while loading the events. Please try again later.",
+  "app.error.loading.events": "An error occurred while loading the events. Please try again later.",
+  "app.error.searching.events": "An error occurred while searching for events: {error}",
   "app.event.details": "View details of {title}",
   "app.event.free": "Free",
   "app.event.from": "From {price}",
@@ -59,10 +61,8 @@
   "app.recalculating.distances": "Recalculating distances...",
   "app.recalculation.error": "Error recalculating distances. Please try again.",
   "app.event.no.image": "No image available",
-  "app.event.subway.lines": "Subway Lines",
   "app.event.distance": "Distance: {distance} km",
   "app.event.subway": "Subway: {subway}",
-  "app.event.location": "Location",
   "app.settings.title": "Settings",
   "app.settings.theme": "Theme",
   "app.settings.theme.dark": "Dark",
@@ -77,7 +77,7 @@
   "app.settings.locate": "Locate",
   "app.settings.your.location": "Your location",
   "app.settings.save": "Save settings",
-  "app.settings.pastEvents": "Mostrar eventos pasados",
+  "app.settings.pastEvents": "Show past events",
   "app.open.settings": "Open settings",
   "app.loading": "Loading..."
 }
