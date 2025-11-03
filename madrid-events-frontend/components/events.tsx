@@ -9,7 +9,11 @@ import { Event, FilterState, SortState } from '../types/types';
 
 import ErrorMessage from './error-message';
 import Toast from './toast';
-import SettingsModal from './settings-modal';
+import dynamic from 'next/dynamic';
+
+const SettingsModal = dynamic(() => import('./settings-modal'), {
+  ssr: false,
+});
 import AutoCarousel from './auto-carousel';
 import EventModal, { EventModalProps } from './event-modal';
 import EventCard from './event-card';
@@ -190,7 +194,62 @@ export function Events() {
   const applyFiltersAndSort = useCallback(() => {
     let filtered = [...events];
 
-    // ... (filtering logic remains the same)
+    if (filterState.today) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      filtered = filtered.filter((event) => {
+        const eventDate = new Date(event.dtstart);
+        eventDate.setHours(0, 0, 0, 0);
+        return eventDate.getTime() === today.getTime();
+      });
+    } else if (filterState.thisWeek) {
+      const today = new Date();
+      const firstDayOfWeek = new Date(
+        today.setDate(today.getDate() - today.getDay() + 1),
+      );
+      firstDayOfWeek.setHours(0, 0, 0, 0);
+      const lastDayOfWeek = new Date(firstDayOfWeek);
+      lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 6);
+      lastDayOfWeek.setHours(23, 59, 59, 999);
+      filtered = filtered.filter((event) => {
+        const eventDate = new Date(event.dtstart);
+        return eventDate >= firstDayOfWeek && eventDate <= lastDayOfWeek;
+      });
+    } else if (filterState.thisWeekend) {
+      const today = new Date();
+      const dayOfWeek = today.getDay();
+      const saturday = new Date(today);
+      saturday.setDate(today.getDate() - dayOfWeek + 6);
+      saturday.setHours(0, 0, 0, 0);
+      const sunday = new Date(saturday);
+      sunday.setDate(saturday.getDate() + 1);
+      sunday.setHours(23, 59, 59, 999);
+      filtered = filtered.filter((event) => {
+        const eventDate = new Date(event.dtstart);
+        return eventDate >= saturday && eventDate <= sunday;
+      });
+    } else if (filterState.thisMonth) {
+      const today = new Date();
+      const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      const lastDayOfMonth = new Date(
+        today.getFullYear(),
+        today.getMonth() + 1,
+        0,
+      );
+      lastDayOfMonth.setHours(23, 59, 59, 999);
+      filtered = filtered.filter((event) => {
+        const eventDate = new Date(event.dtstart);
+        return eventDate >= firstDayOfMonth && eventDate <= lastDayOfMonth;
+      });
+    }
+
+    if (filterState.free) {
+      filtered = filtered.filter((event) => event.free);
+    }
+
+    if (filterState.children) {
+      filtered = filtered.filter((event) => event.audience.includes('children'));
+    }
 
     filtered.sort((a, b) => {
       if (sortState.by === 'date') {

@@ -1,6 +1,32 @@
 const Event = require('./Event');
 
 class EventDomainService {
+    static normalizeAudience(audience) {
+        if (!audience) {
+            return [];
+        }
+
+        const audienceArray = Array.isArray(audience) ? audience : [audience];
+        const lowerCaseAudience = audienceArray.map(a => a.toLowerCase());
+
+        const childrenKeywords = ['infantil', 'niños', 'niñas', 'familiar', 'bebes'];
+
+        let hasChildrenKeyword = false;
+        for (const keyword of childrenKeywords) {
+            if (lowerCaseAudience.some(a => a.includes(keyword))) {
+                hasChildrenKeyword = true;
+                break;
+            }
+        }
+
+        const newAudience = [...audienceArray];
+        if (hasChildrenKeyword && !newAudience.includes('children')) {
+            newAudience.push('children');
+        }
+
+        return newAudience;
+    }
+
     static fromJSON(json) {
         return new Event({
             id: json.id,
@@ -11,7 +37,7 @@ class EventDomainService {
             dtstart: json.dtstart,
             dtend: json.dtend,
             time: json.time || '',
-            audience: json.audience,
+            audience: this.normalizeAudience(json.audience),
             eventLocation: json['event-location'] || json.eventLocation,
             locality: json.address?.area?.locality || '',
             postalCode: json.address?.area?.['postal-code'] || '',
@@ -112,11 +138,12 @@ class EventDomainService {
     }
 
     static processCategories(event, categoria) {
+        const rawAudience = [];
         if (categoria.item) {
             const categoriaItem = categoria.item.find(item =>
                 item.$ && item.$.name === 'Categoria');
             if (categoriaItem && categoriaItem._) {
-                event.audience.push(categoriaItem._);
+                rawAudience.push(categoriaItem._);
             }
         }
 
@@ -126,11 +153,12 @@ class EventDomainService {
                     const subcategoriaItem = subcategoria.item.find(item =>
                         item.$ && item.$.name === 'SubCategoria');
                     if (subcategoriaItem && subcategoriaItem._) {
-                        event.audience.push(subcategoriaItem._);
+                        rawAudience.push(subcategoriaItem._);
                     }
                 }
             });
         }
+        event.audience = this.normalizeAudience(rawAudience);
     }
 
     static processExtraItems(event, items) {

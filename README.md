@@ -1,4 +1,4 @@
-# Madrid Events
+n# Madrid Events
 
 ## Project Description
 
@@ -26,14 +26,16 @@ cd madrid-events
 ```
 
 ### Install Dependencies
+
+Navigate to each subdirectory (`madrid-events-backend` and `madrid-events-frontend`) and install their respective dependencies:
+
 ```bash
-# Install backend
-cd backend
+cd madrid-events-backend
 npm install
 
-# Install frontend
-cd ../frontend
+cd ../madrid-events-frontend
 npm install
+cd .. # Return to the root directory
 ```
 
 ### Environment Configuration
@@ -63,19 +65,53 @@ Ensure MongoDB is installed and running. The application requires a MongoDB inst
 
 ## Running Scripts
 
-### Backend
-```bash
-cd backend
-npm run dev  # Development mode
-npm start    # Production mode
-```
+### From the Project Root Directory
 
-### Frontend
-```bash
-cd frontend
-npm start    # Start development server
-npm run build # Build for production
-```
+You can use the following scripts from the root directory to manage both backend and frontend:
+
+*   **Start both Backend and Frontend (Development):**
+    ```bash
+    npm start
+    ```
+    This will run both `npm run start-backend` and `npm run start-frontend` concurrently.
+
+*   **Start only Backend (Development):**
+    ```bash
+    npm run start-backend
+    ```
+
+*   **Start only Frontend (Development):**
+    ```bash
+    npm run start-frontend
+    ```
+
+### From the `madrid-events-backend` Directory
+
+Navigate to the `madrid-events-backend` directory:
+
+*   **Start Backend (Development):**
+    ```bash
+    node server.js
+    ```
+
+### From the `madrid-events-frontend` Directory
+
+Navigate to the `madrid-events-frontend` directory:
+
+*   **Start Frontend (Development):**
+    ```bash
+    npm run dev
+    ```
+
+*   **Build Frontend for Production:**
+    ```bash
+    npm run build
+    ```
+
+*   **Start Frontend (Production - after build):**
+    ```bash
+    npm start
+    ```
 
 ## Screenshots
 
