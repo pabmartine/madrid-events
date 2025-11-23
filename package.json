@@ -6,7 +6,10 @@
     "start-backend": "node madrid-events-backend/server.js",
     "start-frontend": "cd madrid-events-frontend && npm run dev",
     "build": "cd madrid-events-frontend && npm run build",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "lint": "npm run lint:frontend",
+    "lint:frontend": "cd madrid-events-frontend && npm run lint",
+    "format": "cd madrid-events-frontend && npm run format"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

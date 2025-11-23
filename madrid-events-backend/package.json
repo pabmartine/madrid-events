@@ -16,6 +16,7 @@
     "express": "^4.17.1",
     "express-rate-limit": "^7.4.0",
     "helmet": "^8.0.0",
+    "sanitize-html": "^2.13.0",
     "leaflet": "^1.9.4",
     "mongodb": "^6.8.1",
     "node-cache": "^5.1.2",

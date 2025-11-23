@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import {
   X,
   MapPin,
@@ -13,8 +14,24 @@ import {
   RailSymbol,
 } from 'lucide-react';
 import { useIntl } from 'react-intl';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Event } from '../types/types';
+import DOMPurify from 'isomorphic-dompurify';
+
+const MapContainer = dynamic(
+  () => import('react-leaflet').then((mod) => mod.MapContainer),
+  { ssr: false },
+);
+const TileLayer = dynamic(
+  () => import('react-leaflet').then((mod) => mod.TileLayer),
+  { ssr: false },
+);
+const Marker = dynamic(
+  () => import('react-leaflet').then((mod) => mod.Marker),
+  { ssr: false },
+);
+const Popup = dynamic(() => import('react-leaflet').then((mod) => mod.Popup), {
+  ssr: false,
+});
 
 export type { EventModalProps };
 interface ColorPalette {
@@ -135,6 +152,11 @@ export default function EventModal({
     return textarea.value;
   };
 
+  const sanitizedDescription = useMemo(
+    () => DOMPurify.sanitize(event.description || ''),
+    [event.description],
+  );
+
   return (
     <div
       className="fixed inset-0 z-[9999] overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center"
@@ -152,8 +174,9 @@ export default function EventModal({
               <Image
                 src={event.image}
                 alt={event.title}
-                layout="fill"
-                objectFit="cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 60vw"
+                style={{ objectFit: 'cover' }}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500">
@@ -178,7 +201,10 @@ export default function EventModal({
             <h3 className={`text-lg mb-4 ${colorPalette.subtitleText}`}>
               {event['event-location']}
             </h3>
-            <p className={`${colorPalette.text} mb-4`} dangerouslySetInnerHTML={{ __html: event.description }}></p>
+            <p
+              className={`${colorPalette.text} mb-4`}
+              dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
+            ></p>
 
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">

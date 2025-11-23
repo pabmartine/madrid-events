@@ -7,10 +7,7 @@ const xml2js = require('xml2js');
 const fs = require('fs').promises;
 const path = require('path');
 
-const {
-    Event,
-    EventDomainService
-} = require('./domain');
+const { Event, EventDomainService } = require('./domain');
 const constants = require('./config/constants');
 const cors = require('./config/cors');
 const limiter = require('./config/rateLimiter');
@@ -29,8 +26,7 @@ const EventUtils = require('./utils/eventUtils');
 const SubwayUtils = require('./utils/subwayUtils');
 const DatabaseUtils = require('./utils/databaseUtils');
 const CoordinateUtils = require('./utils/coordinatesUtils');
-
-const routes = require('./routes');
+const SanitizeUtils = require('./utils/sanitizeUtils');
 
 const app = express();
 
@@ -42,6 +38,36 @@ let imageQueue;
 let updateIntervalId;
 let fetchIntervalId;
 let isEventsFetchInProgress = false;
+global.isEventsFetchInProgress = false;
+
+global.getQueueStats = () => ({
+    locationQueueSize: locationQueue ? locationQueue.getQueueSize() : 0,
+    subwayQueueSize: subwayQueue ? subwayQueue.getQueueSize() : 0,
+    imageQueueSize: imageQueue ? imageQueue.getQueueSize() : 0
+});
+
+function updateBaseCoordinates(newLat, newLon) {
+    if (Number.isNaN(newLat) || Number.isNaN(newLon)) {
+        logger.warn('Attempted to update base coordinates with invalid values', {
+            newLat,
+            newLon
+        });
+        return;
+    }
+
+    baseLat = newLat;
+    baseLon = newLon;
+    global.baseLat = baseLat;
+    global.baseLon = baseLon;
+}
+
+global.fetchAndStoreEvents = async () => {
+    logger.warn('fetchAndStoreEvents called before initialization');
+};
+global.scrapeImageFromUrl = async () => null;
+global.updateBaseCoordinates = updateBaseCoordinates;
+
+updateBaseCoordinates(baseLat, baseLon);
 
 // Inicialización de datos del metro
 async function initializeSubwayData() {
@@ -233,6 +259,8 @@ async function processAndStoreEvent(collection, eventData, fromXml = false) {
             return;
         }
 
+        event = SanitizeUtils.sanitizeEvent(event);
+
         logger.debug(`Processing event ${event.id}`, {
             title: event.title,
             isXml: fromXml
@@ -350,8 +378,14 @@ async function fetchAndStoreEvents() {
         });
 
         logger.info('Waiting for all event promises to resolve');
-        await Promise.all(eventPromises);
-        logger.info('All events processed successfully');
+        const results = await Promise.allSettled(eventPromises);
+        const rejected = results.filter(result => result.status === 'rejected');
+        if (rejected.length > 0) {
+            logger.warn('Some events failed during processing', {
+                failedEvents: rejected.length
+            });
+        }
+        logger.info('All events processed (with partial failures if any)');
 
     } catch (error) {
         logger.error('Error in fetchAndStoreEvents:', {
@@ -431,8 +465,14 @@ async function fetchAndStoreXmlEvents() {
         });
 
         logger.info('Waiting for all XML event promises to resolve');
-        await Promise.all(eventPromises.filter(p => p !== undefined));
-        logger.info('All XML events processed successfully');
+        const xmlResults = await Promise.allSettled(eventPromises.filter(p => p !== undefined));
+        const xmlRejected = xmlResults.filter(result => result.status === 'rejected');
+        if (xmlRejected.length > 0) {
+            logger.warn('Some XML events failed during processing', {
+                failedEvents: xmlRejected.length
+            });
+        }
+        logger.info('All XML events processed (with partial failures if any)');
 
     } catch (error) {
         logger.error('Error in fetchAndStoreXmlEvents:', {
@@ -458,6 +498,7 @@ async function fetchAllEvents() {
 
     try {
         isEventsFetchInProgress = true;
+        global.isEventsFetchInProgress = true;
         logger.info('Starting sequential events fetch process');
 
         const fetchTimeout = setTimeout(() => {
@@ -497,19 +538,27 @@ async function fetchAllEvents() {
         });
     } finally {
         isEventsFetchInProgress = false;
+        global.isEventsFetchInProgress = false;
     }
 }
 
+global.fetchAndStoreEvents = fetchAndStoreEvents;
+global.scrapeImageFromUrl = scrapeImageFromUrl;
+
+const routes = require('./routes');
+
 // Middleware setup
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: { policy: 'same-origin' }
+}));
 app.use(cors);
-app.use(express.json());
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 app.use(limiter);
 app.use('/', routes);
 app.use(errorHandler);
-
-
-
 
 app.listen(constants.PORT, async () => {
     logger.info(`Server starting`, {
@@ -542,6 +591,7 @@ app.listen(constants.PORT, async () => {
 async function gracefulShutdown(signal) {
     logger.info(`Received ${signal}. Shutting down server...`);
     try {
+        global.isEventsFetchInProgress = false;
         if (locationQueue) {
             locationQueue.clearQueue();
             locationQueue.stopProcessing();
@@ -554,6 +604,7 @@ async function gracefulShutdown(signal) {
             imageQueue.clearQueue();
             imageQueue.stopProcessing();
         }
+        global.getQueueStats = undefined;
 
         clearInterval(updateIntervalId);
         clearInterval(fetchIntervalId);

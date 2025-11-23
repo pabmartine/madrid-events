@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Madrid Events – Frontend
 
-## Getting Started
+Interfaz en Next.js 14 para consultar la agenda cultural de Madrid. Consume el backend del repositorio (`/madrid-events-backend`) y ofrece listado, mapa y filtros con soporte para idiomas (es/en).
 
-First, run the development server:
+## Requisitos
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 20+
+- npm 10+
+- Backend en ejecución (por defecto en `http://localhost:5000`)
+
+## Variables de entorno
+
+Crea un `.env` en `madrid-events-frontend`:
+
+```
+NEXT_PUBLIC_API_HOST=http://localhost
+NEXT_PUBLIC_API_PORT=5000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts disponibles
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run dev      # desarrollo con hot reload
+npm run build    # build de producción
+npm start        # arranca la build generada
+npm run lint     # ESLint (Next.js)
+npm run format   # Prettier
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Docker
 
-## Learn More
+El Dockerfile crea una imagen que incluye el bundle `standalone` de Next:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+docker build \
+  --build-arg NEXT_PUBLIC_API_HOST=http://backend \
+  --build-arg NEXT_PUBLIC_API_PORT=5000 \
+  -t madrid-events-frontend .
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+docker run -p 3000:3000 madrid-events-frontend
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Recuerda exponer el backend en la red del contenedor o ajustar las variables.

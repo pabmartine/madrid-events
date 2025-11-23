@@ -4,26 +4,120 @@ const logger = require('../config/logger');
 const database = require('../service/database');
 const cache = require('../service/cache');
 const constants = require('../config/constants');
+const ValidationUtils = require('../utils/validationUtils');
+
+const EVENTS_CACHE_TTL_SECONDS = 60 * 60;
+
+function buildEventsCacheKey(params) {
+    return `events:${JSON.stringify(params)}`;
+}
 
 // Endpoint to get events with optional filters
 router.get('/', async (req, res) => {
     try {
-        const { distrito_nombre, barrio_nombre } = req.query;
+        const {
+            distrito_nombre,
+            barrio_nombre,
+            startDate,
+            endDate,
+            free,
+            children,
+            limit,
+            page,
+            includePast
+        } = req.query;
 
-        const cachedEvents = await cache.getEvents(distrito_nombre, barrio_nombre);
+        const normalizedLimit = ValidationUtils.parseInteger(limit, {
+            min: 1,
+            max: constants.MAX_PAGE_SIZE,
+            defaultValue: constants.DEFAULT_PAGE_SIZE
+        });
+        const normalizedPage = ValidationUtils.parseInteger(page, {
+            min: 1,
+            max: Number.MAX_SAFE_INTEGER,
+            defaultValue: 1
+        });
+        const shouldPaginate = typeof limit !== 'undefined';
+        const skip = shouldPaginate ? (normalizedPage - 1) * normalizedLimit : 0;
+
+        const includePastEvents = ValidationUtils.parseBoolean(includePast, false);
+
+        const cacheParams = {
+            distrito_nombre,
+            barrio_nombre,
+            startDate,
+            endDate,
+            free: ValidationUtils.parseBoolean(free, false),
+            children: ValidationUtils.parseBoolean(children, false),
+            limit: shouldPaginate ? normalizedLimit : null,
+            page: shouldPaginate ? normalizedPage : null,
+            includePast: includePastEvents
+        };
+
+        const cacheKey = buildEventsCacheKey(cacheParams);
+        const cachedEvents = cache.get(cacheKey);
         if (cachedEvents) {
+            if (shouldPaginate && typeof cachedEvents.total === 'number') {
+                res.setHeader('X-Total-Count', cachedEvents.total);
+                return res.json(cachedEvents.items);
+            }
             return res.json(cachedEvents);
         }
 
         const db = await database.getDb();
         const collection = db.collection(constants.COLLECTION_NAME);
 
-        let query = {};
+        const query = {};
         if (distrito_nombre) query.distrito = distrito_nombre;
         if (barrio_nombre) query.barrio = barrio_nombre;
 
-        const eventsData = await collection.find(query).toArray();
-        cache.setEvents(eventsData, distrito_nombre, barrio_nombre);
+        const parsedStart = ValidationUtils.parseDate(startDate);
+        const parsedEnd = ValidationUtils.parseDate(endDate);
+
+        if (parsedStart && parsedEnd && parsedStart > parsedEnd) {
+            return res.status(400).json({
+                error: 'startDate must be earlier than endDate'
+            });
+        }
+
+        if (parsedStart || parsedEnd) {
+            query.dtstart = {};
+            if (parsedStart) {
+                query.dtstart.$gte = parsedStart.toISOString();
+            }
+            if (parsedEnd) {
+                query.dtstart.$lte = parsedEnd.toISOString();
+            }
+        }
+
+        if (ValidationUtils.parseBoolean(free, false)) {
+            query.free = true;
+        }
+
+        if (ValidationUtils.parseBoolean(children, false)) {
+            query.audience = { $in: ['children'] };
+        }
+
+        if (!includePastEvents) {
+            const nowIso = new Date().toISOString();
+            query.dtend = query.dtend || {};
+            query.dtend.$gte = nowIso;
+        }
+
+        const cursor = collection.find(query).sort({ dtstart: 1 });
+        let eventsData;
+        let totalCount;
+
+        if (shouldPaginate) {
+            eventsData = await cursor.skip(skip).limit(normalizedLimit).toArray();
+            totalCount = await collection.countDocuments(query);
+            cache.set(cacheKey, { items: eventsData, total: totalCount }, EVENTS_CACHE_TTL_SECONDS);
+            res.setHeader('X-Total-Count', totalCount);
+            return res.json(eventsData);
+        }
+
+        eventsData = await cursor.toArray();
+        cache.set(cacheKey, eventsData, EVENTS_CACHE_TTL_SECONDS);
 
         res.json(eventsData);
     } catch (error) {

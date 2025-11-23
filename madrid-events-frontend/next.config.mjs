@@ -4,11 +4,7 @@ const nextConfig = {
     domains: ['www.madrid.es', 'a.tile.openstreetmap.org', 'b.tile.openstreetmap.org', 'c.tile.openstreetmap.org', 'www.tea-tron.com'],
     unoptimized: true,
   },
-  output: 'export',
-  experimental: {
-    appDir: false,
-    forceEdgeRender: true // fuerza la renderización en cliente
-  },
+  output: 'standalone',
 };
 
 export default nextConfig;

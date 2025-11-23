@@ -7,12 +7,15 @@ const AutoCarousel = ({ events }: { events: Event[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
+    if (!events || events.length === 0) {
+      return undefined;
+    }
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
     }, 5000);
 
     return () => clearInterval(timer);
-  }, [events.length]);
+  }, [events]);
 
   const handleClick = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
@@ -25,7 +28,7 @@ const AutoCarousel = ({ events }: { events: Event[] }) => {
       role="region"
       aria-label={intl.formatMessage({ id: 'app.event.carousel' })}
     >
-      {events.map((event, index) => {
+      {(events || []).map((event, index) => {
         const imageUrl = event.image || '';
         const backgroundImage = imageUrl ? `url(${imageUrl})` : '';
 

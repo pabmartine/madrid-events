@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import L from 'leaflet';
 import { useMap } from 'react-leaflet';
 import { Event } from '../types/types';
 
@@ -18,17 +17,23 @@ const MapController: React.FC<MapControllerProps> = ({
   const eventsRef = useRef(events);
 
   useEffect(() => {
-    if (
-      shouldResetView ||
-      JSON.stringify(eventsRef.current) !== JSON.stringify(events)
-    ) {
-      // Filtrar eventos donde latitude y longitude son números válidos (no null)
+    let isMounted = true;
+
+    const updateMapBounds = async () => {
+      if (
+        !shouldResetView &&
+        JSON.stringify(eventsRef.current) === JSON.stringify(events)
+      ) {
+        return;
+      }
+
       const eventsWithCoordinates = events.filter(
         (e) => e.latitude !== null && e.longitude !== null,
       );
 
       if (eventsWithCoordinates.length > 0) {
-        // Asegurarse de que todos los valores pasados sean números válidos
+        const L = (await import('leaflet')).default;
+        if (!isMounted) return;
         const bounds = L.latLngBounds(
           eventsWithCoordinates.map((e) => [
             e.latitude as number,
@@ -40,9 +45,17 @@ const MapController: React.FC<MapControllerProps> = ({
         map.setView([40.4168, -3.7038], 12);
       }
 
-      onResetViewComplete();
-      eventsRef.current = events;
-    }
+      if (isMounted) {
+        onResetViewComplete();
+        eventsRef.current = events;
+      }
+    };
+
+    updateMapBounds();
+
+    return () => {
+      isMounted = false;
+    };
   }, [events, map, shouldResetView, onResetViewComplete]);
 
   return null;

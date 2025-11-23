@@ -68,6 +68,13 @@ class ImageQueue {
     }
 
     async enqueue(eventId, link) {
+        if (this.queue.length >= constants.MAX_QUEUE_LENGTH) {
+            const dropped = this.queue.shift();
+            logger.warn('Image queue reached max length, dropping oldest request', {
+                droppedEventId: dropped?.eventId
+            });
+        }
+
         // Verificar si ya existe en la cola
         const existingRequest = this.queue.find(req =>
             req.eventId === eventId &&
@@ -78,7 +85,8 @@ class ImageQueue {
             this.queue.push({
                 eventId,
                 link,
-                timestamp: new Date()
+                timestamp: new Date(),
+                retries: 0
             });
         }
     }
@@ -95,7 +103,7 @@ class ImageQueue {
     async processQueue() {
         while (!this.shouldStop) {
             if (this.queue.length === 0) {
-                await new Promise(resolve => setTimeout(resolve, 5000));
+                await new Promise(resolve => setTimeout(resolve, constants.QUEUE_REQUEST_DELAY_MS));
                 continue;
             }
 
@@ -146,15 +154,21 @@ class ImageQueue {
                     stack: error.stack
                 });
 
-                if (error.response && error.response.status >= 500) {
-                    logger.info('Re-enqueueing failed image request due to server error', {
-                        eventId: request.eventId
+                const retriableStatus = error.response && error.response.status >= 500;
+                const retriableNetworkError = !error.response;
+                if ((retriableStatus || retriableNetworkError) && request.retries < constants.MAX_QUEUE_RETRIES) {
+                    request.retries += 1;
+                    logger.info('Re-enqueueing failed image request due to transient error', {
+                        eventId: request.eventId,
+                        retries: request.retries
                     });
                     this.queue.push(request);
+                } else if (request.retries >= constants.MAX_QUEUE_RETRIES) {
+                    logger.warn('Dropping image request after max retries', { eventId: request.eventId });
                 }
             }
 
-            await new Promise(resolve => setTimeout(resolve, 5000));
+            await new Promise(resolve => setTimeout(resolve, constants.QUEUE_REQUEST_DELAY_MS));
         }
         logger.info('Image queue processing stopped');
     }

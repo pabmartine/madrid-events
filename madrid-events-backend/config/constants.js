@@ -25,6 +25,7 @@ module.exports = {
     AXIOS_TIMEOUT: 5000,
     MAX_RETRIES: 5,
     RETRY_DELAY: 1000,
+    HTTP_USER_AGENT: process.env.HTTP_USER_AGENT || 'madrid-events-bot/1.0 (+contact:admin@example.com)',
 
     // Rate limiting
     RATE_LIMIT_WINDOW_MS: 15 * 60 * 1000, // 15 minutes
@@ -40,5 +41,14 @@ module.exports = {
     NOMINATIM_API_BASE: 'https://nominatim.openstreetmap.org/reverse',
 
     // Overpass API
-    OVERPASS_API_BASE: 'https://overpass-api.de/api/interpreter'
+    OVERPASS_API_BASE: 'https://overpass-api.de/api/interpreter',
+
+    // Pagination defaults
+    DEFAULT_PAGE_SIZE: parseInt(process.env.DEFAULT_PAGE_SIZE || '100', 10),
+    MAX_PAGE_SIZE: parseInt(process.env.MAX_PAGE_SIZE || '500', 10),
+
+    // Queue controls
+    QUEUE_REQUEST_DELAY_MS: parseInt(process.env.QUEUE_REQUEST_DELAY_MS || '1500', 10),
+    MAX_QUEUE_LENGTH: parseInt(process.env.MAX_QUEUE_LENGTH || '1000', 10),
+    MAX_QUEUE_RETRIES: parseInt(process.env.MAX_QUEUE_RETRIES || '3', 10)
 };

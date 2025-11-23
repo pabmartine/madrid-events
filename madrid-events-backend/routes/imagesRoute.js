@@ -43,7 +43,14 @@ router.get('/', async (req, res) => {
             });
         }
 
-        const imageUrl = await scrapeImageFromUrl(event.link, event.id);
+        if (typeof global.scrapeImageFromUrl !== 'function') {
+            logger.error('Image scraping service is not initialized');
+            return res.status(503).json({
+                error: 'Image service unavailable'
+            });
+        }
+
+        const imageUrl = await global.scrapeImageFromUrl(event.link, event.id);
 
         if (imageUrl) {
             event.image = imageUrl;

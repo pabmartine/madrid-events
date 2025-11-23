@@ -3,6 +3,7 @@ const constants = require('../config/constants');
 const logger = require('../config/logger');
 
 let db;
+let mongoClient;
 
 async function createIndexes(dbInstance) {
     if (!dbInstance) {
@@ -17,8 +18,8 @@ async function createIndexes(dbInstance) {
                 description: 'text',
                 distrito: 'text',
                 barrio: 'text',
-                eventLocation: 'text',
-                organizationName: 'text'
+                'event-location': 'text',
+                'organization-name': 'text'
             },
             {
                 name: 'events_text_search_index',
@@ -38,9 +39,10 @@ async function createIndexes(dbInstance) {
 async function connectToMongoDB() {
     try {
         const client = await MongoClient.connect(constants.MONGO_URI, {});
+        mongoClient = client;
         db = client.db(constants.DB_NAME);
         logger.info('Connected to MongoDB');
-        
+
         await createIndexes(db);
 
         return client;
@@ -58,11 +60,12 @@ async function getDb() {
 }
 
 async function closeConnection() {
-    if (db && db.client) {
+    if (mongoClient) {
         try {
-            await db.client.close();
+            await mongoClient.close();
             logger.info('MongoDB connection closed');
             db = null;
+            mongoClient = null;
         } catch (error) {
             logger.error('Error closing MongoDB connection:', error.message);
             throw error;

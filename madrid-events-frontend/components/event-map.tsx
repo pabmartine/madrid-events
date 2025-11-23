@@ -1,3 +1,5 @@
+'use client';
+
 import dynamic from 'next/dynamic';
 // Dynamically imported react-leaflet components
 const MapContainer = dynamic(
@@ -15,23 +17,29 @@ const Marker = dynamic(
 const Popup = dynamic(() => import('react-leaflet').then((mod) => mod.Popup), {
   ssr: false,
 });
-import React from 'react';
-import L from 'leaflet';
+import React, { useEffect } from 'react';
+import Image from 'next/image';
 import 'leaflet/dist/leaflet.css';
 import { useIntl } from 'react-intl';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import { Event } from '../types/types';
 import MapController from './map-controller';
 
-const DefaultIcon = L.icon({
-  iconUrl: icon.src,
-  shadowUrl: iconShadow.src,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-});
+const ensureDefaultIcon = async () => {
+  const L = (await import('leaflet')).default;
+  const { default: icon } = await import('leaflet/dist/images/marker-icon.png');
+  const { default: iconShadow } = await import(
+    'leaflet/dist/images/marker-shadow.png'
+  );
 
-L.Marker.prototype.options.icon = DefaultIcon;
+  const DefaultIcon = L.icon({
+    iconUrl: icon.src || icon,
+    shadowUrl: iconShadow.src || iconShadow,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+  });
+
+  L.Marker.prototype.options.icon = DefaultIcon;
+};
 
 interface ColorPalette {
   cardBg: string;
@@ -58,6 +66,12 @@ const EventMap: React.FC<EventMapProps> = ({
 }) => {
   const intl = useIntl();
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      ensureDefaultIcon();
+    }
+  }, []);
+
   const handleEventSelect = (event: Event) => {
     onEventSelect(event);
   };
@@ -78,7 +92,10 @@ const EventMap: React.FC<EventMapProps> = ({
           shouldResetView={shouldResetView}
           onResetViewComplete={onResetViewComplete}
         />
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+        />
         {events.map(
           (event) =>
             event.latitude &&
@@ -93,11 +110,15 @@ const EventMap: React.FC<EventMapProps> = ({
                     onClick={() => handleEventSelect(event)}
                   >
                     {event.image && (
-                      <img
-                        src={event.image}
-                        alt={event.title}
-                        className="w-full h-32 object-cover mb-2 rounded"
-                      />
+                      <div className="w-full h-32 mb-2 rounded overflow-hidden">
+                        <Image
+                          src={event.image}
+                          alt={event.title}
+                          width={256}
+                          height={128}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                     )}
                     <h3
                       className={`${colorPalette.titleText} font-bold text-lg mb-1`}

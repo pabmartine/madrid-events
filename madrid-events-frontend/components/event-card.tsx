@@ -1,7 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { Calendar, MapPin, Clock, Ruler } from 'lucide-react';
 import { useIntl } from 'react-intl';
+import DOMPurify from 'isomorphic-dompurify';
 import { Event as EventType } from '../types/types'; // Cambia esto si la importación de Event es diferente
 
 interface EventCardProps {
@@ -50,13 +51,14 @@ const EventCard: React.FC<EventCardProps> = ({
       { threshold: 0.1 },
     );
 
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
+    const currentCard = cardRef.current;
+    if (currentCard) {
+      observer.observe(currentCard);
     }
 
     return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
+      if (currentCard) {
+        observer.unobserve(currentCard);
       }
     };
   }, [isLast, onLastElementVisible]);
@@ -66,6 +68,14 @@ const EventCard: React.FC<EventCardProps> = ({
       textarea.innerHTML = text;
       return textarea.value;
     };
+
+  const descriptionFallback = intl.formatMessage({
+    id: 'app.event.description.unavailable',
+  });
+  const sanitizedDescription = useMemo(() => {
+    const description = event.description || descriptionFallback;
+    return DOMPurify.sanitize(description);
+  }, [event.description, descriptionFallback]);
 
   return (
     <div
@@ -94,7 +104,8 @@ const EventCard: React.FC<EventCardProps> = ({
             src={event.image}
             alt={event.title}
             fill
-            objectFit="cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 20vw"
+            style={{ objectFit: 'cover' }}
             className="transition-transform duration-300 group-hover:scale-110"
           />
         ) : (
@@ -129,7 +140,10 @@ const EventCard: React.FC<EventCardProps> = ({
         >
           {decodeHTMLEntities(event.title)}
         </h2>
-        <p className={`${colorPalette.text} line-clamp-2 mb-4 text-sm`} dangerouslySetInnerHTML={{ __html: event.description || intl.formatMessage({ id: 'app.event.description.unavailable' }) }}></p>
+        <p
+          className={`${colorPalette.text} line-clamp-2 mb-4 text-sm`}
+          dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
+        ></p>
 
         <div className="mt-auto">
           <div
@@ -157,13 +171,15 @@ const EventCard: React.FC<EventCardProps> = ({
             className={`flex items-center justify-between mt-4 pt-4 border-t border-gray-700 ${colorPalette.text}`}
           >
             <div className="flex items-center">
-              <Image
-                src="/metro.png"
-                alt={intl.formatMessage({ id: 'app.event.metro' })}
-                width={24}
-                height={24}
-                className="mr-2"
-              />
+              <span className="mr-2 inline-flex items-center justify-center">
+                <Image
+                  src="/metro.png"
+                  alt={intl.formatMessage({ id: 'app.event.metro' })}
+                  width={24}
+                  height={24}
+                  className="object-contain"
+                />
+              </span>
               <span className="text-sm font-semibold">
                 {event.subway ||
                   intl.formatMessage({ id: 'app.map.subway.unavailable' })}

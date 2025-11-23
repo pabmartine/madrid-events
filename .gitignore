@@ -1,3 +1,21 @@
-node_modules
-node_modules
+# Common ignores
+node_modules/
+.DS_Store
+.idea/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build outputs
+.next/
+out/
+dist/
+coverage/
+
+# Environment files
 madrid-events-backend/.env
+madrid-events-frontend/.env
+.env
+.env.local

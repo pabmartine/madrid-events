@@ -15,19 +15,33 @@ router.get('/', async (req, res) => {
         }
 
         logger.info('Recalculate coordinates request', { lat, lon });
-        const newLat = parseFloat(lat).toFixed(2);
-        const newLon = parseFloat(lon).toFixed(2);
+        const newLat = parseFloat(lat);
+        const newLon = parseFloat(lon);
 
-        if (newLat !== global.baseLat.toFixed(2) || newLon !== global.baseLon.toFixed(2)) {
-            global.baseLat = lat;
-            global.baseLon = lon;
+        const currentLat = global.baseLat ?? newLat;
+        const currentLon = global.baseLon ?? newLon;
+
+        if (newLat.toFixed(2) !== currentLat.toFixed(2) || newLon.toFixed(2) !== currentLon.toFixed(2)) {
+            if (typeof global.updateBaseCoordinates === 'function') {
+                global.updateBaseCoordinates(newLat, newLon);
+            } else {
+                global.baseLat = newLat;
+                global.baseLon = newLon;
+            }
 
             logger.info('Recalculating distances with new coordinates', {
                 baseLat: global.baseLat,
                 baseLon: global.baseLon
             });
 
-            await fetchAndStoreEvents();
+            if (typeof global.fetchAndStoreEvents !== 'function') {
+                logger.error('fetchAndStoreEvents is not initialized');
+                return res.status(503).json({
+                    error: 'Event refresh service not available'
+                });
+            }
+
+            await global.fetchAndStoreEvents();
             cache.clearPattern('events:');
 
             res.json({

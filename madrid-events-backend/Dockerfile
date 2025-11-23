@@ -1,20 +1,20 @@
 # Dockerfile para el Backend
-FROM node:18-alpine
+FROM node:18-alpine AS runner
 
-# Establecer el directorio de trabajo
+ENV NODE_ENV=production
 WORKDIR /app
 
-# Copiar package.json y package-lock.json
+# Instalar dependencias usando npm ci para aprovechar cache
 COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
-# Instalar las dependencias
-RUN npm install
-
-# Copiar el resto de los archivos
+# Copiar el resto del código necesario
 COPY . .
 
-# Exponer el puerto en el que se ejecuta el backend
+# Crear usuario no privilegiado
+RUN addgroup -S nodejs && adduser -S nodejs -G nodejs && chown -R nodejs:nodejs /app
+USER nodejs
+
 EXPOSE 5000
 
-# Comando para iniciar el servidor
 CMD ["node", "server.js"]

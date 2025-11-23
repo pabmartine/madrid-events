@@ -88,6 +88,18 @@ class LocationQueue {
     }
 
     async enqueue(latitude, longitude, eventId) {
+        if (!latitude || !longitude) {
+            logger.warn('Skipping enqueue due to missing coordinates', { eventId });
+            return;
+        }
+
+        if (this.queue.length >= constants.MAX_QUEUE_LENGTH) {
+            const dropped = this.queue.shift();
+            logger.warn('Location queue reached max length, dropping oldest request', {
+                droppedEventId: dropped?.eventId
+            });
+        }
+
         logger.debug('Enqueueing location request', {
             eventId,
             latitude,
@@ -107,7 +119,8 @@ class LocationQueue {
                 latitude,
                 longitude,
                 eventId,
-                timestamp: new Date()
+                timestamp: new Date(),
+                retries: 0
             });
         }
     }
@@ -127,9 +140,9 @@ class LocationQueue {
         }
 
     async processQueue() {
-         while (!this.shouldStop) {
+        while (!this.shouldStop) {
             if (this.queue.length === 0) {
-                await new Promise(resolve => setTimeout(resolve, 5000)); // Esperar 5 segundos y revisar de nuevo
+                await new Promise(resolve => setTimeout(resolve, constants.QUEUE_REQUEST_DELAY_MS));
                 continue;
             }
 
@@ -180,17 +193,21 @@ class LocationQueue {
                     stack: error.stack
                 });
 
-                // Si es un error temporal, volvemos a encolar la petición
-                if (error.response && error.response.status >= 500) {
-                    logger.info('Re-enqueueing failed request due to server error', {
-                        eventId: request.eventId
+                const retriableStatus = error.response && error.response.status >= 500;
+                const retriableNetworkError = !error.response;
+                if ((retriableStatus || retriableNetworkError) && request.retries < constants.MAX_QUEUE_RETRIES) {
+                    request.retries += 1;
+                    logger.info('Re-enqueueing failed request due to transient error', {
+                        eventId: request.eventId,
+                        retries: request.retries
                     });
                     this.queue.push(request);
+                } else if (request.retries >= constants.MAX_QUEUE_RETRIES) {
+                    logger.warn('Dropping request after max retries', { eventId: request.eventId });
                 }
             }
 
-            // Esperar 30 segundos antes de la siguiente petición
-            await new Promise(resolve => setTimeout(resolve, 5000));
+            await new Promise(resolve => setTimeout(resolve, constants.QUEUE_REQUEST_DELAY_MS));
         }
     }
 
