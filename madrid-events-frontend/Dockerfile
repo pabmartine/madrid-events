@@ -19,7 +19,7 @@ RUN npm run build
 FROM node:20-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-ENV PORT=80
+ENV PORT=3000
 
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/.next/standalone ./app
@@ -28,6 +28,6 @@ COPY --from=builder /app/public ./app/public
 
 RUN addgroup -S nodejs && adduser -S nodejs -G nodejs && chown -R nodejs:nodejs /app
 USER nodejs
-EXPOSE 80
+EXPOSE 3000
 
 CMD ["node", "app/server.js"]
