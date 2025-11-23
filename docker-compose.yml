@@ -13,8 +13,7 @@ services:
       context: ./madrid-events-frontend
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3000:80"
     image: madrid-events-frontend
     environment:
       - NODE_ENV=development
-      - PORT=3000
