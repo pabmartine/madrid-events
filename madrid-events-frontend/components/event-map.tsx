@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import type { StaticImageData } from 'next/image';
 // Dynamically imported react-leaflet components
 const MapContainer = dynamic(
   () => import('react-leaflet').then((mod) => mod.MapContainer),
@@ -31,9 +32,12 @@ const ensureDefaultIcon = async () => {
     'leaflet/dist/images/marker-shadow.png'
   );
 
+  const resolveAsset = (asset: string | StaticImageData) =>
+    typeof asset === 'string' ? asset : asset.src;
+
   const DefaultIcon = L.icon({
-    iconUrl: icon.src || icon,
-    shadowUrl: iconShadow.src || iconShadow,
+    iconUrl: resolveAsset(icon),
+    shadowUrl: resolveAsset(iconShadow),
     iconSize: [25, 41],
     iconAnchor: [12, 41],
   });

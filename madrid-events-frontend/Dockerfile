@@ -1,11 +1,11 @@
 # Dependencias base
-FROM node:18-alpine AS deps
+FROM node:20-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
 # Construcción
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 WORKDIR /app
 ARG NEXT_PUBLIC_API_HOST
 ARG NEXT_PUBLIC_API_PORT
@@ -16,7 +16,7 @@ COPY . .
 RUN npm run build
 
 # Imagen de ejecución
-FROM node:18-alpine AS runner
+FROM node:20-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
