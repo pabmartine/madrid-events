@@ -1,3 +1,14 @@
+function normalizeDate(value) {
+    if (!value) {
+        return '';
+    }
+    if (value instanceof Date && !Number.isNaN(value.getTime())) {
+        return value.toISOString();
+    }
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? value : parsed.toISOString();
+}
+
 class Event {
     constructor({
         id,
@@ -30,8 +41,8 @@ class Event {
         this.description = description || '';
         this.free = free || false;
         this.price = price || '';
-        this.dtstart = dtstart || '';
-        this.dtend = dtend || '';
+        this.dtstart = normalizeDate(dtstart);
+        this.dtend = normalizeDate(dtend);
         this.time = time || '';
         this.audience = Array.isArray(audience) ? audience : [audience || ''];
         this.eventLocation = eventLocation || '';

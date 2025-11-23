@@ -8,6 +8,48 @@ const ValidationUtils = require('../utils/validationUtils');
 
 const EVENTS_CACHE_TTL_SECONDS = 60 * 60;
 
+function normalizeDateValue(value) {
+    if (!value) return null;
+    if (value instanceof Date && !Number.isNaN(value.getTime())) {
+        return value;
+    }
+    if (typeof value === 'string') {
+        let sanitized = value.trim();
+        if (!sanitized.includes('T')) {
+            sanitized = sanitized.replace(' ', 'T');
+        }
+        const hasTimezone = /Z$|[+-]\d{2}:\d{2}$/.test(sanitized);
+        if (!hasTimezone) {
+            sanitized = sanitized.endsWith('Z') ? sanitized : `${sanitized}Z`;
+        }
+        const parsed = new Date(sanitized);
+        if (!Number.isNaN(parsed.getTime())) {
+            return parsed;
+        }
+    }
+    const fallback = new Date(value);
+    return Number.isNaN(fallback.getTime()) ? null : fallback;
+}
+
+function eventMatchesDateFilters(event, startDate, endDate, includePastEvents) {
+    const eventStart = normalizeDateValue(event.dtstart);
+    const eventEnd = normalizeDateValue(event.dtend);
+
+    if (startDate && (!eventStart || eventStart < startDate)) {
+        return false;
+    }
+    if (endDate && (!eventStart || eventStart > endDate)) {
+        return false;
+    }
+    if (!includePastEvents) {
+        const now = new Date();
+        if (!eventEnd || eventEnd < now) {
+            return false;
+        }
+    }
+    return true;
+}
+
 function buildEventsCacheKey(params) {
     return `events:${JSON.stringify(params)}`;
 }
@@ -80,16 +122,6 @@ router.get('/', async (req, res) => {
             });
         }
 
-        if (parsedStart || parsedEnd) {
-            query.dtstart = {};
-            if (parsedStart) {
-                query.dtstart.$gte = parsedStart.toISOString();
-            }
-            if (parsedEnd) {
-                query.dtstart.$lte = parsedEnd.toISOString();
-            }
-        }
-
         if (ValidationUtils.parseBoolean(free, false)) {
             query.free = true;
         }
@@ -98,27 +130,25 @@ router.get('/', async (req, res) => {
             query.audience = { $in: ['children'] };
         }
 
-        if (!includePastEvents) {
-            const nowIso = new Date().toISOString();
-            query.dtend = query.dtend || {};
-            query.dtend.$gte = nowIso;
+        const cursor = collection.find(query).sort({ dtstart: 1 });
+        let eventsData = await cursor.toArray();
+
+        if (parsedStart || parsedEnd || !includePastEvents) {
+            eventsData = eventsData.filter(event =>
+                eventMatchesDateFilters(event, parsedStart, parsedEnd, includePastEvents)
+            );
         }
 
-        const cursor = collection.find(query).sort({ dtstart: 1 });
-        let eventsData;
-        let totalCount;
+        const totalCount = eventsData.length;
 
         if (shouldPaginate) {
-            eventsData = await cursor.skip(skip).limit(normalizedLimit).toArray();
-            totalCount = await collection.countDocuments(query);
-            cache.set(cacheKey, { items: eventsData, total: totalCount }, EVENTS_CACHE_TTL_SECONDS);
+            const paginated = eventsData.slice(skip, skip + normalizedLimit);
+            cache.set(cacheKey, { items: paginated, total: totalCount }, EVENTS_CACHE_TTL_SECONDS);
             res.setHeader('X-Total-Count', totalCount);
-            return res.json(eventsData);
+            return res.json(paginated);
         }
 
-        eventsData = await cursor.toArray();
         cache.set(cacheKey, eventsData, EVENTS_CACHE_TTL_SECONDS);
-
         res.json(eventsData);
     } catch (error) {
         logger.error('Error fetching events:', error.message);
