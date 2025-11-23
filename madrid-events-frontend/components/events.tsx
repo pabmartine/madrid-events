@@ -39,12 +39,16 @@ if (!API_PORT) {
 
 const ITEMS_PER_PAGE = 20;
 const DEFAULT_FILTER_STATE: FilterState = {
-  today: true,
+  today: false,
   thisWeek: false,
   thisWeekend: false,
   thisMonth: false,
   free: false,
   children: false,
+};
+
+type FilterOverrides = {
+  includePast?: boolean;
 };
 
 const lazyLoadComponent = (
@@ -142,6 +146,8 @@ export function Events() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isMapView, setIsMapView] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [mapEvents, setMapEvents] = useState<Event[]>([]);
+  const [isMapDataLoading, setIsMapDataLoading] = useState(false);
 
   const [settingsState, setSettingsState] = useState<SettingsState>({
     isDarkMode: false,
@@ -155,10 +161,33 @@ export function Events() {
   const [showCarousel, setShowCarousel] = useState(true);
 
   const colorPalette = isDarkMode ? darkPalette : lightPalette;
+  const includePastSetting = settingsState.pastEvents;
+
+  useEffect(() => {
+    setMapEvents((prev) => (prev.length ? [] : prev));
+  }, [filterState, includePastSetting]);
 
   const handleResetViewComplete = useCallback(() => {
     setShouldResetMapView(false);
   }, []);
+
+  const buildFilterQueryParams = useCallback(
+    (overrides?: FilterOverrides) => {
+      const params = new URLSearchParams();
+      const { start, end } = getDateRangeFromFilter(filterState);
+      if (start) params.append('startDate', start.toISOString());
+      if (end) params.append('endDate', end.toISOString());
+      if (filterState.free) params.append('free', 'true');
+      if (filterState.children) params.append('children', 'true');
+      const includePastValue =
+        typeof overrides?.includePast !== 'undefined'
+          ? overrides.includePast
+          : includePastSetting;
+      if (includePastValue) params.append('includePast', 'true');
+      return params;
+    },
+    [filterState, includePastSetting],
+  );
 
   const sortEvents = useCallback(
     (input: Event[]) => {
@@ -192,24 +221,23 @@ export function Events() {
   const displayedEvents = isSearchMode ? sortedSearchResults : sortedEvents;
 
   const fetchEvents = useCallback(
-    async (pageToLoad = 1, shouldReset = false) => {
+    async (
+      pageToLoad = 1,
+      shouldReset = false,
+      overrides?: FilterOverrides,
+    ) => {
       setIsLoading(true);
       setError(null);
-      const params = new URLSearchParams();
+      const params = buildFilterQueryParams(overrides);
       params.append('limit', ITEMS_PER_PAGE.toString());
       params.append('page', pageToLoad.toString());
-
-      const { start, end } = getDateRangeFromFilter(filterState);
-      if (start) params.append('startDate', start.toISOString());
-      if (end) params.append('endDate', end.toISOString());
-      if (filterState.free) params.append('free', 'true');
-      if (filterState.children) params.append('children', 'true');
-      if (settingsState.pastEvents) params.append('includePast', 'true');
+      const queryString = params.toString();
+      const url = `${API_HOST}:${API_PORT}/getEvents${
+        queryString ? `?${queryString}` : ''
+      }`;
 
       try {
-        const response = await fetch(
-          `${API_HOST}:${API_PORT}/getEvents?${params.toString()}`,
-        );
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -237,7 +265,40 @@ export function Events() {
         setIsLoading(false);
       }
     },
-    [filterState, settingsState.pastEvents, intl],
+    [buildFilterQueryParams, intl],
+  );
+
+  const fetchAllEventsForMap = useCallback(
+    async (overrides?: FilterOverrides) => {
+      setIsMapDataLoading(true);
+      setError(null);
+      const params = buildFilterQueryParams(overrides);
+      const queryString = params.toString();
+      const url = `${API_HOST}:${API_PORT}/getEvents${
+        queryString ? `?${queryString}` : ''
+      }`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data: Event[] = await response.json();
+        if (!Array.isArray(data)) {
+          throw new Error('The service response is not an array');
+        }
+
+        setMapEvents(data);
+        setShouldResetMapView(true);
+      } catch (err) {
+        console.error('Error loading map events:', err);
+        setError(intl.formatMessage({ id: 'app.error.loading.events' }));
+      } finally {
+        setIsMapDataLoading(false);
+      }
+    },
+    [buildFilterQueryParams, intl],
   );
 
   const recalculateBaseLocation = useCallback(
@@ -251,6 +312,10 @@ export function Events() {
           throw new Error('Failed to recalculate distances');
         }
         await fetchEvents(1, true);
+        setMapEvents((prev) => (prev.length ? [] : prev));
+        if (isMapView && !isSearchMode) {
+          await fetchAllEventsForMap();
+        }
       } catch (err) {
         console.error('Error recalculating distances:', err);
         setError(intl.formatMessage({ id: 'app.recalculation.error' }));
@@ -258,7 +323,7 @@ export function Events() {
         setShowToast(false);
       }
     },
-    [fetchEvents, intl],
+    [fetchEvents, fetchAllEventsForMap, intl, isMapView, isSearchMode],
   );
 
   useEffect(() => {
@@ -296,6 +361,13 @@ export function Events() {
       fetchEvents(1, true);
     }
   }, [fetchEvents, isSearchMode]);
+
+  useEffect(() => {
+    if (!isMapView || isSearchMode) {
+      return;
+    }
+    fetchAllEventsForMap();
+  }, [fetchAllEventsForMap, isMapView, isSearchMode]);
 
   useEffect(() => {
     if (filter === '' && isSearchMode) {
@@ -382,6 +454,7 @@ export function Events() {
       const newValue = !prev;
       localStorage.setItem('isMapView', newValue.toString());
       if (newValue) {
+        setMapEvents((prevEvents) => (prevEvents.length ? [] : prevEvents));
         setShouldResetMapView(true);
       }
       return newValue;
@@ -412,13 +485,31 @@ export function Events() {
           newSettings.geoLocation.lon,
         );
       } else {
-        fetchEvents(1, true);
+        fetchEvents(1, true, { includePast: newSettings.pastEvents });
+        if (isMapView && !isSearchMode) {
+          fetchAllEventsForMap({ includePast: newSettings.pastEvents });
+        } else {
+          setMapEvents((prev) => (prev.length ? [] : prev));
+        }
       }
     },
-    [fetchEvents, recalculateBaseLocation, settingsState.geoLocation],
+    [
+      fetchEvents,
+      fetchAllEventsForMap,
+      isMapView,
+      isSearchMode,
+      recalculateBaseLocation,
+      settingsState.geoLocation,
+    ],
   );
 
   const shouldUseInfiniteScroll = !isMapView && !isSearchMode;
+  const eventsForMap = useMemo(() => {
+    if (isSearchMode) {
+      return sortedSearchResults;
+    }
+    return mapEvents.length > 0 ? mapEvents : sortedEvents;
+  }, [isSearchMode, mapEvents, sortedEvents, sortedSearchResults]);
 
   return (
     <div className={`min-h-screen ${colorPalette.background}`}>
@@ -509,14 +600,21 @@ export function Events() {
         </main>
       ) : (
         <main className="w-full flex-1 px-4 pb-12">
-          <div className="h-[75vh] w-full rounded-lg overflow-hidden shadow-lg">
+          <div className="h-[75vh] w-full rounded-lg overflow-hidden shadow-lg relative">
             <EventMap
-              events={displayedEvents}
+              events={eventsForMap}
               colorPalette={colorPalette}
               onEventSelect={handleEventSelect}
               shouldResetView={shouldResetMapView}
               onResetViewComplete={handleResetViewComplete}
             />
+            {!isSearchMode && isMapDataLoading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+                <div
+                  className={`animate-spin rounded-full h-8 w-8 border-b-2 ${colorPalette.buttonBorder}`}
+                ></div>
+              </div>
+            )}
           </div>
         </main>
       )}
