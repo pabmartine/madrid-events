@@ -129,7 +129,7 @@ const EventCard: React.FC<EventCardProps> = ({
       </div>
       <div className="p-4 flex-grow flex flex-col">
         <h2
-          className={`text-xl font-semibold ${colorPalette.titleText} mb-2`}
+          className="text-xl font-semibold font-display text-gray-900 dark:text-gray-50 mb-2"
           style={{
             display: '-webkit-box',
             WebkitBoxOrient: 'vertical',
@@ -141,13 +141,13 @@ const EventCard: React.FC<EventCardProps> = ({
           {decodeHTMLEntities(event.title)}
         </h2>
         <p
-          className={`${colorPalette.text} line-clamp-2 mb-4 text-sm`}
+          className="text-gray-700 dark:text-gray-300 line-clamp-2 mb-4 text-sm font-sans"
           dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
         ></p>
 
         <div className="mt-auto">
           <div
-            className={`${colorPalette.subtitleText} mb-2 flex items-center`}
+            className="text-gray-500 dark:text-gray-400 mb-2 flex items-center font-sans"
           >
             <MapPin size={16} className="mr-1" />
             <span className="text-sm truncate">
@@ -155,7 +155,7 @@ const EventCard: React.FC<EventCardProps> = ({
                 intl.formatMessage({ id: 'app.event.location.unavailable' })}
             </span>
           </div>
-          <div className={`${colorPalette.subtitleText} flex items-center`}>
+          <div className="text-gray-500 dark:text-gray-400 flex items-center font-sans">
             <Calendar size={16} className="mr-1" />
             <span className="text-sm">
               {new Date(event.dtstart).toLocaleDateString()}
@@ -168,7 +168,7 @@ const EventCard: React.FC<EventCardProps> = ({
             )}
           </div>
           <div
-            className={`flex items-center justify-between mt-4 pt-4 border-t border-gray-700 ${colorPalette.text}`}
+            className="flex items-center justify-between mt-4 pt-4 border-t border-gray-700 text-gray-700 dark:text-gray-300 font-sans"
           >
             <div className="flex items-center">
               <span className="mr-2 inline-flex items-center justify-center">
