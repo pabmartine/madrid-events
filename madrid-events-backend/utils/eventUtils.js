@@ -8,10 +8,15 @@ class EventUtils {
         const maxDate = new Date();
         maxDate.setDate(maxDate.getDate() + days);
 
+        const hasValidStart = !Number.isNaN(eventStart.getTime());
+        const hasValidEnd = !Number.isNaN(eventEnd.getTime());
+        if (!hasValidStart || !hasValidEnd) {
+            return true;
+        }
         const isNotPastEvent = eventEnd >= currentDate;
         const isWithinFutureLimit = eventStart <= maxDate;
 
-        if (!isNotPastEvent) {
+        if (hasValidEnd && !isNotPastEvent) {
             logger.debug(`Event ${event.id} has already ended`, {
                 title: event.title,
                 endDate: event.dtend,
@@ -19,7 +24,7 @@ class EventUtils {
             });
         }
 
-        if (!isWithinFutureLimit) {
+        if (hasValidStart && !isWithinFutureLimit) {
             logger.debug(`Event ${event.id} starts more than ${days} days in the future`, {
                 title: event.title,
                 startDate: event.dtstart,

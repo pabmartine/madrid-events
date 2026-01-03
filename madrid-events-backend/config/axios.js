@@ -11,7 +11,10 @@ function delay(ms) {
 
 axios.interceptors.response.use(undefined, async (error) => {
     const config = error.config;
-    if (!config || !config.retryEnabled) {
+    if (!config) {
+        return Promise.reject(error);
+    }
+    if (!config.retryEnabled) {
         config.retryEnabled = true;
         config.__retryCount = 0;
     }

@@ -54,7 +54,8 @@ const Header: React.FC<HeaderProps> = ({
               onChange={(e) => setFilter(e.target.value)}
               onKeyDown={manejarKeyPress}
               placeholder={intl.formatMessage({ id: 'app.search.placeholder' })}
-              className={`${colorPalette.inputBg} ${colorPalette.inputBorder} border-2 rounded-full py-2 px-4 pr-10 focus:outline-none focus:ring-2 focus:ring-${colorPalette.primary} transition-all duration-300 ease-in-out ${colorPalette.text}`}
+              className={`${colorPalette.inputBg} ${colorPalette.inputBorder} border-2 rounded-full py-2 px-4 pr-10 focus:outline-none focus:ring-2 transition-all duration-300 ease-in-out ${colorPalette.text}`}
+              style={{ ['--tw-ring-color' as string]: colorPalette.primary }}
               aria-label={intl.formatMessage({ id: 'app.search.placeholder' })}
             />
             <Search

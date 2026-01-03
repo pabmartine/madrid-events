@@ -27,6 +27,14 @@ async function createIndexes(dbInstance) {
             }
         );
         logger.info('Text search index ensured on events collection.');
+
+        await collection.createIndex({ dtstart: 1 }, { name: 'events_dtstart_index' });
+        await collection.createIndex({ dtend: 1 }, { name: 'events_dtend_index' });
+        await collection.createIndex({ distrito: 1 }, { name: 'events_distrito_index' });
+        await collection.createIndex({ barrio: 1 }, { name: 'events_barrio_index' });
+        await collection.createIndex({ free: 1 }, { name: 'events_free_index' });
+        await collection.createIndex({ audience: 1 }, { name: 'events_audience_index' });
+        logger.info('Basic filter indexes ensured on events collection.');
     } catch (error) {
         if (error.codeName === 'IndexOptionsConflict' || error.code === 85) {
             logger.info('Text search index already exists.');

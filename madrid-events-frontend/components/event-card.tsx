@@ -205,7 +205,7 @@ const EventCard: React.FC<EventCardProps> = ({
             <div className="flex items-center">
               <Ruler size={16} className="mr-1" />
               <span className="text-sm font-semibold">
-                {event.distance
+                {event.distance !== null && event.distance !== undefined
                   ? intl.formatMessage(
                       { id: 'app.map.distance.km' },
                       { distance: event.distance.toFixed(2) },

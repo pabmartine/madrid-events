@@ -63,9 +63,15 @@ const FilterNav: React.FC<FilterNavProps> = ({
                   onClick={() => onSortEvents('date')}
                   className={`flex items-center justify-between px-4 py-2 rounded-full border ${
                     sortState.by === 'date'
-                      ? `border-${colorPalette.primary} ${colorPalette.titleText}`
+                      ? `${colorPalette.titleText}`
                       : `border-gray-600 ${colorPalette.text}`
-                  } hover:border-${colorPalette.primary} hover:${colorPalette.titleText} transition-colors duration-200`}
+                  } hover:${colorPalette.titleText} transition-colors duration-200`}
+                  style={{
+                    borderColor:
+                      sortState.by === 'date'
+                        ? colorPalette.primary
+                        : undefined,
+                  }}
                 >
                   <span className="flex items-center">
                     <Calendar size={18} className="mr-2" />
@@ -83,9 +89,15 @@ const FilterNav: React.FC<FilterNavProps> = ({
                   onClick={() => onSortEvents('distance')}
                   className={`flex items-center justify-between px-4 py-2 rounded-full border ${
                     sortState.by === 'distance'
-                      ? `border-${colorPalette.primary} ${colorPalette.titleText}`
+                      ? `${colorPalette.titleText}`
                       : `border-gray-600 ${colorPalette.text}`
-                  } hover:border-${colorPalette.primary} hover:${colorPalette.titleText} transition-colors duration-200`}
+                  } hover:${colorPalette.titleText} transition-colors duration-200`}
+                  style={{
+                    borderColor:
+                      sortState.by === 'distance'
+                        ? colorPalette.primary
+                        : undefined,
+                  }}
                 >
                   <span className="flex items-center">
                     <MapPin size={18} className="mr-2" />

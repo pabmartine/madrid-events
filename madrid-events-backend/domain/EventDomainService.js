@@ -84,6 +84,12 @@ class EventDomainService {
     static isActive(event) {
         const currentDate = new Date();
         const endDate = new Date(event.dtend);
+        const startDate = new Date(event.dtstart);
+        const hasValidEnd = !Number.isNaN(endDate.getTime());
+        const hasValidStart = !Number.isNaN(startDate.getTime());
+        if (!hasValidEnd || !hasValidStart) {
+            return true;
+        }
         return endDate >= currentDate;
     }
 
@@ -120,7 +126,10 @@ class EventDomainService {
     }
 
     static cleanCDATA(text) {
-        return text.replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim();
+        if (text == null) {
+            return '';
+        }
+        return String(text).replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim();
     }
 
     static processExtraData(event, extradata) {

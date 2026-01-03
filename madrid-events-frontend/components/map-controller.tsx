@@ -15,14 +15,21 @@ const MapController: React.FC<MapControllerProps> = ({
 }) => {
   const map = useMap();
   const eventsRef = useRef(events);
+  const boundsSignatureRef = useRef<string | null>(null);
 
   useEffect(() => {
     let isMounted = true;
 
     const updateMapBounds = async () => {
+      const signature = events
+        .map((event) =>
+          `${event.id}:${event.latitude ?? ''}:${event.longitude ?? ''}`,
+        )
+        .join('|');
+
       if (
         !shouldResetView &&
-        JSON.stringify(eventsRef.current) === JSON.stringify(events)
+        boundsSignatureRef.current === signature
       ) {
         return;
       }
@@ -48,6 +55,7 @@ const MapController: React.FC<MapControllerProps> = ({
       if (isMounted) {
         onResetViewComplete();
         eventsRef.current = events;
+        boundsSignatureRef.current = signature;
       }
     };
 

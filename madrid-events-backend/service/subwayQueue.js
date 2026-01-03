@@ -65,7 +65,7 @@ class SubwayQueue {
     }
 
     async enqueue(latitude, longitude, eventId) {
-        if (!latitude || !longitude) {
+        if (latitude == null || longitude == null) {
             logger.warn('Skipping subway enqueue due to missing coordinates', { eventId });
             return;
         }

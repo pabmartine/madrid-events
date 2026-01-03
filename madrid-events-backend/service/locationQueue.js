@@ -88,7 +88,7 @@ class LocationQueue {
     }
 
     async enqueue(latitude, longitude, eventId) {
-        if (!latitude || !longitude) {
+        if (latitude == null || longitude == null) {
             logger.warn('Skipping enqueue due to missing coordinates', { eventId });
             return;
         }

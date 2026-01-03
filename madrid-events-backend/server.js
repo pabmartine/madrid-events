@@ -361,24 +361,33 @@ async function fetchAndStoreEvents() {
         const db = await database.getDb();
         const collection = db.collection(constants.COLLECTION_NAME);
 
-        const eventPromises = eventsData['@graph'].map(async (eventData, index) => {
-            try {
-                if (index % 10 === 0) {
-                    logger.debug(`Processing event ${index + 1}/${eventsData['@graph'].length}`);
-                }
-                await processAndStoreEvent(collection, eventData, false);
-            } catch (eventError) {
-                logger.error(`Error processing event at index ${index}:`, {
-                    error: eventError.message,
-                    stack: eventError.stack,
-                    eventData: JSON.stringify(eventData).substring(0, 200) + '...'
-                });
-                throw eventError;
-            }
-        });
+        const eventBatches = eventsData['@graph'];
+        const batchSize = 5;
+        let results = [];
 
-        logger.info('Waiting for all event promises to resolve');
-        const results = await Promise.allSettled(eventPromises);
+        for (let i = 0; i < eventBatches.length; i += batchSize) {
+            const batch = eventBatches.slice(i, i + batchSize);
+            const batchPromises = batch.map(async (eventData, index) => {
+                const currentIndex = i + index;
+                try {
+                    if (currentIndex % 10 === 0) {
+                        logger.debug(`Processing event ${currentIndex + 1}/${eventBatches.length}`);
+                    }
+                    await processAndStoreEvent(collection, eventData, false);
+                } catch (eventError) {
+                    logger.error(`Error processing event at index ${currentIndex}:`, {
+                        error: eventError.message,
+                        stack: eventError.stack,
+                        eventData: JSON.stringify(eventData).substring(0, 200) + '...'
+                    });
+                    throw eventError;
+                }
+            });
+
+            const batchResults = await Promise.allSettled(batchPromises);
+            results = results.concat(batchResults);
+        }
+
         const rejected = results.filter(result => result.status === 'rejected');
         if (rejected.length > 0) {
             logger.warn('Some events failed during processing', {
@@ -447,25 +456,34 @@ async function fetchAndStoreXmlEvents() {
         const db = await database.getDb();
         const collection = db.collection(constants.COLLECTION_NAME);
 
-        const eventPromises = result.serviceList.service.map(async (xmlEvent, index) => {
-            try {
-                if (index % 10 === 0) {
-                    logger.debug(`Processing XML event ${index + 1}/${totalEvents}`);
+        const xmlEvents = result.serviceList.service;
+        const batchSize = 5;
+        let xmlResults = [];
+
+        for (let i = 0; i < xmlEvents.length; i += batchSize) {
+            const batch = xmlEvents.slice(i, i + batchSize);
+            const batchPromises = batch.map(async (xmlEvent, index) => {
+                const currentIndex = i + index;
+                try {
+                    if (currentIndex % 10 === 0) {
+                        logger.debug(`Processing XML event ${currentIndex + 1}/${totalEvents}`);
+                    }
+
+                    await processAndStoreEvent(collection, xmlEvent, true);
+                } catch (eventError) {
+                    logger.error(`Error processing XML event at index ${currentIndex}:`, {
+                        error: eventError.message,
+                        stack: eventError.stack,
+                        eventData: JSON.stringify(xmlEvent).substring(0, 200) + '...'
+                    });
+                    throw eventError;
                 }
+            });
 
-                await processAndStoreEvent(collection, xmlEvent, true);
-            } catch (eventError) {
-                logger.error(`Error processing XML event at index ${index}:`, {
-                    error: eventError.message,
-                    stack: eventError.stack,
-                    eventData: JSON.stringify(xmlEvent).substring(0, 200) + '...'
-                });
-                throw eventError;
-            }
-        });
+            const batchResults = await Promise.allSettled(batchPromises);
+            xmlResults = xmlResults.concat(batchResults);
+        }
 
-        logger.info('Waiting for all XML event promises to resolve');
-        const xmlResults = await Promise.allSettled(eventPromises.filter(p => p !== undefined));
         const xmlRejected = xmlResults.filter(result => result.status === 'rejected');
         if (xmlRejected.length > 0) {
             logger.warn('Some XML events failed during processing', {

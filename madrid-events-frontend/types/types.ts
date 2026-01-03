@@ -20,7 +20,7 @@ export interface Event {
   distrito: string;
   barrio: string;
   'excluded-days': string;
-  distance: number;
+  distance: number | null;
   subway: string;
   subwayLines?: { number: number; color: string }[];
 }

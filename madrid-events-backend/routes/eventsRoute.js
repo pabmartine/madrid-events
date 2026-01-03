@@ -35,15 +35,15 @@ function eventMatchesDateFilters(event, startDate, endDate, includePastEvents) {
     const eventStart = normalizeDateValue(event.dtstart);
     const eventEnd = normalizeDateValue(event.dtend);
 
-    if (startDate && (!eventStart || eventStart < startDate)) {
+    if (startDate && eventStart && eventStart < startDate) {
         return false;
     }
-    if (endDate && (!eventStart || eventStart > endDate)) {
+    if (endDate && eventStart && eventStart > endDate) {
         return false;
     }
     if (!includePastEvents) {
         const now = new Date();
-        if (!eventEnd || eventEnd < now) {
+        if (eventEnd && eventEnd < now) {
             return false;
         }
     }
@@ -130,22 +130,61 @@ router.get('/', async (req, res) => {
             query.audience = { $in: ['children'] };
         }
 
-        const cursor = collection.find(query).sort({ dtstart: 1 });
-        let eventsData = await cursor.toArray();
-
-        if (parsedStart || parsedEnd || !includePastEvents) {
-            eventsData = eventsData.filter(event =>
-                eventMatchesDateFilters(event, parsedStart, parsedEnd, includePastEvents)
-            );
+        const dateConditions = [];
+        if (parsedStart) {
+            const startIso = parsedStart.toISOString();
+            dateConditions.push({
+                $or: [
+                    { dtstart: { $gte: startIso } },
+                    { dtstart: { $exists: false } },
+                    { dtstart: null },
+                    { dtstart: '' }
+                ]
+            });
+        }
+        if (parsedEnd) {
+            const endIso = parsedEnd.toISOString();
+            dateConditions.push({
+                $or: [
+                    { dtstart: { $lte: endIso } },
+                    { dtstart: { $exists: false } },
+                    { dtstart: null },
+                    { dtstart: '' }
+                ]
+            });
+        }
+        if (!includePastEvents) {
+            const nowIso = new Date().toISOString();
+            dateConditions.push({
+                $or: [
+                    { dtend: { $gte: nowIso } },
+                    { dtend: { $exists: false } },
+                    { dtend: null },
+                    { dtend: '' },
+                    { dtstart: { $exists: false } },
+                    { dtstart: null },
+                    { dtstart: '' }
+                ]
+            });
+        }
+        if (dateConditions.length > 0) {
+            query.$and = dateConditions;
         }
 
-        const totalCount = eventsData.length;
+        let cursor = collection.find(query).sort({ dtstart: 1 });
+        let totalCount;
 
         if (shouldPaginate) {
-            const paginated = eventsData.slice(skip, skip + normalizedLimit);
-            cache.set(cacheKey, { items: paginated, total: totalCount }, EVENTS_CACHE_TTL_SECONDS);
+            totalCount = await collection.countDocuments(query);
+            cursor = cursor.skip(skip).limit(normalizedLimit);
+        }
+
+        const eventsData = await cursor.toArray();
+
+        if (shouldPaginate) {
+            cache.set(cacheKey, { items: eventsData, total: totalCount }, EVENTS_CACHE_TTL_SECONDS);
             res.setHeader('X-Total-Count', totalCount);
-            return res.json(paginated);
+            return res.json(eventsData);
         }
 
         cache.set(cacheKey, eventsData, EVENTS_CACHE_TTL_SECONDS);
