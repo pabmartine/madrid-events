@@ -1,6 +1,11 @@
 class CoordinateUtils {
     static validateCoordinates(lat, lon) {
-        return !(!lat || !lon || isNaN(lat) || isNaN(lon));
+        if (lat === '' || lon === '') {
+            return false;
+        }
+        const latValue = Number(lat);
+        const lonValue = Number(lon);
+        return Number.isFinite(latValue) && Number.isFinite(lonValue);
     }
 }
 

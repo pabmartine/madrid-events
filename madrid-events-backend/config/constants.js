@@ -39,6 +39,7 @@ module.exports = {
 
     // Nominatim API
     NOMINATIM_API_BASE: 'https://nominatim.openstreetmap.org/reverse',
+    NOMINATIM_EMAIL: process.env.NOMINATIM_EMAIL,
 
     // Overpass API
     OVERPASS_API_BASE: 'https://overpass-api.de/api/interpreter',

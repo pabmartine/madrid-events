@@ -10,6 +10,7 @@ class LocationQueue {
         this.queue = [];
         this.isProcessing = false;
         this.shouldStop = false;
+        this.blockedUntil = null;
         this.db = db;
         this.collection = db.collection(constants.COLLECTION_NAME);
 
@@ -146,17 +147,45 @@ class LocationQueue {
                 continue;
             }
 
+            // Check if service is temporarily blocked
+            if (this.blockedUntil && new Date() < this.blockedUntil) {
+                const waitTime = this.blockedUntil.getTime() - new Date().getTime();
+                logger.warn('Nominatim service is temporarily blocked/unreachable. Pausing queue.', {
+                    blockedUntil: this.blockedUntil,
+                    waitingForMs: waitTime
+                });
+                await new Promise(resolve => setTimeout(resolve, Math.min(waitTime, 30000))); // Check every 30s
+                continue;
+            } else if (this.blockedUntil) {
+                logger.info('Resuming Nominatim service processing after block period.');
+                this.blockedUntil = null;
+            }
+
             const request = this.queue.shift();
+            let delayMs = constants.QUEUE_REQUEST_DELAY_MS;
             logger.debug('Processing location request from queue', {
                 eventId: request.eventId,
                 queueLength: this.queue.length
             });
 
             try {
-                const url = `${constants.NOMINATIM_API_BASE}?lat=${request.latitude}&lon=${request.longitude}&format=json`;
+                const params = new URLSearchParams({
+                    lat: String(request.latitude),
+                    lon: String(request.longitude),
+                    format: 'json'
+                });
+                if (constants.NOMINATIM_EMAIL) {
+                    params.append('email', constants.NOMINATIM_EMAIL);
+                }
+                const url = `${constants.NOMINATIM_API_BASE}?${params.toString()}`;
                 logger.debug('Making Nominatim API request', { url });
 
-                const response = await axios.get(url);
+                const response = await axios.get(url, {
+                    headers: {
+                        'User-Agent': constants.HTTP_USER_AGENT,
+                        'Accept-Language': 'es'
+                    }
+                });
                 const { address } = response.data;
 
                 const locationDetails = {
@@ -187,13 +216,44 @@ class LocationQueue {
                 });
 
             } catch (error) {
+                const status = error.response?.status;
+                const aggregateErrors = error instanceof AggregateError ? error.errors : undefined;
+                
+                // Handle connection refused specifically (Circuit Breaker)
+                if (error.code === 'ECONNREFUSED') {
+                    const blockDurationMs = 5 * 60 * 1000; // 5 minutes
+                    this.blockedUntil = new Date(Date.now() + blockDurationMs);
+                    
+                    logger.warn('Connection refused by Nominatim service. Blocking requests for 5 minutes.', {
+                        eventId: request.eventId,
+                        blockedUntil: this.blockedUntil
+                    });
+                    
+                    // Re-enqueue the current request so it's not lost
+                    this.queue.unshift(request);
+                    
+                    // Wait a bit to avoid tight loop if something is weird
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    continue;
+                }
+
                 logger.error('Error processing location request', {
                     eventId: request.eventId,
                     error: error.message,
+                    code: error.code,
+                    status,
+                    aggregateErrors: aggregateErrors?.map(err => ({
+                        message: err?.message,
+                        code: err?.code
+                    })),
                     stack: error.stack
                 });
 
-                const retriableStatus = error.response && error.response.status >= 500;
+                if (status === 429) {
+                    delayMs = constants.QUEUE_REQUEST_DELAY_MS * 4;
+                }
+
+                const retriableStatus = status >= 500 || status === 429;
                 const retriableNetworkError = !error.response;
                 if ((retriableStatus || retriableNetworkError) && request.retries < constants.MAX_QUEUE_RETRIES) {
                     request.retries += 1;
@@ -207,7 +267,7 @@ class LocationQueue {
                 }
             }
 
-            await new Promise(resolve => setTimeout(resolve, constants.QUEUE_REQUEST_DELAY_MS));
+            await new Promise(resolve => setTimeout(resolve, delayMs));
         }
     }
 

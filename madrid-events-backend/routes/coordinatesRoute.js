@@ -3,6 +3,9 @@ const router = express.Router();
 const logger = require('../config/logger');
 const cache = require('../service/cache');
 const CoordinateUtils = require('../utils/coordinatesUtils');
+const database = require('../service/database');
+const constants = require('../config/constants');
+const DatabaseUtils = require('../utils/databaseUtils');
 
 router.get('/', async (req, res) => {
     try {
@@ -21,7 +24,7 @@ router.get('/', async (req, res) => {
         const currentLat = global.baseLat ?? newLat;
         const currentLon = global.baseLon ?? newLon;
 
-        if (newLat.toFixed(2) !== currentLat.toFixed(2) || newLon.toFixed(2) !== currentLon.toFixed(2)) {
+        if (newLat !== currentLat || newLon !== currentLon) {
             if (typeof global.updateBaseCoordinates === 'function') {
                 global.updateBaseCoordinates(newLat, newLon);
             } else {
@@ -34,14 +37,13 @@ router.get('/', async (req, res) => {
                 baseLon: global.baseLon
             });
 
-            if (typeof global.fetchAndStoreEvents !== 'function') {
-                logger.error('fetchAndStoreEvents is not initialized');
-                return res.status(503).json({
-                    error: 'Event refresh service not available'
-                });
-            }
-
-            await global.fetchAndStoreEvents();
+            const db = await database.getDb();
+            await DatabaseUtils.recalculateDistances(
+                db,
+                constants.COLLECTION_NAME,
+                global.baseLat,
+                global.baseLon
+            );
             cache.clearPattern('events:');
 
             res.json({

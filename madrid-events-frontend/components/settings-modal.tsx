@@ -50,6 +50,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
 }) => {
   const intl = useIntl();
   const [localSettings, setLocalSettings] = useState(initialSettings);
+  const [latInput, setLatInput] = useState('');
+  const [lonInput, setLonInput] = useState('');
   const [mapCenter, setMapCenter] = useState(
     initialSettings.geoLocation
       ? [initialSettings.geoLocation.lat, initialSettings.geoLocation.lon]
@@ -63,32 +65,74 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         initialSettings.geoLocation.lat,
         initialSettings.geoLocation.lon,
       ]);
+      setLatInput(initialSettings.geoLocation.lat.toFixed(6));
+      setLonInput(initialSettings.geoLocation.lon.toFixed(6));
+    } else {
+      setLatInput('');
+      setLonInput('');
     }
   }, [initialSettings]);
 
   const handleGeolocation = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const newLocation = {
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,
-          };
-          setLocalSettings((prev) => ({ ...prev, geoLocation: newLocation }));
-          setMapCenter([newLocation.lat, newLocation.lon]);
-        },
-        (error) => {
-          console.error('Error getting location', error);
-          alert(intl.formatMessage({ id: 'app.geolocation.error' }));
-        },
-      );
+      const requestLocation = () => {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const newLocation = {
+              lat: position.coords.latitude,
+              lon: position.coords.longitude,
+            };
+            setLocalSettings((prev) => ({ ...prev, geoLocation: newLocation }));
+            setMapCenter([newLocation.lat, newLocation.lon]);
+            setLatInput(newLocation.lat.toFixed(6));
+            setLonInput(newLocation.lon.toFixed(6));
+          },
+          (error) => {
+            if (error?.code === 1) {
+              alert(intl.formatMessage({ id: 'app.geolocation.denied' }));
+              return;
+            }
+            console.error('Error getting location', error);
+            alert(intl.formatMessage({ id: 'app.geolocation.error' }));
+          },
+        );
+      };
+
+      if (navigator.permissions?.query) {
+        navigator.permissions
+          .query({ name: 'geolocation' })
+          .then((status) => {
+            if (status.state === 'denied') {
+              alert(intl.formatMessage({ id: 'app.geolocation.denied' }));
+              return;
+            }
+            requestLocation();
+          })
+          .catch(() => requestLocation());
+      } else {
+        requestLocation();
+      }
     } else {
       alert(intl.formatMessage({ id: 'app.geolocation.not.supported' }));
     }
   };
 
   const handleSave = () => {
-    onSaveSettings(localSettings);
+    const latValue = latInput.trim();
+    const lonValue = lonInput.trim();
+    let geoLocation = null;
+
+    if (latValue !== '' || lonValue !== '') {
+      const lat = Number(latValue);
+      const lon = Number(lonValue);
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
+        alert(intl.formatMessage({ id: 'app.settings.location.invalid' }));
+        return;
+      }
+      geoLocation = { lat, lon };
+    }
+
+    onSaveSettings({ ...localSettings, geoLocation });
     onClose();
   };
 
@@ -199,9 +243,19 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
             <div className="flex items-center space-x-2">
               <input
                 type="text"
-                value={`${localSettings.geoLocation?.lat?.toFixed(4) || ''}, ${localSettings.geoLocation?.lon?.toFixed(4) || ''}`}
-                readOnly
-                className={`${colorPalette.inputBg} ${colorPalette.inputBorder} border rounded px-2 py-1 flex-grow`}
+                inputMode="decimal"
+                value={latInput}
+                onChange={(event) => setLatInput(event.target.value)}
+                placeholder="40.4168"
+                className={`${colorPalette.inputBg} ${colorPalette.inputBorder} border rounded px-2 py-1 w-1/2`}
+              />
+              <input
+                type="text"
+                inputMode="decimal"
+                value={lonInput}
+                onChange={(event) => setLonInput(event.target.value)}
+                placeholder="-3.7038"
+                className={`${colorPalette.inputBg} ${colorPalette.inputBorder} border rounded px-2 py-1 w-1/2`}
               />
               <button
                 onClick={handleGeolocation}
@@ -215,6 +269,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                 )}
               </button>
             </div>
+            <p className={`${colorPalette.text} text-xs opacity-80`}>
+              {intl.formatMessage({ id: 'app.settings.location.hint' })}
+            </p>
           </div>
 
           <div className="h-48 mt-4">
